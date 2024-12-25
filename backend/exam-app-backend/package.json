@@ -1,6 +1,10 @@
 {
   "dependencies": {
     "@types/hapi__joi": "^17.1.15",
-    "joi": "^17.13.3"
+    "joi": "^17.13.3",
+    "jsonwebtoken": "^9.0.2"
+  },
+  "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.7"
   }
 }

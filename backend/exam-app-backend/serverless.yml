@@ -13,15 +13,15 @@ provider:
 
 functions:
   getKey:
-    handler: functions/getKey/index.handler
+    handler: functions/getKey/index.getRandomKey
     events:
       - httpApi:
           path: /key
           method: get
 
   regUser:
-  handler: functions/regUser/index.handler
-  events:
-    - httpApi:
-        path: /register
-        method: post
+    handler: functions/regUser/index.regUser
+    events:
+      - httpApi:
+          path: /register
+          method: post

@@ -1,11 +1,10 @@
-import { db } from '../service/dbService.mjs'; // DynamoDB-klient
-import { User } from '../models/userSchema.mjs'; // Användarmodell
-import { sendResponse, sendError } from '../utils/response.mjs'; // Response-funktioner
-import { generateJWT } from '../../utils/index.mjs'; // JWT-funktioner
+import { db } from '../../services/index.mjs'; // DynamoDB-klient
+import { User } from '../../models/userSchema.mjs'; // Användarmodell
+import { sendResponse, sendError } from '../utils/index.mjs'; // Response-funktioner
 
-const TABLE_NAME = 'Lunachatusers'; // Tabellnamn
+const TABLE_NAME = 'LunaChat-users'; // Tabellnamn
 
-export const registerUser = async (event) => {
+export const regUser = async (event) => {
   try {
     // Parsar inkommande body
     const body = JSON.parse(event.body);
