@@ -12,9 +12,16 @@ provider:
   deploymentMethod: direct
 
 functions:
-  hello:
-    handler: handler.hello
+  getKey:
+    handler: functions/getKey/index.handler
     events:
       - httpApi:
-          path: /
+          path: /key
           method: get
+
+  regUser:
+  handler: functions/regUser/index.handler
+  events:
+    - httpApi:
+        path: /register
+        method: post

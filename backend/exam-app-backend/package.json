@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@types/hapi__joi": "^17.1.15",
+    "joi": "^17.13.3"
+  }
+}
