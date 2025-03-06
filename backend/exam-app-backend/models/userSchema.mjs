@@ -1,39 +1,37 @@
 import { hashPassword, generateJWT } from "../utils/index.mjs";
-import { validateUser } from "../validations/userValidation.mjs";
+import { validateUser } from "./userValidation.mjs";
 
 export class User {
-  constructor({ id, username, email, password, createdAt }) {
+  constructor({ id, firstname, lastname, nickname, email, password, createdAt }) {
     this.id = id;
-    this.username = username;
+    this.firstname = firstname;
+    this.lastname = lastname;
+    this.nickname = nickname;
     this.email = email;
-    this.password = password; // Anta att lösenordet redan är hashat
+    this.password = password;
     this.createdAt = createdAt || new Date().toISOString();
   }
 
-  // Statisk metod för att skapa en användare med hashat lösenord och token
-  static async create({ id, username, email, password, createdAt }) {
-    // Validera data innan användaren skapas
-    const { error } = validateUser({ id, username, email, password, createdAt });
+  static async create({ id, firstname, lastname, nickname, email, password, createdAt }) {
+    const { error } = validateUser({ id, firstname, lastname, nickname, email, password, createdAt });
     if (error) {
-      throw new Error(error.details[0].message); // Kasta fel om valideringen misslyckas
+      throw new Error(error.details[0].message);
     }
 
-    // Hasha lösenordet
     const hashedPassword = await hashPassword(password);
 
-    // Skapa användaren
     const user = new User({
       id,
-      username,
+      firstname,
+      lastname,
+      nickname,
       email,
       password: hashedPassword,
       createdAt,
     });
 
-    // Generera JWT-token
-    const token = generateJWT({ id: user.id, username: user.username, email: user.email });
+    const token = generateJWT({ id: user.id, firstname: user.firstname, lastname: user.lastname, email: user.email });
 
-    // Returnera användaren och token
     return { user, token };
   }
 }

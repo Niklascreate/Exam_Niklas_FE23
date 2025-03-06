@@ -1,8 +1,5 @@
-# "org" ensures this Service is used with the correct Serverless Framework Access Key.
 org: niklasnilsson
-# "app" enables Serverless Framework Dashboard features and sharing them with other Services.
 app: exam-app
-# "service" is the name of this project. This will also be added to your AWS resource names.
 service: exam-app
 
 provider:
@@ -10,6 +7,8 @@ provider:
   runtime: nodejs20.x
   region: eu-north-1
   deploymentMethod: direct
+  iam:
+    role: arn:aws:iam::376129862797:role/LambdaDynamoDBuserRole
 
 functions:
   getKey:
@@ -23,5 +22,39 @@ functions:
     handler: functions/regUser/index.regUser
     events:
       - httpApi:
-          path: /register
+          path: /register/{key}
           method: post
+
+package:
+  patterns:
+    - node_modules/dotenv/**
+    - validations/**
+    - utils/**
+    - functions/**
+    - services/**
+    - models/**
+    - responses/**
+    - data/**
+
+resources:
+  Resources:
+    UsersTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: LunaChat-users
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+          - AttributeName: email
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        GlobalSecondaryIndexes:
+          - IndexName: email-index
+            KeySchema:
+              - AttributeName: email
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+        BillingMode: PAY_PER_REQUEST

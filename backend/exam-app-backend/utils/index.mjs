@@ -1,17 +1,16 @@
 import jwt from 'jsonwebtoken';
-import 'dotenv/config';
 import bcrypt from 'bcryptjs';
+import 'dotenv/config';
 
 const saltRounds = 10;
+const secretKey = process.env.SECRET_ACCESS_KEY;
 
 export const hashPassword = async (password) => {
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
-    return hashedPassword;
+    return await bcrypt.hash(password, saltRounds);
 };
 
 export const comparePasswords = async (password, storedPassword) => {
-    const isEqual = await bcrypt.compare(password, storedPassword);
-    return isEqual;
+    return await bcrypt.compare(password, storedPassword);
 };
 
 export const generateJWT = (user) => {
@@ -21,7 +20,9 @@ export const generateJWT = (user) => {
         email: user.email,
     };
 
-    const token = jwt.sign(payload, process.env.SECRET_ACCESS_KEY, { expiresIn: '1h' });
+    if (!secretKey) {
+        throw new Error("SECRET_ACCESS_KEY saknas! Se till att den är satt i .env");
+    }
 
-    return token;
+    return jwt.sign(payload, secretKey, { expiresIn: '1h' });
 };
