@@ -21,7 +21,7 @@ export const generateJWT = (user) => {
     };
 
     if (!secretKey) {
-        throw new Error("SECRET_ACCESS_KEY saknas! Se till att den är satt i .env");
+        throw new Error("SECRET_ACCESS_KEY saknas!");
     }
 
     return jwt.sign(payload, secretKey, { expiresIn: '1h' });

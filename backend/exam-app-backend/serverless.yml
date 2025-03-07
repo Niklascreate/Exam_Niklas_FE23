@@ -26,14 +26,14 @@ functions:
           method: post
 
   getUser:
-    handler: functions/getUser/index.handler
+    handler: functions/getUser/index.getUser
     events:
       - httpApi:
           path: /get/user/{id}
           method: get
 
   loginUser:
-    handler: functions/loginUser/index.handler
+    handler: functions/loginUser/index.loginUser
     events:
       - httpApi:
           path: /login/user
@@ -44,7 +44,7 @@ package:
     - node_modules/dotenv/**
     - validations/**
     - utils/**
-    - functions/getUsers/**
+    - functions/getUser/**
     - functions/loginUser/**
     - services/**
     - models/**

@@ -3,11 +3,10 @@ import { db } from '../../services/index.mjs';
 import bcrypt from 'bcryptjs';
 import { QueryCommand } from "@aws-sdk/lib-dynamodb";
 import { generateJWT } from '../../utils/index.mjs';
-import 'dotenv/config';
 
 const TABLE_NAME = 'LunaChat-users';
 
-export const handler = async (event) => {
+export const loginUser = async (event) => {
   try {
     let body;
     try {
@@ -47,7 +46,7 @@ export const handler = async (event) => {
     const token = generateJWT({ id: user.id, nickname: user.nickname });
 
     return sendResponseWithHeaders(200, {
-      message: "Login successful",
+      message: "Login lyckades",
       token,
       user: {
         id: user.id,

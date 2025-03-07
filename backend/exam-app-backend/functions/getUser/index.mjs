@@ -1,7 +1,7 @@
 import { db } from '../../services/index.mjs';
 import { sendResponse, sendError } from '../../responses/index.mjs';
 
-export const handler = async (event) => {
+export const getUser = async (event) => {
     try {
         const { id } = event.pathParameters;
 
