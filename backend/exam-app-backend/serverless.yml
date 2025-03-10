@@ -57,6 +57,26 @@ functions:
       - httpApi:
           path: /delete/user/{id}
           method: delete
+  socketConnect:
+    handler: middlewares/userSocketMiddleware.connect
+    events:
+      - websocket:
+          route: $connect
+  socketDisconnect:
+    handler: middlewares/userSocketMiddleware.disconnect
+    events:
+      - websocket:
+          route: $disconnect
+  chatSocket:
+    handler: sockets/chatSocket.sendMessage
+    events:
+      - websocket:
+          route: sendMessage
+  socketTyping:
+    handler: sockets/chatSocket.typing
+    events:
+      - websocket:
+          route: typing
 
 package:
   patterns:
@@ -69,6 +89,8 @@ package:
     - models/**
     - responses/**
     - data/**
+    - middlewares/**
+    - sockets/**
 
 resources:
   Resources:
@@ -100,3 +122,14 @@ resources:
             Projection:
               ProjectionType: ALL
         BillingMode: PAY_PER_REQUEST
+    ConnectionsTable:
+          Type: AWS::DynamoDB::Table
+          Properties:
+            TableName: LunaChat-connections
+            AttributeDefinitions:
+              - AttributeName: connectionId
+                AttributeType: S
+            KeySchema:
+              - AttributeName: connectionId
+                KeyType: HASH
+            BillingMode: PAY_PER_REQUEST
