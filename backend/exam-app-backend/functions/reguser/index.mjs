@@ -47,6 +47,7 @@ export const regUser = async (event) => {
       nickname,
       email,
       password,
+      friends: []
     });
 
     const saveParams = new PutCommand({

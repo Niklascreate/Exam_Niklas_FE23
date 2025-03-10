@@ -39,6 +39,25 @@ functions:
           path: /login/user
           method: post
 
+  removeFriend:
+    handler: functions/removeFriend/index.removeFriend
+    events:
+      - httpApi:
+          path: /remove/friend
+          method: post
+  addFriend:
+    handler: functions/addFriend/index.addFriend
+    events:
+      - httpApi:
+          path: /add/friend
+          method: post
+  deleteUser:
+    handler: functions/deleteUser/index.deleteUser
+    events:
+      - httpApi:
+          path: /delete/user/{id}
+          method: delete
+
 package:
   patterns:
     - node_modules/dotenv/**
