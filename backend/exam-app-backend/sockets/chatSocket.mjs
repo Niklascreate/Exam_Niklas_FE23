@@ -1,9 +1,9 @@
 import { db } from "../services/index.mjs";
 import { GetCommand } from "@aws-sdk/lib-dynamodb";
-import AWS from "aws-sdk";
+import { ApiGatewayManagementApiClient, PostToConnectionCommand } from "@aws-sdk/client-apigatewaymanagementapi";
 import 'dotenv/config';
 
-const apiGateway = new AWS.ApiGatewayManagementApi({
+const apiGateway = new ApiGatewayManagementApiClient({
     endpoint: process.env.WEBSOCKET_ENDPOINT
 });
 
@@ -11,7 +11,6 @@ export const sendMessage = async (event) => {
     try {
         const { senderId, receiverId, message } = JSON.parse(event.body);
 
-        // Hämta mottagarens connectionId från DynamoDB
         const receiverData = await db.send(new GetCommand({
             TableName: "LunaChat-connections",
             Key: { connectionId: receiverId }
@@ -24,10 +23,10 @@ export const sendMessage = async (event) => {
 
         const receiverConnectionId = receiverData.Item.connectionId;
 
-        await apiGateway.postToConnection({
+        await apiGateway.send(new PostToConnectionCommand({
             ConnectionId: receiverConnectionId,
             Data: JSON.stringify({ senderId, message })
-        }).promise();
+        }));
 
         console.log(`📨 Meddelande från ${senderId} till ${receiverId}: ${message}`);
         return { statusCode: 200, body: "Meddelande skickat." };
@@ -44,10 +43,10 @@ export const typing = async (event) => {
         const receiverConnectionId = users.get(receiverId);
 
         if (receiverConnectionId) {
-            await apiGateway.postToConnection({
+            await apiGateway.send(new PostToConnectionCommand({
                 ConnectionId: receiverConnectionId,
                 Data: JSON.stringify({ typing: true, senderId })
-            }).promise();
+            }));
 
             console.log(`Användare ${senderId} skriver till ${receiverId}`);
             return { statusCode: 200, body: "Skriv-indikator skickad." };
