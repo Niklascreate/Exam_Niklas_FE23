@@ -1,0 +1,23 @@
+.register-button__container {
+    position: relative;
+    display: flex;
+    flex: 1;
+    justify-content: center;
+}
+
+.register-button {
+    width: 100%;
+    background-color: var(--color-ocean-lunar);
+    color: white;
+    font-family: var(--font-pixel);
+    font-size: 12px;
+    text-align: center;
+    padding: 8px 0px;
+    cursor: pointer;
+    border: none;
+    border-top-left-radius: .5rem;
+    border-top-right-radius: .5rem;
+    white-space: nowrap;
+    border-top: 1px solid black;
+    border-left: 1px solid black;
+}

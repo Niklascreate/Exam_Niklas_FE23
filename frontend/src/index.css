@@ -1,6 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Silkscreen&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+  }
+  
+  :root {
+    --color-midnight-lunar: #14272E;
+    --color-ocean-lunar: #284D5B;
+    --color-sky-lunar: #2A6C84;
+    --color-wave-lunar: #3E7E96;
+    --color-stormy-lunar: #406885;
+    --color-lunorange: #E46242;
+    --color-moon-dust: #F2E5BF;
+    --color-sunset-lunar: #FD8B51;
+    --font-pixel: 'Press Start 2P', cursive;
+    --font-retro: 'Silkscreen', sans-serif;
   }
   

@@ -1,0 +1,37 @@
+.startpage-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    background-color: var(--color-sky-lunar);
+    position: relative;
+}
+
+.rubrik {
+    color: var(--color-sunset-lunar);
+    font-family: var(--font-pixel);
+    font-size: 40px;
+    text-align: center;
+    text-shadow:
+        -3px -3px 0 #000,
+        3px -3px 0 #000,
+        -3px 3px 0 #000,
+        3px 3px 0 #000;
+    line-height: 1.3;
+    letter-spacing: .5rem;
+    margin-bottom: auto;
+    margin: auto 0;
+}
+
+
+.button-wrapper {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    gap: 0px;
+}
+
