@@ -1,10 +1,12 @@
-import LoginModal from "../../components/loginmodal/LoginModal"
+import Header from "../../components/header/Header";
+import NavBar from "../../components/navbar/NavBar";
 
 
 function LandingPage() {
   return (
     <div>
-      <LoginModal />
+      <Header />
+      <NavBar />
     </div>
   )
 }
