@@ -1,4 +1,5 @@
 import Header from "../../components/header/Header"
+import ProfileCard from "../../components/krypin/ProfileCard"
 import NavBar from "../../components/navbar/NavBar"
 import SearchBar from "../../components/searchbar/SearchBar"
 
@@ -7,6 +8,7 @@ function KrypinPage() {
     <div>
       <Header />
       <SearchBar />
+      <ProfileCard />
       <NavBar />
     </div>
   )

@@ -1,0 +1,59 @@
+.profilecard-container {
+    width: 100%;
+    padding: 20px;
+    margin: auto;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .profile-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .profile-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+  }
+  
+  .edit-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+  }
+  
+  .profile-info {
+    margin-top: 15px;
+  }
+  
+  .interests-input input {
+    width: 100%;
+    padding: 6px;
+    margin-bottom: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  .interests-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .interests-list li {
+    text-align: left;
+    margin-left: 20px;
+    margin-bottom: 4px;
+  }
+  
+  .profile-footer {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #555;
+  }
+  
