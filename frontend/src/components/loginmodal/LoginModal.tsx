@@ -12,7 +12,7 @@ function LoginModal() {
           <label className="login-modal__label">LÖSENORD</label>
           <input type="password" className="login-modal__input" placeholder="********" />
         </div>
-        <button className="login-modal__button">LOGGA IN MIG</button>
+        <button className="login-modal__button">LOGGA IN MIG<i className="bi bi-arrow-right-short"></i></button>
       </form>
     </div>
   );
