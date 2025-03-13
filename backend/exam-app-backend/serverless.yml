@@ -57,6 +57,12 @@ functions:
       - httpApi:
           path: /delete/user/{id}
           method: delete
+  updateUser:
+    handler: functions/updateUser/index.updateUser
+    events:
+      - httpApi:
+          path: /update/user/{id}
+          method: put
   socketConnect:
     handler: middlewares/userSocketMiddleware.connect
     events:

@@ -26,3 +26,15 @@ export const generateJWT = (user) => {
 
     return jwt.sign(payload, secretKey, { expiresIn: '1h' });
 };
+
+export const verifyJWT = (token) => {
+    if (!secretKey) {
+        throw new Error("SECRET_ACCESS_KEY saknas!");
+    }
+
+    try {
+        return jwt.verify(token, secretKey);
+    } catch (error) {
+        return null;
+    }
+};
