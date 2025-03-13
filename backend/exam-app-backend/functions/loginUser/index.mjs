@@ -52,7 +52,8 @@ export const loginUser = async (event) => {
         id: user.id,
         firstname: user.firstname,
         lastname: user.lastname,
-        nickname: user.nickname
+        nickname: user.nickname,
+        email: user.email
       }
     });
 
