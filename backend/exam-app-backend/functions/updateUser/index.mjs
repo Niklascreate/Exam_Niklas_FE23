@@ -1,57 +1,37 @@
 import { db } from '../../services/index.mjs';
 import { sendResponse, sendError } from '../../responses/index.mjs';
-import { UpdateCommand } from "@aws-sdk/lib-dynamodb";
+import { GetCommand, UpdateCommand } from "@aws-sdk/lib-dynamodb";
 import { verifyJWT } from '../../utils/index.mjs';
 
 const TABLE_NAME = 'LunaChat-users';
 
 export const updateUser = async (event) => {
   try {
-    console.log("Event received:", event);
-
-    const token = event.headers?.Authorization?.split(" ")[1];
-    if (!token) {
-      return sendError(401, { message: "Ingen autentiseringstoken angiven." });
-    }
+    const token = event.headers?.Authorization?.replace("Bearer ", "") || event.headers?.authorization?.replace("Bearer ", "");
+    if (!token) return sendError(401, { message: "Ingen autentiseringstoken angiven." });
 
     const decoded = verifyJWT(token);
-    if (!decoded || !decoded.email) {
-      return sendError(401, { message: "Ogiltig eller utgången token." });
-    }
+    if (!decoded?.email) return sendError(401, { message: "Ogiltig eller utgången token." });
 
-    let body;
-    try {
-      body = JSON.parse(event.body);
-    } catch (error) {
-      return sendError(400, { message: "Ogiltig JSON i förfrågan." });
-    }
+    const body = event.body ? JSON.parse(event.body) : null;
+    if (!body) return sendError(400, { message: "Ogiltig JSON eller body saknas." });
 
     const { email, interests } = body;
+    if (decoded.email !== email) return sendError(403, { message: "Du har inte behörighet att ändra denna användares intressen." });
+    if (!Array.isArray(interests) || interests.length === 0) return sendError(400, { message: "Intressen måste vara en icke-tom lista." });
 
-    if (decoded.email !== email) {
-      return sendError(403, { message: "Du har inte behörighet att ändra denna användares intressen." });
-    }
+    const user = await db.send(new GetCommand({ TableName: TABLE_NAME, Key: { id: decoded.id } }));
+    if (!user.Item) return sendError(404, { message: "Användaren hittades inte." });
 
-    if (!email || !Array.isArray(interests)) {
-      return sendError(400, { message: "E-post och en lista med intressen krävs." });
-    }
-
-    const updateParams = new UpdateCommand({
+    const updatedUser = await db.send(new UpdateCommand({
       TableName: TABLE_NAME,
-      Key: { email },
+      Key: { id: decoded.id },
       UpdateExpression: "SET interests = :interests",
-      ExpressionAttributeValues: {
-        ":interests": interests,
-      },
+      ExpressionAttributeValues: { ":interests": interests },
       ReturnValues: "ALL_NEW",
-    });
+    }));
 
-    const updatedUser = await db.send(updateParams);
-
-    return sendResponse(200, {
-      message: "Intressen uppdaterade!",
-      updatedUser: updatedUser.Attributes,
-    });
+    return sendResponse(200, { message: "Intressen uppdaterade!", updatedUser: updatedUser.Attributes });
 
   } catch (error) {
     console.error('Fel vid uppdatering av intressen:', error);

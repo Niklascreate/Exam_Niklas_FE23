@@ -61,8 +61,14 @@ functions:
     handler: functions/updateUser/index.updateUser
     events:
       - httpApi:
-          path: /update/user/{id}
+          path: /update/user
           method: put
+  getAllUsers:
+    handler: functions/getAllUsers/index.getAllUsers
+    events:
+      - http:
+          path: /get/allusers
+          method: get
   socketConnect:
     handler: middlewares/userSocketMiddleware.connect
     events:

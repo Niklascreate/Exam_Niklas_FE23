@@ -52,7 +52,7 @@ import { LoginRequest, LoginResponse } from '../interface/interface';
 
 export const loginUser = async (credentials: LoginRequest): Promise<LoginResponse> => {
   try {
-    const response = await fetch('https://cjq9abv0ld.execute-api.eu-north-1.amazonaws.com/login/user', {
+    // const response = await fetch('https://cjq9abv0ld.execute-api.eu-north-1.amazonaws.com/login/user', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

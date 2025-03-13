@@ -4,53 +4,33 @@ import { sendResponse, sendError } from '../../responses/index.mjs';
 
 const TABLE_NAME = 'LunaChat-users';
 
+const getUser = async (id) => {
+    const result = await db.send(new GetCommand({ TableName: TABLE_NAME, Key: { id } }));
+    return result.Item || null;
+};
+
+const updateFriendsList = async (userId, removeId) => {
+    const user = await getUser(userId);
+    if (!user) return null;
+    
+    const updatedFriends = (user.friends || []).filter(id => id !== removeId);
+    await db.send(new UpdateCommand({
+        TableName: TABLE_NAME,
+        Key: { id: userId },
+        UpdateExpression: "SET friends = :friends",
+        ExpressionAttributeValues: { ":friends": updatedFriends }
+    }));
+
+    return true;
+};
+
 export const removeFriend = async (event) => {
     try {
         const { userId, friendId } = JSON.parse(event.body);
+        if (!userId || !friendId) return sendError(400, { message: "Både userId och friendId måste anges." });
 
-        if (!userId || !friendId) {
-            return sendError(400, { message: "Både userId och friendId måste anges." });
-        }
-
-        const userResult = await db.send(new GetCommand({
-            TableName: TABLE_NAME,
-            Key: { id: userId }
-        }));
-
-        if (!userResult.Item) {
-            return sendError(404, { message: "Användaren hittades inte." });
-        }
-
-        const updatedFriendsList = (userResult.Item.friends || []).filter(id => id !== friendId);
-
-        await db.send(new UpdateCommand({
-            TableName: TABLE_NAME,
-            Key: { id: userId },
-            UpdateExpression: "SET friends = :updatedFriends",
-            ExpressionAttributeValues: {
-                ":updatedFriends": updatedFriendsList
-            }
-        }));
-
-        const friendResult = await db.send(new GetCommand({
-            TableName: TABLE_NAME,
-            Key: { id: friendId }
-        }));
-
-        if (!friendResult.Item) {
-            return sendError(404, { message: "Vännen hittades inte." });
-        }
-
-        const updatedFriendList = (friendResult.Item.friends || []).filter(id => id !== userId);
-
-        await db.send(new UpdateCommand({
-            TableName: TABLE_NAME,
-            Key: { id: friendId },
-            UpdateExpression: "SET friends = :updatedFriends",
-            ExpressionAttributeValues: {
-                ":updatedFriends": updatedFriendList
-            }
-        }));
+        if (!(await updateFriendsList(userId, friendId))) return sendError(404, { message: "Användaren hittades inte." });
+        if (!(await updateFriendsList(friendId, userId))) return sendError(404, { message: "Vännen hittades inte." });
 
         return sendResponse(200, { message: "Vän har tagits bort!" });
 
