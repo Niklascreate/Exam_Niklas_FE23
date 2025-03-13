@@ -1,9 +1,9 @@
 import './registerbutton.css';
 
-function RegisterButton() {
+function RegisterButton({ onClick }: { onClick: () => void }) {
   return (
     <div className="register-button__container">
-      <button className="register-button">REGISTRERA DIG</button>
+      <button className="register-button" onClick={onClick}>REGISTRERA DIG</button>
     </div>
   )
 }
