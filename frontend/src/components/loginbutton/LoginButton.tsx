@@ -1,9 +1,11 @@
-import './loginbutton.css';
+import "./loginbutton.css";
 
-function LoginButton() {
+function LoginButton({ onClick }: { onClick: () => void }) {
   return (
     <div className="login-button__container">
-      <button className="login-button">LOGGA IN</button>
+      <button className="login-button" onClick={onClick}>
+        LOGGA IN
+      </button>
     </div>
   );
 }

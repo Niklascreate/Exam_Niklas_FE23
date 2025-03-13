@@ -1,8 +1,9 @@
-import { create } from 'zustand';
+import { create } from "zustand";
+import { User } from '../interface/interface'; // Importera ditt User-interface
 
 interface UserStore {
-  user: { email: string; nickname: string; token: string } | null;
-  setUser: (user: { email: string; nickname: string; token: string }) => void;
+  user: User | null;
+  setUser: (user: User) => void;
   clearUser: () => void;
 }
 
