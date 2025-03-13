@@ -1,6 +1,5 @@
 .login-modal__container {
     width: 100%;
-    height: 100%;
     background-color: var(--color-moon-dust);
     padding: 20px;
     padding-bottom: 5rem;
@@ -8,8 +7,9 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    position: relative;
-    z-index: 9999;
+    position: fixed;
+    bottom: 0;
+    padding-top: 3rem;
 }
 
 .login-modal__title {
@@ -95,4 +95,31 @@
 .bi-arrow-right-short {
     font-size: 26px;
     cursor: pointer;
+}
+
+.close-modal___container {
+    position: absolute;
+    display: flex;
+    justify-content: end;
+    margin-right: 0;
+    right: 37px;
+    top: 10px;
+  }
+  
+  .close-modal__button {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: var(--color-ocean-lunar);
+    margin-bottom: 1rem;
+  }
+  
+  .error-message {
+    font-size: 12px;
+    font-family: var(--font-retro);
+    text-align: center;
+    padding: 5px;
+    width: 100%;
+    margin-bottom: 10px;
 }

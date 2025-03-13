@@ -2,6 +2,7 @@ import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../../api/api";
 import useUserStore from "../../../store/userStore";
+import { motion } from "framer-motion";
 import "./loginmodal.css";
 
 function LoginModal({ closeModal }: { closeModal?: () => void }) {
@@ -13,7 +14,6 @@ function LoginModal({ closeModal }: { closeModal?: () => void }) {
   const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // Sätter fokus på nickname-fältet när modalen öppnas
   useState(() => {
     inputRef.current?.focus();
   });
@@ -22,7 +22,6 @@ function LoginModal({ closeModal }: { closeModal?: () => void }) {
     e.preventDefault();
     setError(null);
 
-    // Om fälten är tomma, stoppa anropet
     if (!nickname || !password) {
       setError("Fyll i både nickname och lösenord.");
       return;
@@ -32,16 +31,30 @@ function LoginModal({ closeModal }: { closeModal?: () => void }) {
 
     try {
       const response = await loginUser(nickname, password);
-      setUser(response.user); // Sparar hela User-objektet i Zustand
 
-      console.log("Inloggad som:", response.user);
+      if (!response.user || !response.token) {
+        throw new Error("Inloggning misslyckades");
+      }
 
-      if (closeModal) closeModal(); // Stäng modal
-      navigate("/landingpage"); // Navigera till landingpage
+      const { user, token } = response;
+
+      setUser({
+        id: user.id,
+        firstname: user.firstname,
+        lastname: user.lastname,
+        nickname: user.nickname,
+        email: user.email,
+        token: token,
+      });
+
+      console.log("Inloggad som:", user.nickname);
+
+      if (closeModal) closeModal();
+      navigate("/landingpage");
 
     } catch (err) {
       if (err instanceof Error) {
-        setError(err.message); // Visa API:s felmeddelande
+        setError(err.message);
       } else {
         setError("Inloggning misslyckades.");
       }
@@ -51,7 +64,19 @@ function LoginModal({ closeModal }: { closeModal?: () => void }) {
   };
 
   return (
-    <div className="login-modal__container">
+    <motion.div 
+      className="login-modal__container"
+      initial={{ y: "100%", opacity: 0 }}
+      animate={{ y: "0%", opacity: 1 }}
+      exit={{ y: "100%", opacity: 0 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+    >
+      <div className="close-modal___container">
+        <button className="close-modal__button" onClick={closeModal}>
+          <i className="bi bi-x-square-fill"></i>
+        </button>
+      </div>
+
       <form className="login-modal__form" onSubmit={handleSubmit}>
         {error && <p className="error-message">{error}</p>}
 
@@ -79,10 +104,10 @@ function LoginModal({ closeModal }: { closeModal?: () => void }) {
         </div>
 
         <button className="login-modal__button" type="submit" disabled={loading}>
-          {loading ? "Loggar in..." : "LOGGA IN MIG"}
+          {loading ? "Loggar in..." : <>LOGGA IN MIG <i className="bi bi-arrow-right-short"></i></>}
         </button>
       </form>
-    </div>
+    </motion.div>
   );
 }
 
