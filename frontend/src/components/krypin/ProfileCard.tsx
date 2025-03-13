@@ -22,7 +22,7 @@ const UserProfile = () => {
   return (
     <div className="profilecard-container">
       <div className="profile-top">
-        <img src="path-till-bild.png" alt="avatar" className="profile-img" />
+        <img src="assets\maskot4.webp" alt="avatar" className="profile-img" />
         <button className="edit-btn" onClick={toggleEdit}>
           <i className={`bi ${editMode ? 'bi-check-square-fill' : 'bi-pencil-fill'}`}></i>
         </button>
