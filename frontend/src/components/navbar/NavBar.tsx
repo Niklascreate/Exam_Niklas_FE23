@@ -1,8 +1,19 @@
 import './navbar.css';
 import { useNavigate } from 'react-router-dom';
+import useUserStore from '../../../store/userStore';
 
 function NavBar() {
     const navigate = useNavigate();
+    const user = useUserStore((state) => state.user);
+    const fetchUserData = useUserStore((state) => state.fetchUserData);
+
+    const GoToKrypin = () => {
+        if (user?.id && user?.token) {
+            console.log("🔄 Hämtar användardata för Krypin...");
+            fetchUserData(user.id, user.token);
+        }
+        navigate('/krypin');
+    };
 
     return (
         <nav className="nav-bar-mobile">
@@ -25,7 +36,6 @@ function NavBar() {
                         <span>Chat</span>
                     </a>
                 </li>
-
                 <li>
                     <a onClick={() => navigate('/wall')}>
                         <i className="bi bi-file-earmark-text-fill"></i>
@@ -33,7 +43,8 @@ function NavBar() {
                     </a>
                 </li>
                 <li>
-                    <a onClick={() => navigate('/krypin')}>
+                    {/* 🔥 Uppdaterat så att API-anropet görs innan navigering */}
+                    <a onClick={GoToKrypin}>
                         <i className="bi bi-person-fill"></i>
                         <span>Krypin</span>
                     </a>
@@ -42,4 +53,4 @@ function NavBar() {
         </nav>
     );
 }
-export default NavBar
+export default NavBar;

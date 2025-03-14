@@ -1,6 +1,6 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { loginUser, fetchUser } from "../../../api/api";
+import { loginUser } from "../../../api/api"; 
 import useUserStore from "../../../store/userStore";
 import { motion } from "framer-motion";
 import "./loginmodal.css";
@@ -11,12 +11,14 @@ function LoginModal({ closeModal }: { closeModal?: () => void }) {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const setUser = useUserStore((state) => state.setUser);
+  const fetchUserData = useUserStore((state) => state.fetchUserData);
   const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement>(null);
 
-  useState(() => {
+  // 🔥 Använd useEffect istället för useState för att fokusera input
+  useEffect(() => {
     inputRef.current?.focus();
-  });
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,7 +26,7 @@ function LoginModal({ closeModal }: { closeModal?: () => void }) {
   
     console.log("Försöker logga in med:", { nickname, password });
   
-    if (!nickname || !password) {
+    if (!nickname.trim() || !password.trim()) {
       setError("Fyll i både nickname och lösenord.");
       return;
     }
@@ -36,40 +38,30 @@ function LoginModal({ closeModal }: { closeModal?: () => void }) {
       console.log("API-svar från backend:", response);
   
       if (!response.user || !response.token) {
-        throw new Error("Inloggning misslyckades");
+        throw new Error("Inloggning misslyckades, ogiltigt svar från servern.");
       }
 
-      setUser({
-        id: response.user.id,
-        firstname: response.user.firstname,
-        lastname: response.user.lastname,
-        nickname: response.user.nickname,
-        email: response.user.email,
-        token: response.token,
-      });
+      const token = response.token;
+      const userId = response.user.id;
 
-      console.log("Användaren är inloggad:", response.user);
+      // 🔥 Hämta fullständig användardata inklusive intressen
+      const fullUserData = await fetchUserData(userId, token);
 
-      // 🔥 Hämta fullständig användardata med `id`
-      await fetchUser(response.user.id, response.token);
-  
-      setUser({
-        id: response.user.id,
-        firstname: response.user.firstname,
-        lastname: response.user.lastname,
-        nickname: response.user.nickname,
-        email: response.user.email,
-        token: response.token,
-      });
-  
-      console.log("Användaren är inloggad:", response.user);
-  
+      if (!fullUserData) {
+        throw new Error("Kunde inte hämta användarens data. Försök igen.");
+      }
+
+      // 🔥 Spara fullständig användardata i Zustand
+      setUser(fullUserData);
+
+      console.log("Användaren är inloggad och all data har hämtats:", fullUserData);
+
       if (closeModal) closeModal();
       navigate("/landingpage");
-  
+
     } catch (err) {
       console.error("Inloggningsfel:", err);
-      setError((err instanceof Error ? err.message : "Inloggning misslyckades."));
+      setError(err instanceof Error ? err.message : "Ett okänt fel inträffade vid inloggning.");
     } finally {
       setLoading(false);
     }

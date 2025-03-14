@@ -1,57 +1,53 @@
 import './profilecard.css';
 import { useState, useEffect } from 'react';
-import { Interests } from '../../../interface/interface';
-import { fetchUserInterests, updateUserInterests } from '../../../api/api';
+import { updateUserInterests } from '../../../api/api';
 import useUserStore from '../../../store/userStore';
 
 const UserProfile = () => {
   const [editMode, setEditMode] = useState<boolean>(false);
-  const [interests, setInterests] = useState<Interests>({
-    first: 'Laddar...',
-    second: 'Laddar...',
-    third: 'Laddar...',
-  });
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
-
+  
   const user = useUserStore((state) => state.user);
-  const userId = user?.id;  // 🔥 Byter från email → id
+  const fetchUserData = useUserStore((state) => state.fetchUserData);
+  const setUser = useUserStore((state) => state.setUser);
+  const userId = user?.id;
   const token = user?.token;
 
+  // ✅ Hämta användardata om intressen saknas
   useEffect(() => {
-    if (!userId) return;  // 🔥 Kontrollera att vi har ett `id`
+    if (user?.id && user?.token && !user.interests?.length) {
+      fetchUserData(user.id, user.token);
+    }
+  }, [user?.id, user?.token, user?.interests?.length, fetchUserData]);
 
-    const loadInterests = async () => {
-      try {
-        const userInterests = await fetchUserInterests(userId); // 🔥 Hämta intressen med id
-        if (userInterests) {
-          setInterests({
-            first: userInterests[0] || 'Vad gillar du?',
-            second: userInterests[1] || 'Vad gillar du?',
-            third: userInterests[2] || 'Vad gillar du?',
-          });
-        }
-      } catch (error) {
-        console.error('Misslyckades att hämta intressen:', error);
-      }
-    };
+  // ✅ Initiera tomma fält om inga intressen finns
+  const [interests, setInterests] = useState<string[]>(
+    user?.interests?.length ? user.interests : ["", "", ""]
+  );
 
-    loadInterests();
-  }, [userId]); // 🔥 Använder `userId` istället för `userEmail`
+  useEffect(() => {
+    if (user?.interests) {
+      setInterests(user.interests);
+    }
+  }, [user?.interests]);
 
-  const changeInterest = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setInterests((prev) => ({ ...prev, [name]: value }));
+  const changeInterest = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
+    const newInterests = [...interests];
+    newInterests[index] = e.target.value;
+    setInterests(newInterests);
   };
 
   const handleSave = async () => {
-    if (!userId || !token) { // 🔥 Kontrollera att vi har `id`
+    console.log("User ID:", userId);
+    console.log("Token:", token);
+  
+    if (!userId || !token) {
       setError('Du måste vara inloggad för att uppdatera intressen.');
       return;
     }
 
-    // ✅ Kontrollera att intressena inte är tomma
-    if (!interests.first.trim() || !interests.second.trim() || !interests.third.trim()) {
+    if (interests.some((interest) => !interest.trim())) {
       setError('Intressen kan inte vara tomma.');
       return;
     }
@@ -60,8 +56,15 @@ const UserProfile = () => {
     setError(null);
 
     try {
-      await updateUserInterests(token, userId, Object.values(interests)); // 🔥 Skicka `id` istället för email
+      // 🔥 Uppdatera intressen i API
+      await updateUserInterests(token, userId, interests);
+
+      // ✅ Uppdatera användaren i Zustand
+      setUser({ ...user, interests });
+
       setEditMode(false);
+      console.log("Intressen uppdaterade i API och Zustand:", interests);
+
     } catch (error) {
       console.error('Misslyckades att uppdatera intressen:', error);
       setError('Misslyckades att uppdatera intressen. Försök igen.');
@@ -86,15 +89,21 @@ const UserProfile = () => {
 
         {editMode ? (
           <div className="interests-input">
-            <input type="text" name="first" value={interests.first} onChange={changeInterest} />
-            <input type="text" name="second" value={interests.second} onChange={changeInterest} />
-            <input type="text" name="third" value={interests.third} onChange={changeInterest} />
+            {interests.map((interest, index) => (
+              <input 
+                key={index} 
+                type="text" 
+                value={interest} 
+                onChange={(e) => changeInterest(e, index)} 
+                placeholder={`Intresse ${index + 1}`} // 🔥 Placeholder för nya användare
+              />
+            ))}
           </div>
         ) : (
           <ul className="interests-list">
-            <li><i className="bi bi-check-square-fill"></i> {interests.first}</li>
-            <li><i className="bi bi-check-square-fill"></i> {interests.second}</li>
-            <li><i className="bi bi-check-square-fill"></i> {interests.third}</li>
+            {interests.map((interest, index) => (
+              <li key={index}><i className="bi bi-check-square-fill"></i> {interest || `Intresse ${index + 1}`}</li>
+            ))}
           </ul>
         )}
 

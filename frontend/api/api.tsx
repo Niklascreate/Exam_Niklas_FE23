@@ -1,50 +1,4 @@
-import { LoginResponse, RegisterData } from '../interface/interface';
-
-//Api anrop för att hämta användares intressen.
-export const fetchUserInterests = async (userId: string) => {
-  try {
-    const response = await fetch(`https://cjq9abv0ld.execute-api.eu-north-1.amazonaws.com/get/user/${userId}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error("Kunde inte hämta intressen.");
-    }
-
-    const data = await response.json();
-    return data.interests;
-  } catch (error) {
-    console.error("Fel vid hämtning av intressen:", error);
-    throw error;
-  }
-};
-
-
-//Api anrop för att uppdatera intressen.
-export const updateUserInterests = async (token: string, userId: string, interests: string[]) => {
-  try {
-    const response = await fetch(`https://cjq9abv0ld.execute-api.eu-north-1.amazonaws.com/update/user/${userId}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`,
-      },
-      body: JSON.stringify({ interests }),
-    });
-
-    if (!response.ok) {
-      throw new Error("Misslyckades att uppdatera intressen.");
-    }
-
-    return await response.json();
-  } catch (error) {
-    console.error("Fel vid uppdatering av intressen:", error);
-    throw error;
-  }
-};
+import { LoginResponse, RegisterData, UserDataResponse } from '../interface/interface';
 
 
 //Api anrop för inloggning.
@@ -71,8 +25,6 @@ export const loginUser = async (nickname: string, password: string): Promise<Log
   }
 };
 
-
-
 //Api anrop för registrering.
 export async function registerUser(userData: RegisterData) {
   try {
@@ -96,7 +48,7 @@ export async function registerUser(userData: RegisterData) {
 }
 
 //Hämta en användare.
-export const fetchUser = async (userId: string, token: string) => {
+export const fetchUser = async (userId: string, token: string): Promise<UserDataResponse> => {
   try {
     const response = await fetch(`https://cjq9abv0ld.execute-api.eu-north-1.amazonaws.com/get/user/${userId}`, {
       method: "GET",
@@ -118,3 +70,25 @@ export const fetchUser = async (userId: string, token: string) => {
   }
 };
 
+//Api anrop för att uppdatera intressen.
+export const updateUserInterests = async (token: string, userId: string, interests: string[]) => {
+  try {
+    const response = await fetch(`https://cjq9abv0ld.execute-api.eu-north-1.amazonaws.com/update/user/${userId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
+      },
+      body: JSON.stringify({ interests }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Misslyckades att uppdatera intressen.");
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Fel vid uppdatering av intressen:", error);
+    throw error;
+  }
+};
