@@ -1,7 +1,7 @@
 .registrera-modal__container {
     width: 100%;
     background-color: var(--color-moon-dust);
-    padding: 20px;
+    padding: 40px 20px;
     padding-bottom: 5rem;
     display: flex;
     flex-direction: column-reverse;
@@ -19,7 +19,6 @@
     text-shadow:
         -2px -2px 0 black,
          2px -2px 0 black,
-        -2px  2px 0 black,
          2px  2px 0 black;
 }
 
@@ -94,3 +93,21 @@
     font-size: 26px;
     cursor: pointer;
 }
+
+.close-modal___container {
+    position: absolute;
+    display: flex;
+    justify-content: end;
+    margin-right: 0;
+    right: 36px;
+    top: 10px;
+  }
+
+.close-modal__button {
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: var(--color-ocean-lunar);
+    margin-bottom: 1rem;
+}
+

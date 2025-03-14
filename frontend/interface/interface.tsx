@@ -23,3 +23,11 @@ export interface Interests {
     token: string;
     user: User;
   }
+
+  export interface RegisterData {
+    firstname: string;
+    lastname: string;
+    nickname: string;
+    email: string;
+    password: string;
+  }
