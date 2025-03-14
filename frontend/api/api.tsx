@@ -1,4 +1,4 @@
-import { LoginRequest, LoginResponse, RegisterData } from '../interface/interface';
+import { LoginResponse, RegisterData } from '../interface/interface';
 
 //Api anrop för att hämta användares intressen.
 export const fetchUserInterests = async (email: string): Promise<string[]> => {
@@ -52,25 +52,28 @@ export const updateUserInterests = async (token: string, email: string, interest
 //Api anrop för inloggning.
 export const loginUser = async (nickname: string, password: string): Promise<LoginResponse> => {
   try {
+    console.log("Skickar inloggningsuppgifter:", { nickname, password });
+
     const response = await fetch("https://cjq9abv0ld.execute-api.eu-north-1.amazonaws.com/login/user", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ nickname, password } as LoginRequest),
+      body: JSON.stringify({ nickname, password }),
     });
 
-    const data: LoginResponse = await response.json();
-    if (!response.ok) throw new Error(data.message || "Inloggning misslyckades");
+    console.log("API Response Status:", response.status);
+    const jsonResponse = await response.json();
+    console.log("API Response Body:", jsonResponse);
 
+    if (!response.ok) throw new Error(jsonResponse.data?.message || "Inloggning misslyckades");
 
-    return data;
+    return jsonResponse.data;
   } catch (error) {
-    if (error instanceof Error) {
-      throw new Error(error.message);
-    } else {
-      throw new Error("Inloggning misslyckades");
-    }
+    console.error("Fel vid inloggning:", error);
+    throw error;
   }
 };
+
+
 
 //Api anrop för registrering.
 export async function registerUser(userData: RegisterData) {

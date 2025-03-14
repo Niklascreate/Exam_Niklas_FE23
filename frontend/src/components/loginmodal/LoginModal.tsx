@@ -21,43 +21,41 @@ function LoginModal({ closeModal }: { closeModal?: () => void }) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
-
+  
+    console.log("Försöker logga in med:", { nickname, password });
+  
     if (!nickname || !password) {
       setError("Fyll i både nickname och lösenord.");
       return;
     }
-
+  
     setLoading(true);
-
+  
     try {
       const response = await loginUser(nickname, password);
-
+      console.log("API-svar från backend:", response);
+  
       if (!response.user || !response.token) {
         throw new Error("Inloggning misslyckades");
       }
-
-      const { user, token } = response;
-
+  
       setUser({
-        id: user.id,
-        firstname: user.firstname,
-        lastname: user.lastname,
-        nickname: user.nickname,
-        email: user.email,
-        token: token,
+        id: response.user.id,
+        firstname: response.user.firstname,
+        lastname: response.user.lastname,
+        nickname: response.user.nickname,
+        email: response.user.email,
+        token: response.token,
       });
-
-      console.log("Inloggad som:", user.nickname);
-
+  
+      console.log("Användaren är inloggad:", response.user);
+  
       if (closeModal) closeModal();
       navigate("/landingpage");
-
+  
     } catch (err) {
-      if (err instanceof Error) {
-        setError(err.message);
-      } else {
-        setError("Inloggning misslyckades.");
-      }
+      console.error("Inloggningsfel:", err);
+      setError((err instanceof Error ? err.message : "Inloggning misslyckades."));
     } finally {
       setLoading(false);
     }
