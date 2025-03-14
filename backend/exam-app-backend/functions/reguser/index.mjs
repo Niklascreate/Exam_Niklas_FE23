@@ -2,6 +2,7 @@ import { db } from '../../services/index.mjs';
 import { User } from '../../models/userSchema.mjs';
 import { sendResponse, sendError } from '../../responses/index.mjs';
 import { QueryCommand, PutCommand } from "@aws-sdk/lib-dynamodb";
+import { hashPassword, generateJWT } from '../../utils/index.mjs';
 
 const TABLE_NAME = 'LunaChat-users';
 
@@ -40,16 +41,18 @@ export const regUser = async (event) => {
       return sendResponse(400, { message: 'E-postadressen är redan registrerad.' });
     }
 
-    const { user, token } = await User.create({
+    const hashedPassword = await hashPassword(password);
+
+    const user = {
       id: Date.now().toString(),
       firstname,
       lastname,
       nickname,
       email,
-      password,
+      password: hashedPassword,
       friends: [],
       interests: []
-    });
+    };
 
     const saveParams = new PutCommand({
       TableName: TABLE_NAME,
@@ -57,6 +60,8 @@ export const regUser = async (event) => {
     });
 
     await db.send(saveParams);
+
+    const token = generateJWT(user);
 
     return sendResponse(201, {
       message: 'Användare registrerad!',
