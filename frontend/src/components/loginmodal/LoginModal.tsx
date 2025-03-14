@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { loginUser } from "../../../api/api";
+import { loginUser, fetchUser } from "../../../api/api";
 import useUserStore from "../../../store/userStore";
 import { motion } from "framer-motion";
 import "./loginmodal.css";
@@ -38,6 +38,20 @@ function LoginModal({ closeModal }: { closeModal?: () => void }) {
       if (!response.user || !response.token) {
         throw new Error("Inloggning misslyckades");
       }
+
+      setUser({
+        id: response.user.id,
+        firstname: response.user.firstname,
+        lastname: response.user.lastname,
+        nickname: response.user.nickname,
+        email: response.user.email,
+        token: response.token,
+      });
+
+      console.log("Användaren är inloggad:", response.user);
+
+      // 🔥 Hämta fullständig användardata med `id`
+      await fetchUser(response.user.id, response.token);
   
       setUser({
         id: response.user.id,

@@ -15,15 +15,15 @@ const UserProfile = () => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const user = useUserStore((state) => state.user);
-  const userEmail = user?.email;
-  const token = user?.token; // ✅ Hämtar JWT-token från Zustand
+  const userId = user?.id;  // 🔥 Byter från email → id
+  const token = user?.token;
 
   useEffect(() => {
-    if (!userEmail) return;
+    if (!userId) return;  // 🔥 Kontrollera att vi har ett `id`
 
     const loadInterests = async () => {
       try {
-        const userInterests = await fetchUserInterests(userEmail);
+        const userInterests = await fetchUserInterests(userId); // 🔥 Hämta intressen med id
         if (userInterests) {
           setInterests({
             first: userInterests[0] || 'Vad gillar du?',
@@ -37,7 +37,7 @@ const UserProfile = () => {
     };
 
     loadInterests();
-  }, [userEmail]);
+  }, [userId]); // 🔥 Använder `userId` istället för `userEmail`
 
   const changeInterest = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -45,7 +45,7 @@ const UserProfile = () => {
   };
 
   const handleSave = async () => {
-    if (!userEmail || !token) {
+    if (!userId || !token) { // 🔥 Kontrollera att vi har `id`
       setError('Du måste vara inloggad för att uppdatera intressen.');
       return;
     }
@@ -60,7 +60,7 @@ const UserProfile = () => {
     setError(null);
 
     try {
-      await updateUserInterests(token, userEmail, Object.values(interests)); // ✅ Token skickas automatiskt
+      await updateUserInterests(token, userId, Object.values(interests)); // 🔥 Skicka `id` istället för email
       setEditMode(false);
     } catch (error) {
       console.error('Misslyckades att uppdatera intressen:', error);
