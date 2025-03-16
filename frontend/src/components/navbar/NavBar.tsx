@@ -43,7 +43,6 @@ function NavBar() {
                     </a>
                 </li>
                 <li>
-                    {/* 🔥 Uppdaterat så att API-anropet görs innan navigering */}
                     <a onClick={GoToKrypin}>
                         <i className="bi bi-person-fill"></i>
                         <span>Krypin</span>
