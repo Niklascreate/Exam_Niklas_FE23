@@ -1,36 +1,32 @@
 import './profilecard.css';
 import { useState, useEffect } from 'react';
-import { updateUserInterests } from '../../../api/api';
+import { updateUserProfile } from '../../../api/api';
 import useUserStore from '../../../store/userStore';
 
 const UserProfile = () => {
   const [editMode, setEditMode] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
-  
+
   const user = useUserStore((state) => state.user);
   const fetchUserData = useUserStore((state) => state.fetchUserData);
   const setUser = useUserStore((state) => state.setUser);
   const userId = user?.id;
   const token = user?.token;
 
-  // ✅ Hämta användardata om intressen saknas
   useEffect(() => {
     if (user?.id && user?.token && !user.interests?.length) {
       fetchUserData(user.id, user.token);
     }
   }, [user?.id, user?.token, user?.interests?.length, fetchUserData]);
 
-  // ✅ Initiera tomma fält om inga intressen finns
-  const [interests, setInterests] = useState<string[]>(
-    user?.interests?.length ? user.interests : ["", "", ""]
-  );
+  const [interests, setInterests] = useState<string[]>(user?.interests?.length ? user.interests : ["", "", ""]);
+  const [bio, setBio] = useState<string>(user?.bio || "");
 
   useEffect(() => {
-    if (user?.interests) {
-      setInterests(user.interests);
-    }
-  }, [user?.interests]);
+    if (user?.interests) setInterests(user.interests);
+    if (user?.bio !== undefined) setBio(user.bio);
+  }, [user?.interests, user?.bio]);
 
   const changeInterest = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
     const newInterests = [...interests];
@@ -41,14 +37,14 @@ const UserProfile = () => {
   const handleSave = async () => {
     console.log("User ID:", userId);
     console.log("Token:", token);
-  
+
     if (!userId || !token) {
-      setError('Du måste vara inloggad för att uppdatera intressen.');
+      setError("Du måste vara inloggad för att uppdatera din profil.");
       return;
     }
 
     if (interests.some((interest) => !interest.trim())) {
-      setError('Intressen kan inte vara tomma.');
+      setError("Intressen kan inte vara tomma.");
       return;
     }
 
@@ -56,18 +52,15 @@ const UserProfile = () => {
     setError(null);
 
     try {
-      // 🔥 Uppdatera intressen i API
-      await updateUserInterests(token, userId, interests);
-
-      // ✅ Uppdatera användaren i Zustand
-      setUser({ ...user, interests });
+      await updateUserProfile(token, userId, interests, bio);
+      setUser({ ...user, interests, bio });
 
       setEditMode(false);
-      console.log("Intressen uppdaterade i API och Zustand:", interests);
+      console.log("Profil uppdaterad i API och Zustand:", { interests, bio });
 
     } catch (error) {
-      console.error('Misslyckades att uppdatera intressen:', error);
-      setError('Misslyckades att uppdatera intressen. Försök igen.');
+      console.error("Misslyckades att uppdatera profil:", error);
+      setError("Misslyckades att uppdatera profil. Försök igen.");
     } finally {
       setLoading(false);
     }
@@ -95,7 +88,7 @@ const UserProfile = () => {
                 type="text" 
                 value={interest} 
                 onChange={(e) => changeInterest(e, index)} 
-                placeholder={`Intresse ${index + 1}`} // 🔥 Placeholder för nya användare
+                placeholder={`Intresse ${index + 1}`}
               />
             ))}
           </div>
@@ -107,12 +100,19 @@ const UserProfile = () => {
           </ul>
         )}
 
+        {editMode ? (
+          <textarea
+            className="bio-input"
+            value={bio}
+            onChange={(e) => setBio(e.target.value)}
+            placeholder="Berätta för andra Lunisar vem du är..."
+          />
+        ) : (
+          <p className="about-text">{bio || "Berätta för andra Lunisar vem du är"}</p>
+        )}
+
         {error && <p className="error-message">{error}</p>}
       </div>
-
-      <p className="profile-footer">
-        Pie apple pie shortbread liquorice chocolate cake jelly-o cookie shortbread muffin.
-      </p>
     </div>
   );
 };

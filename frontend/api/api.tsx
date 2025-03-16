@@ -71,7 +71,7 @@ export const fetchUser = async (userId: string, token: string): Promise<UserData
 };
 
 //Api anrop för att uppdatera intressen.
-export const updateUserInterests = async (token: string, userId: string, interests: string[]) => {
+export const updateUserProfile = async (token: string, userId: string, interests: string[], bio: string) => {
   try {
     const response = await fetch(`https://cjq9abv0ld.execute-api.eu-north-1.amazonaws.com/update/user/${userId}`, {
       method: "PUT",
@@ -79,16 +79,16 @@ export const updateUserInterests = async (token: string, userId: string, interes
         "Content-Type": "application/json",
         "Authorization": `Bearer ${token}`,
       },
-      body: JSON.stringify({ interests }),
+      body: JSON.stringify({ interests, bio }),
     });
 
     if (!response.ok) {
-      throw new Error("Misslyckades att uppdatera intressen.");
+      throw new Error("Misslyckades att uppdatera profil.");
     }
 
     return await response.json();
   } catch (error) {
-    console.error("Fel vid uppdatering av intressen:", error);
+    console.error("Fel vid uppdatering av profil:", error);
     throw error;
   }
 };

@@ -15,7 +15,6 @@ function LoginModal({ closeModal }: { closeModal?: () => void }) {
   const navigate = useNavigate();
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // 🔥 Använd useEffect istället för useState för att fokusera input
   useEffect(() => {
     inputRef.current?.focus();
   }, []);
@@ -44,14 +43,12 @@ function LoginModal({ closeModal }: { closeModal?: () => void }) {
       const token = response.token;
       const userId = response.user.id;
 
-      // 🔥 Hämta fullständig användardata inklusive intressen
       const fullUserData = await fetchUserData(userId, token);
 
       if (!fullUserData) {
         throw new Error("Kunde inte hämta användarens data. Försök igen.");
       }
 
-      // 🔥 Spara fullständig användardata i Zustand
       setUser(fullUserData);
 
       console.log("Användaren är inloggad och all data har hämtats:", fullUserData);

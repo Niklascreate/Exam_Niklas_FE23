@@ -21,6 +21,7 @@ export interface UserDataResponse {
   nickname: string;
   email: string;
   interests: string[];
+  bio: string;
   token?: string;
 }
 
