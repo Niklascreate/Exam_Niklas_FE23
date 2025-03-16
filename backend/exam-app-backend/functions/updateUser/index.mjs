@@ -11,30 +11,56 @@ export const updateUser = async (event) => {
     if (!token) return sendError(401, { message: "Ingen autentiseringstoken angiven." });
 
     const decoded = verifyJWT(token);
-    if (!decoded?.email) return sendError(401, { message: "Ogiltig eller utgången token." });
+    if (!decoded?.id) return sendError(401, { message: "Ogiltig eller utgången token." });
+
+    const userId = event.pathParameters?.id;
+    if (!userId) return sendError(400, { message: "Användar-ID saknas i URL:en." });
+
+    if (decoded.id !== userId) return sendError(403, { message: "Du har inte behörighet att ändra denna profil." });
 
     const body = event.body ? JSON.parse(event.body) : null;
     if (!body) return sendError(400, { message: "Ogiltig JSON eller body saknas." });
 
-    const { email, interests } = body;
-    if (decoded.email !== email) return sendError(403, { message: "Du har inte behörighet att ändra denna användares intressen." });
-    if (!Array.isArray(interests) || interests.length === 0) return sendError(400, { message: "Intressen måste vara en icke-tom lista." });
+    const { bio, interests } = body;
 
-    const user = await db.send(new GetCommand({ TableName: TABLE_NAME, Key: { id: decoded.id } }));
+    if (interests && (!Array.isArray(interests) || interests.length === 0)) {
+      return sendError(400, { message: "Intressen måste vara en icke-tom lista." });
+    }
+
+    if (bio && typeof bio !== "string") {
+      return sendError(400, { message: "Bio måste vara en textsträng." });
+    }
+
+    const user = await db.send(new GetCommand({ TableName: TABLE_NAME, Key: { id: userId } }));
     if (!user.Item) return sendError(404, { message: "Användaren hittades inte." });
+
+    let updateExpression = "SET";
+    let expressionAttributeValues = {};
+
+    if (interests) {
+      updateExpression += " interests = :interests,";
+      expressionAttributeValues[":interests"] = interests;
+    }
+
+    if (bio) {
+      updateExpression += " bio = :bio,";
+      expressionAttributeValues[":bio"] = bio;
+    }
+
+    updateExpression = updateExpression.replace(/,$/, "");
 
     const updatedUser = await db.send(new UpdateCommand({
       TableName: TABLE_NAME,
-      Key: { id: decoded.id },
-      UpdateExpression: "SET interests = :interests",
-      ExpressionAttributeValues: { ":interests": interests },
+      Key: { id: userId },
+      UpdateExpression: updateExpression,
+      ExpressionAttributeValues: expressionAttributeValues,
       ReturnValues: "ALL_NEW",
     }));
 
-    return sendResponse(200, { message: "Intressen uppdaterade!", updatedUser: updatedUser.Attributes });
+    return sendResponse(200, { message: "Profil uppdaterad!", updatedUser: updatedUser.Attributes });
 
   } catch (error) {
-    console.error('Fel vid uppdatering av intressen:', error);
+    console.error('Fel vid uppdatering av profil:', error);
     return sendError(500, { message: "Serverfel. Försök igen senare." });
   }
 };

@@ -61,7 +61,7 @@ functions:
     handler: functions/updateUser/index.updateUser
     events:
       - httpApi:
-          path: /update/user
+          path: /update/user/{id}
           method: put
   getAllUsers:
     handler: functions/getAllUsers/index.getAllUsers

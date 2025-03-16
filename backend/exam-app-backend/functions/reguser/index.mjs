@@ -51,7 +51,8 @@ export const regUser = async (event) => {
       email,
       password: hashedPassword,
       friends: [],
-      interests: []
+      interests: [],
+      bio: ""
     };
 
     const saveParams = new PutCommand({
