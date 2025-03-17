@@ -14,6 +14,11 @@ export interface User {
   interests: string[];
 }
 
+export interface rampljuset {
+  id: string,
+  imageUrl: string;
+}
+
 export interface UserDataResponse {
   id: string;
   firstname: string;

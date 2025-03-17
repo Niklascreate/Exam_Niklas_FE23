@@ -92,3 +92,18 @@ export const updateUserProfile = async (token: string, userId: string, interests
     throw error;
   }
 };
+
+
+//Hämta online users
+export const fetchOnlineUsers = async () => {
+  try {
+    const response = await fetch("https://your-api-url.com/getLoggedInUsers");
+    if (!response.ok) throw new Error("Nätverksfel vid hämtning av användare");
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Fel vid hämtning av användare:", error);
+    return [];
+  }
+};
