@@ -14,7 +14,6 @@ function Header() {
   const updateOnlineCount = async () => {
     try {
       const data = await fetchOnlineUsers();
-      console.log("API-svar för online users:", data);
 
       if (data && Array.isArray(data.users)) {
         setOnlineCount(data.users.length);
@@ -54,7 +53,7 @@ function Header() {
         </section>
         <section className="lajv-message">
           <p className="lajv">
-            {latestMessage ? `${latestMessage.username}: ${latestMessage.text}` : "Inga LAJV ännu..."}
+            {latestMessage ? `${latestMessage.nickname}: ${latestMessage.text}` : "Inga LAJV ännu..."}
           </p>
         </section>
       </div>

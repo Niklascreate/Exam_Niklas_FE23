@@ -12,7 +12,7 @@ function LajvModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }
 
   const handleSubmit = () => {
     if (message.trim().length > 0 && message.length <= 30) {
-      addMessage(user?.username || "Anonym", message);
+      addMessage(user?.nickname || "Anonym", message);
       setMessage("");
       onClose();
     }

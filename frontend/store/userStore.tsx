@@ -1,28 +1,40 @@
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 import { fetchUser } from "../api/api";
-import { UserStore } from '../interface/interface';
+import { UserStore } from "../interface/interface";
 
-const useUserStore = create<UserStore>((set) => ({
-  user: null,
+const useUserStore = create<UserStore>()(
+  persist(
+    (set) => ({
+      user: null,
 
-  setUser: (user) => set({ user }),
+      setUser: (user) => {
+        set({ user });
+      },
 
-  clearUser: () => set({ user: null }),
+      clearUser: () => {
+        set({ user: null });
+      },
 
-  fetchUserData: async (userId, token) => {
-    try {
-      const userData = await fetchUser(userId, token);
-      set({ user: { ...userData, token } });
+      fetchUserData: async (userId, token) => {
+        try {
+          const userData = await fetchUser(userId, token);
+          set({ user: { ...userData, token } });
 
-      console.log("Användardata hämtad och sparad i Zustand:", userData);
-      
-      return { ...userData, token };
-      
-    } catch (error) {
-      console.error("Misslyckades att hämta användardata:", error);
-      return null;
+          console.log("Användardata hämtad och sparad i Zustand:", userData);
+          
+          return { ...userData, token };
+          
+        } catch (error) {
+          console.error("Misslyckades att hämta användardata:", error);
+          return null;
+        }
+      }
+    }),
+    {
+      name: "user-data", // 🔹 Namn för att lagra användaren i localStorage
     }
-  }
-}));
+  )
+);
 
 export default useUserStore;

@@ -51,14 +51,14 @@ export interface RegisterData {
 }
 
 export interface LajvMessage {
-  username: string;
+  nickname: string;
   text: string;
   timestamp: string;
 }
 
 export interface LajvStore {
   messages: LajvMessage[];
-  addMessage: (username: string, text: string) => void;
+  addMessage: (nickname: string, text: string) => void;
   clearMessages: () => void;
 }
 
