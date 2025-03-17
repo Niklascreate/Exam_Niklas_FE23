@@ -32,7 +32,7 @@ const useUserStore = create<UserStore>()(
       }
     }),
     {
-      name: "user-data", // 🔹 Namn för att lagra användaren i localStorage
+      name: "user-data",
     }
   )
 );

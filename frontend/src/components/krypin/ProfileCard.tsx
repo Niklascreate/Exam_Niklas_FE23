@@ -77,7 +77,7 @@ const UserProfile = () => {
 
       <div className="profile-info">
         <h4>{user?.nickname || 'Användare'}</h4>
-        <p>Lunis sedan 2001</p>
+        <p className='lunis-since'>Lunis sedan 2001</p>
         <p>Jag gillar:</p>
 
         {editMode ? (
