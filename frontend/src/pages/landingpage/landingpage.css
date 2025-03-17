@@ -1,3 +1,9 @@
+.landingpage-container {
+    width: 100%;
+    height: auto;
+    margin-bottom: 10rem;
+}
+
 .infobox-container {
     width: 100%;
 }
