@@ -1,5 +1,4 @@
 import { db } from '../../services/index.mjs';
-import { User } from '../../models/userSchema.mjs';
 import { sendResponse, sendError } from '../../responses/index.mjs';
 import { QueryCommand, PutCommand } from "@aws-sdk/lib-dynamodb";
 import { hashPassword, generateJWT } from '../../utils/index.mjs';
@@ -52,7 +51,9 @@ export const regUser = async (event) => {
       password: hashedPassword,
       friends: [],
       interests: [],
-      bio: ""
+      bio: "",
+      createdAt: new Date().toISOString(),
+      isLoggedIn: false,
     };
 
     const saveParams = new PutCommand({

@@ -1,7 +1,7 @@
 import { sendResponseWithHeaders, sendError } from '../../responses/index.mjs';
 import { db } from '../../services/index.mjs';
 import bcrypt from 'bcryptjs';
-import { QueryCommand } from "@aws-sdk/lib-dynamodb";
+import { QueryCommand, UpdateCommand } from "@aws-sdk/lib-dynamodb";
 import { generateJWT } from '../../utils/index.mjs';
 
 const TABLE_NAME = 'LunaChat-users';
@@ -45,6 +45,18 @@ export const loginUser = async (event) => {
 
     const token = generateJWT({ id: user.id, nickname: user.nickname });
 
+    const updateUserStatus = new UpdateCommand({
+      TableName: TABLE_NAME,
+      Key: { id: user.id },
+      UpdateExpression: "SET isLoggedIn = :true, lastLogin = :now",
+      ExpressionAttributeValues: {
+        ":true": true,
+        ":now": new Date().toISOString(),
+      },
+    });
+
+    await db.send(updateUserStatus);
+
     return sendResponseWithHeaders(200, {
       message: "Login lyckades",
       token,
@@ -53,7 +65,8 @@ export const loginUser = async (event) => {
         firstname: user.firstname,
         lastname: user.lastname,
         nickname: user.nickname,
-        email: user.email
+        email: user.email,
+        lastLogin: new Date().toISOString(),
       }
     });
 
