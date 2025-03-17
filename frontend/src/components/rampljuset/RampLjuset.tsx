@@ -10,12 +10,12 @@ function RampLjuset() {
 
   const getUsers = async () => {
     const data = await fetchOnlineUsers();
-    setUsers(data.slice(-MAX_USERS));
+    setUsers(data.users.slice(-MAX_USERS));
   };
 
   useEffect(() => {
     getUsers();
-    const interval = setInterval(getUsers, 10000000);
+    const interval = setInterval(getUsers, 180000);
     return () => clearInterval(interval);
   }, []);
 

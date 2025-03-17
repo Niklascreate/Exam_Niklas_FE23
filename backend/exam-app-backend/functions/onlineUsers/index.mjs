@@ -16,11 +16,7 @@ export const onlineUsers = async (event) => {
 
         const result = await db.send(command);
 
-        if (!result.Items || result.Items.length === 0) {
-            return sendResponse(404, { message: 'Inga inloggade användare hittades.' });
-        }
-
-        return sendResponse(200, { users: result.Items });
+        return sendResponse(200, { users: result.Items || [] });
 
     } catch (error) {
         console.error('Fel vid hämtning av inloggade användare:', error);
