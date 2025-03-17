@@ -1,13 +1,6 @@
 import { create } from "zustand";
 import { fetchUser } from "../api/api";
-import { UserDataResponse } from '../interface/interface';
-
-interface UserStore {
-  user: UserDataResponse | null;
-  setUser: (user: UserDataResponse) => void;
-  clearUser: () => void;
-  fetchUserData: (userId: string, token: string) => Promise<UserDataResponse | null>;
-}
+import { UserStore } from '../interface/interface';
 
 const useUserStore = create<UserStore>((set) => ({
   user: null,

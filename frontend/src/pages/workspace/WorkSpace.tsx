@@ -1,10 +1,9 @@
-import RampLjuset from "../../components/rampljuset/RampLjuset"
-
+import LajvModal from "../../components/lajvmodal/LajvModal"
 
 function WorkSpace() {
   return (
     <div>
-      <RampLjuset />
+      <LajvModal isOpen={true} onClose={() => {}} />
     </div>
   )
 }

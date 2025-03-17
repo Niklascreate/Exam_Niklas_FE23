@@ -28,6 +28,7 @@ export interface UserDataResponse {
   interests: string[];
   bio: string;
   token?: string;
+  username?: string;
 }
 
 export interface LoginRequest {
@@ -47,4 +48,23 @@ export interface RegisterData {
   nickname: string;
   email: string;
   password: string;
+}
+
+export interface LajvMessage {
+  username: string;
+  text: string;
+  timestamp: string;
+}
+
+export interface LajvStore {
+  messages: LajvMessage[];
+  addMessage: (username: string, text: string) => void;
+  clearMessages: () => void;
+}
+
+export interface UserStore {
+  user: UserDataResponse | null;
+  setUser: (user: UserDataResponse) => void;
+  clearUser: () => void;
+  fetchUserData: (userId: string, token: string) => Promise<UserDataResponse | null>;
 }

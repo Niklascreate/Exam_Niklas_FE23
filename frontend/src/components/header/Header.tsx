@@ -1,10 +1,15 @@
 import { useState, useEffect } from "react";
-import { fetchOnlineUsers } from '../../../api/api';
+import { fetchOnlineUsers } from "../../../api/api";
 import LogoutButton from "../logoutbutton/LogoutButton";
+import LajvModal from "../lajvmodal/LajvModal";
+import useLajvStore from "../../../store/lajvStore";
 import "./header.css";
 
 function Header() {
   const [onlineCount, setOnlineCount] = useState(0);
+  const [isLajvOpen, setIsLajvOpen] = useState(false);
+  const messages = useLajvStore((state) => state.messages);
+  const latestMessage = messages.length > 0 ? messages[messages.length - 1] : null;
 
   const updateOnlineCount = async () => {
     try {
@@ -42,14 +47,18 @@ function Header() {
         </div>
       </header>
       <LogoutButton />
+
       <div className="lajv-container">
         <section className="lajv-box">
-          <p>LAJV</p>
+          <button onClick={() => setIsLajvOpen(true)}>LAJV</button>
         </section>
         <section className="lajv-message">
-          <p>Nickeboi69: Lunarstorm cancelad</p>
+          <p className="lajv">
+            {latestMessage ? `${latestMessage.username}: ${latestMessage.text}` : "Inga LAJV ännu..."}
+          </p>
         </section>
       </div>
+      <LajvModal isOpen={isLajvOpen} onClose={() => setIsLajvOpen(false)} />
     </>
   );
 }

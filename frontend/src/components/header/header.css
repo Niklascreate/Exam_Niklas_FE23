@@ -88,3 +88,34 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+.lajv-message {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+    background-color: var(--color-ocean-lunar);
+    color: white;
+    padding: 10px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    font-size: 10px;
+  }
+  
+  .lajv {
+    display: inline-block;
+    position: absolute;
+    white-space: nowrap;
+    animation: sliding 10s linear infinite;
+  }
+  
+  @keyframes sliding {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(-100%);
+    }
+  }
+  
