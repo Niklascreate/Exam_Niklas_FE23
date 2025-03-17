@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { fetchOnlineUsers } from '../../../api/api';
-import { rampljuset } from '../../../interface/interface';
+import { useState, useEffect } from "react";
+import { fetchOnlineUsers } from "../../../api/api";
+import { rampljuset } from "../../../interface/interface";
+import './rampljuset.css';
 
 const MAX_USERS = 4;
 
-const RampLjuset: React.FC = () => {
+function RampLjuset() {
   const [users, setUsers] = useState<rampljuset[]>([]);
 
   const getUsers = async () => {
@@ -14,13 +15,13 @@ const RampLjuset: React.FC = () => {
 
   useEffect(() => {
     getUsers();
-    const interval = setInterval(getUsers, 1000);
+    const interval = setInterval(getUsers, 10000000);
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <div className="ramp-container">
-      <div className="header">EN STUND I RAMPLJUSET</div>
+    <div className="rampljuset-container">
+      <div className="rampljuset-rubrik">EN STUND I RAMPLJUSET</div>
       <div className="user-list">
         {users.map((user, index) => (
           <div key={user.id} className="user" style={{ animationDelay: `${index * 0.2}s` }}>
@@ -30,6 +31,6 @@ const RampLjuset: React.FC = () => {
       </div>
     </div>
   );
-};
+}
 
 export default RampLjuset;

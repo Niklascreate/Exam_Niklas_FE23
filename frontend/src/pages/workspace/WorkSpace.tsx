@@ -1,10 +1,10 @@
-import LoginModal from "../../components/loginmodal/LoginModal"
+import RampLjuset from "../../components/rampljuset/RampLjuset"
 
 
 function WorkSpace() {
   return (
     <div>
-      <LoginModal />
+      <RampLjuset />
     </div>
   )
 }

@@ -1,5 +1,6 @@
 import Header from "../../components/header/Header";
 import NavBar from "../../components/navbar/NavBar";
+import RampLjuset from "../../components/rampljuset/RampLjuset";
 import SearchBar from "../../components/searchbar/SearchBar";
 import './landingpage.css';
 
@@ -16,7 +17,7 @@ function LandingPage() {
         <h2 className="info-rubrik">Gamla vanor, nya funktioner!</h2>
         <p className="info-text">LunarChat tar det bästa från förr och kombinerar det med moderna funktioner. Chatta med vänner, möt nya människor och upplev nostalgisk gemenskap – fast i en ny tappning! </p>
       </div>
-
+      <RampLjuset />
       <div className="infobox-container">
         <h2 className="welcome-rubrik">WZUP??</h2>
       </div>

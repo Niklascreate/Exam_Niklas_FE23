@@ -111,7 +111,7 @@ export const fetchOnlineUsers = async () => {
 //Logga ut användare.
 export const logoutUser = async (userId: string) => {
   try {
-    const response = await fetch("https://your-api-url.com/logoutUser", {
+    const response = await fetch("https://cjq9abv0ld.execute-api.eu-north-1.amazonaws.com/logout/user", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
