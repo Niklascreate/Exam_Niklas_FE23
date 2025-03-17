@@ -38,7 +38,12 @@ functions:
       - httpApi:
           path: /login/user
           method: post
-
+  logoutUser:
+    handler: functions/logoutUser/index.logoutUser
+    events:
+      - httpApi:
+          path: /logout/user
+          method: post
   removeFriend:
     handler: functions/removeFriend/index.removeFriend
     events:
@@ -69,6 +74,12 @@ functions:
       - http:
           path: /get/allusers
           method: get
+  onlineUsers:
+    handler: functions/onlineUsers/index.onlineUsers
+    events:
+      - httpApi:
+          path: /get/online/users
+          method: get
   socketConnect:
     handler: middlewares/userSocketMiddleware.connect
     events:
@@ -97,6 +108,9 @@ package:
     - utils/**
     - functions/getUser/**
     - functions/loginUser/**
+    - functions/logoutUser/**
+    - functions/getAllUsers/**
+    - functions/onlineUsers/**
     - services/**
     - models/**
     - responses/**

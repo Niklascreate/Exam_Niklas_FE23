@@ -97,7 +97,7 @@ export const updateUserProfile = async (token: string, userId: string, interests
 //Hämta online users
 export const fetchOnlineUsers = async () => {
   try {
-    const response = await fetch("https://your-api-url.com/getLoggedInUsers");
+    const response = await fetch("https://cjq9abv0ld.execute-api.eu-north-1.amazonaws.com/get/online/users");
     if (!response.ok) throw new Error("Nätverksfel vid hämtning av användare");
 
     const data = await response.json();
@@ -105,5 +105,25 @@ export const fetchOnlineUsers = async () => {
   } catch (error) {
     console.error("Fel vid hämtning av användare:", error);
     return [];
+  }
+};
+
+//Logga ut användare.
+export const logoutUser = async (userId: string) => {
+  try {
+    const response = await fetch("https://your-api-url.com/logoutUser", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id: userId }),
+    });
+
+    if (!response.ok) throw new Error("Fel vid utloggning");
+
+    return await response.json();
+  } catch (error) {
+    console.error("Fel vid utloggning:", error);
+    return null;
   }
 };
