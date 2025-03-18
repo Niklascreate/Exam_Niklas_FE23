@@ -49,7 +49,7 @@ function Header() {
 
       <div className="lajv-container">
         <section className="lajv-box">
-          <button onClick={() => setIsLajvOpen(true)}>LAJV</button>
+          <button className="lajv-btn" onClick={() => setIsLajvOpen(true)}>LAJV</button>
         </section>
         <section className="lajv-message">
           <p className="lajv">

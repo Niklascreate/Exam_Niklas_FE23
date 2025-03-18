@@ -104,7 +104,7 @@ const UserProfile = () => {
         </div>
 
         <button className="edit-btn" onClick={editMode ? handleSave : () => setEditMode(true)} disabled={loading}>
-          <i className={`bi ${editMode ? 'bi-check-square-fill' : 'bi-pencil-fill'}`}></i>
+          <i className={`bi ${editMode ? 'bi bi-check2-square' : 'bi-pencil-fill'}`}></i>
         </button>
       </div>
 

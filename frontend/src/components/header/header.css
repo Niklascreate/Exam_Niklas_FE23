@@ -102,6 +102,10 @@
     align-items: center;
     font-size: 10px;
   }
+
+  .lajv-btn {
+    all: unset;
+  }
   
   .lajv {
     display: inline-block;
