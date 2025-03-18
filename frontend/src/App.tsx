@@ -7,6 +7,7 @@ import StartPage from "./pages/startpage/StartPage";
 import WallPage from "./pages/wallpage/WallPage";
 import KrypinPage from "./pages/krypinpage/KrypinPage";
 import WorkSpace from "./pages/workspace/WorkSpace";
+import UserProfilePage from "./pages/userprofilepage/UserProfilePage";
 
 function App() {
   return (
@@ -19,7 +20,7 @@ function App() {
         <Route path="/wall" element={<WallPage />} />
         <Route path="/krypin" element={<KrypinPage />} />
         <Route path="/workspace" element={<WorkSpace />} />
-        <Route path="/friendpage" element={<FriendPage />} />
+        <Route path="/userprofilepage" element={<UserProfilePage />} />
       </Routes>
     </Router>
   );
