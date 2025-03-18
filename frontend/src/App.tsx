@@ -20,7 +20,7 @@ function App() {
         <Route path="/wall" element={<WallPage />} />
         <Route path="/krypin" element={<KrypinPage />} />
         <Route path="/workspace" element={<WorkSpace />} />
-        <Route path="/userprofilepage" element={<UserProfilePage />} />
+        <Route path="/userprofilepage/:id" element={<UserProfilePage />} />
       </Routes>
     </Router>
   );

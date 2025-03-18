@@ -57,7 +57,7 @@ function SearchBar() {
     console.log(`Vald användare: ${user.nickname}`);
     setSearchTerm("");
     setShowDropdown(false);
-    navigate(`/profile/${user.id}`);
+    navigate(`/userprofilepage/${user.id}`);
   };
 
   return (
