@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom"; // 🟢 Importera navigering
+import { useNavigate } from "react-router-dom";
 import "./searchbar.css";
 import { User } from "../../../interface/interface";
 import { fetchUsers } from "../../../api/api";
@@ -10,7 +10,7 @@ function SearchBar() {
   const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
   const [showDropdown, setShowDropdown] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
-  const navigate = useNavigate(); // 🟢 Använd React Router för att navigera
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getUsers = async () => {
@@ -57,7 +57,7 @@ function SearchBar() {
     console.log(`Vald användare: ${user.nickname}`);
     setSearchTerm("");
     setShowDropdown(false);
-    navigate(`/profile/${user.id}`); // 🟢 Navigera till profilen
+    navigate(`/profile/${user.id}`);
   };
 
   return (

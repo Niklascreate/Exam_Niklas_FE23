@@ -19,6 +19,7 @@ function App() {
         <Route path="/wall" element={<WallPage />} />
         <Route path="/krypin" element={<KrypinPage />} />
         <Route path="/workspace" element={<WorkSpace />} />
+        <Route path="/friendpage" element={<FriendPage />} />
       </Routes>
     </Router>
   );

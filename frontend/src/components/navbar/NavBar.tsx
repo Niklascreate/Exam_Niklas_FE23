@@ -9,7 +9,6 @@ function NavBar() {
 
     const GoToKrypin = () => {
         if (user?.id && user?.token) {
-            console.log("🔄 Hämtar användardata för Krypin...");
             fetchUserData(user.id, user.token);
         }
         navigate('/krypin');

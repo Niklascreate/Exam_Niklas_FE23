@@ -12,6 +12,8 @@ export interface User {
   email: string;
   token: string;
   interests: string[];
+  friends?: string[];
+  bio?: string;
 }
 
 export interface rampljuset {

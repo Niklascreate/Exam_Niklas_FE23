@@ -20,8 +20,6 @@ const useUserStore = create<UserStore>()(
         try {
           const userData = await fetchUser(userId, token);
           set({ user: { ...userData, token } });
-
-          console.log("Användardata hämtad och sparad i Zustand:", userData);
           
           return { ...userData, token };
           

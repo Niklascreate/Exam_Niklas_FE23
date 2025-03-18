@@ -41,8 +41,6 @@ const UserProfile = () => {
   };
 
   const handleSave = async () => {
-    console.log("User ID:", userId);
-    console.log("Token:", token);
 
     if (!userId || !token) {
       setError("Du måste vara inloggad för att uppdatera din profil.");
@@ -62,7 +60,6 @@ const UserProfile = () => {
       setUser({ ...user, interests, bio });
 
       setEditMode(false);
-      console.log("Profil uppdaterad i API och Zustand:", { interests, bio });
 
     } catch (error) {
       console.error("Misslyckades att uppdatera profil:", error);
