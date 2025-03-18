@@ -72,6 +72,11 @@ export const fetchUser = async (userId: string, token: string): Promise<UserData
 
 //Api anrop för att uppdatera intressen.
 export const updateUserProfile = async (token: string, userId: string, interests: string[], bio: string) => {
+  console.log("🔍 API-anrop till updateUserProfile...");
+  console.log("➡️ User ID:", userId);
+  console.log("➡️ Token:", token);
+  console.log("➡️ Skickar body:", JSON.stringify({ interests, bio }));
+
   try {
     const response = await fetch(`https://cjq9abv0ld.execute-api.eu-north-1.amazonaws.com/update/user/${userId}`, {
       method: "PUT",
@@ -82,16 +87,21 @@ export const updateUserProfile = async (token: string, userId: string, interests
       body: JSON.stringify({ interests, bio }),
     });
 
+    console.log("⬅️ Response status:", response.status);
+    const responseData = await response.json();
+    console.log("⬅️ Response data:", responseData);
+
     if (!response.ok) {
       throw new Error("Misslyckades att uppdatera profil.");
     }
 
-    return await response.json();
+    return responseData;
   } catch (error) {
-    console.error("Fel vid uppdatering av profil:", error);
+    console.error("⛔ Fel vid uppdatering av profil:", error);
     throw error;
   }
 };
+
 
 
 //Hämta online users
@@ -125,5 +135,27 @@ export const logoutUser = async (userId: string) => {
   } catch (error) {
     console.error("Fel vid utloggning:", error);
     return null;
+  }
+};
+
+
+//Hämta alla användare (tex i searchbar)
+export const fetchUsers = async () => {
+  try {
+    const response = await fetch("https://er206upuc8.execute-api.eu-north-1.amazonaws.com/dev/get/allusers", {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error(`Fel vid hämtning av användare: ${response.status} ${response.statusText}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Kunde inte hämta användare:", error);
+    return [];
   }
 };

@@ -24,8 +24,14 @@ const UserProfile = () => {
   const [bio, setBio] = useState<string>(user?.bio || "");
 
   useEffect(() => {
-    if (user?.interests) setInterests(user.interests);
-    if (user?.bio !== undefined) setBio(user.bio);
+    if (user?.interests) {
+      setInterests(user.interests.length >= 3 ? user.interests : [...user.interests, "", "", ""]);
+    } else {
+      setInterests(["", "", ""]);
+    }
+    if (user?.bio !== undefined) {
+      setBio(user.bio);
+    }
   }, [user?.interests, user?.bio]);
 
   const changeInterest = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
@@ -68,51 +74,52 @@ const UserProfile = () => {
 
   return (
     <div className="profilecard-container">
-      <div className="profile-top">
+      <div className="profile-header">
         <img src="assets/maskot4.webp" alt="avatar" className="profile-img" />
+
+        <div className="profile-info">
+          <h4 className='user-name'>{user?.nickname || 'Användare'}</h4>
+          <p className="lunis-since">Lunis sedan 2001</p>
+          <p  className='gillar'>Jag gillar:</p>
+
+          {editMode ? (
+            <div className="interests-input">
+              {interests.map((interest, index) => (
+                <input 
+                  key={index} 
+                  type="text" 
+                  value={interest} 
+                  onChange={(e) => changeInterest(e, index)} 
+                  placeholder={`Intresse ${index + 1}`}
+                />
+              ))}
+            </div>
+          ) : (
+            <ul className="interests-list">
+              {interests.map((interest, index) => (
+                <li key={index}><i className="bi bi-check"></i> {interest || `Intresse ${index + 1}`}</li>
+              ))}
+            </ul>
+          )}
+        </div>
+
         <button className="edit-btn" onClick={editMode ? handleSave : () => setEditMode(true)} disabled={loading}>
           <i className={`bi ${editMode ? 'bi-check-square-fill' : 'bi-pencil-fill'}`}></i>
         </button>
       </div>
 
-      <div className="profile-info">
-        <h4>{user?.nickname || 'Användare'}</h4>
-        <p className='lunis-since'>Lunis sedan 2001</p>
-        <p>Jag gillar:</p>
+      {editMode ? (
+        <textarea
+          className="bio-input"
+          value={bio}
+          onChange={(e) => setBio(e.target.value)}
+          placeholder="Berätta för andra Lunisar vem du är..."
+        />
+      ) : (
+        <p className="about-text">{bio || "Berätta för andra Lunisar vem du är"}</p>
+      )}
 
-        {editMode ? (
-          <div className="interests-input">
-            {interests.map((interest, index) => (
-              <input 
-                key={index} 
-                type="text" 
-                value={interest} 
-                onChange={(e) => changeInterest(e, index)} 
-                placeholder={`Intresse ${index + 1}`}
-              />
-            ))}
-          </div>
-        ) : (
-          <ul className="interests-list">
-            {interests.map((interest, index) => (
-              <li key={index}><i className="bi bi-check-square-fill"></i> {interest || `Intresse ${index + 1}`}</li>
-            ))}
-          </ul>
-        )}
-
-        {editMode ? (
-          <textarea
-            className="bio-input"
-            value={bio}
-            onChange={(e) => setBio(e.target.value)}
-            placeholder="Berätta för andra Lunisar vem du är..."
-          />
-        ) : (
-          <p className="about-text">{bio || "Berätta för andra Lunisar vem du är"}</p>
-        )}
-
-        {error && <p className="error-message">{error}</p>}
-      </div>
+      {error && <p className="error-message">{error}</p>}
     </div>
   );
 };
