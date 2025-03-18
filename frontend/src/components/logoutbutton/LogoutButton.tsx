@@ -29,7 +29,7 @@ function LogoutButton() {
 
   return (
     <button className="logout-button" onClick={handleLogout}>
-      Logga ut
+      <p>Logga ut</p>
     </button>
   );
 }

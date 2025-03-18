@@ -41,7 +41,7 @@
     background-color: var(--color-ocean-lunar);
     color: white;
     font-family: var(--font-retro);
-    font-size: 12px;
+    font-size: 16px;
     padding: 8px;
     border-top-left-radius: .5rem;
     border-top-right-radius: .5rem;
@@ -50,18 +50,20 @@
 
 .registrera-modal__input {
     width: 100%;
+    height: 40px;
     background-color: white;
     color: black;
     font-family: var(--font-retro);
-    font-size: 14px;
+    font-size: 10px;
     padding: 8px;
     border: 2px solid black;
     border: none;
 }
 
 .registrera-modal__input::placeholder {
+    font-family: var(--font-pixel);
     color: var(--color-wave-lunar);
-    font-size: 14px;
+    font-size: 10px;
 }
 
 .registrera-modal__button {

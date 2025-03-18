@@ -1,10 +1,7 @@
 .logout-button {
     width: 100px;
-    height: 25px;
+    height: 20px;
     background-color: var(--color-sunset-lunar);
-    color: black;
-    font-family: var(--font-pixel);
-    font-size: 10px;
     border: none;
     cursor: pointer;
     display: flex;
@@ -12,6 +9,11 @@
     align-items: center;
     position: fixed;
     right: 0;
-    bottom: 80px;
+    top: 0;
     z-index: 1003;
+}
+
+.logout-button p {
+    font-size: 8px;
+    font-family: var(--font-pixel);
 }
