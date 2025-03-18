@@ -6,13 +6,12 @@
     font-family: var(--font-pixel);
     font-size: 10px;
     border: none;
-    border-left: 1px solid black;
     cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
     position: fixed;
     right: 0;
-    bottom: 625px;
+    bottom: 80px;
     z-index: 1003;
 }
