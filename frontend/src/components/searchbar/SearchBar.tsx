@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom"; // 🟢 Importera navigering
 import "./searchbar.css";
 import { User } from "../../../interface/interface";
 import { fetchUsers } from "../../../api/api";
@@ -9,13 +10,15 @@ function SearchBar() {
   const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
   const [showDropdown, setShowDropdown] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate(); // 🟢 Använd React Router för att navigera
 
   useEffect(() => {
     const getUsers = async () => {
       const data = await fetchUsers();
-      setUsers(data);
+      if (data && data.users) {
+        setUsers(data.users);
+      }
     };
-
     getUsers();
   }, []);
 
@@ -27,7 +30,6 @@ function SearchBar() {
     }
 
     const lowerCaseSearch = searchTerm.toLowerCase();
-
     const filtered = users.filter((user) =>
       user.firstname.toLowerCase().includes(lowerCaseSearch) ||
       user.lastname.toLowerCase().includes(lowerCaseSearch) ||
@@ -53,8 +55,9 @@ function SearchBar() {
 
   const handleUserClick = (user: User) => {
     console.log(`Vald användare: ${user.nickname}`);
-    setSearchTerm(`${user.firstname} ${user.lastname}`);
+    setSearchTerm("");
     setShowDropdown(false);
+    navigate(`/profile/${user.id}`); // 🟢 Navigera till profilen
   };
 
   return (
@@ -73,7 +76,7 @@ function SearchBar() {
         <ul className="search-results">
           {filteredUsers.map((user) => (
             <li key={user.id} className="search-result-item" onClick={() => handleUserClick(user)}>
-              <strong>{user.firstname} {user.lastname}</strong> (@{user.nickname})
+              <strong><span className="snabela">@</span>{user.nickname}</strong>   <i className="bi bi-person-fill"></i>{user.firstname} {user.lastname}
             </li>
           ))}
         </ul>

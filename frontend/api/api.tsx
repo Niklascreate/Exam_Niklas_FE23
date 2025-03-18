@@ -142,7 +142,7 @@ export const logoutUser = async (userId: string) => {
 //Hämta alla användare (tex i searchbar)
 export const fetchUsers = async () => {
   try {
-    const response = await fetch("https://er206upuc8.execute-api.eu-north-1.amazonaws.com/dev/get/allusers", {
+    const response = await fetch("https://cjq9abv0ld.execute-api.eu-north-1.amazonaws.com/get/allusers", {
       method: "GET",
       headers: {
         "content-type": "application/json",
@@ -153,7 +153,8 @@ export const fetchUsers = async () => {
       throw new Error(`Fel vid hämtning av användare: ${response.status} ${response.statusText}`);
     }
 
-    return await response.json();
+    const data = await response.json();
+    return data;
   } catch (error) {
     console.error("Kunde inte hämta användare:", error);
     return [];

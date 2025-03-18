@@ -2,12 +2,10 @@ import { db } from '../../services/index.mjs';
 import { sendResponse, sendError } from '../../responses/index.mjs';
 import { ScanCommand } from "@aws-sdk/lib-dynamodb";
 
-const TABLE_NAME = 'LunaChat-users';
-
 export const getAllUsers = async (event) => {
     try {
         const command = new ScanCommand({
-            TableName: TABLE_NAME
+            TableName: 'LunaChat-users'
         });
 
         const result = await db.send(command);
@@ -19,7 +17,7 @@ export const getAllUsers = async (event) => {
         return sendResponse(200, { users: result.Items });
 
     } catch (error) {
-        console.error('Fel vid hämtning av användare:', error);
+        console.error('🚨 Fel vid hämtning av användare:', error);
         return sendError(500, { message: `Serverfel: ${error.message}` });
     }
 };

@@ -31,7 +31,12 @@ functions:
       - httpApi:
           path: /get/user/{id}
           method: get
-
+  getAllUsers:
+    handler: functions/getAllUsers/index.getAllUsers
+    events:
+      - httpApi:
+          path: /get/allusers
+          method: get
   loginUser:
     handler: functions/loginUser/index.loginUser
     events:
@@ -68,12 +73,6 @@ functions:
       - httpApi:
           path: /update/user/{id}
           method: put
-  getAllUsers:
-    handler: functions/getAllUsers/index.getAllUsers
-    events:
-      - http:
-          path: /get/allusers
-          method: get
   onlineUsers:
     handler: functions/onlineUsers/index.onlineUsers
     events:
