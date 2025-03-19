@@ -79,6 +79,19 @@ functions:
       - httpApi:
           path: /get/online/users
           method: get
+  addWallMessage:
+    handler: functions/addWallMessage/index.addWallMessage
+    events:
+      - httpApi:
+          path: /add/wallmessage
+          method: post
+  getWallMessages:
+    handler: functions/getWallMessages/index.getWallMessages
+    events:
+      - httpApi:
+          path: /get/wallmessages
+          method: get
+
   socketConnect:
     handler: middlewares/userSocketMiddleware.connect
     events:
@@ -147,14 +160,27 @@ resources:
             Projection:
               ProjectionType: ALL
         BillingMode: PAY_PER_REQUEST
+
+    WallPostsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: LunaChat-wall
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+
     ConnectionsTable:
-          Type: AWS::DynamoDB::Table
-          Properties:
-            TableName: LunaChat-connections
-            AttributeDefinitions:
-              - AttributeName: connectionId
-                AttributeType: S
-            KeySchema:
-              - AttributeName: connectionId
-                KeyType: HASH
-            BillingMode: PAY_PER_REQUEST
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: LunaChat-connections
+        AttributeDefinitions:
+          - AttributeName: connectionId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: connectionId
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
