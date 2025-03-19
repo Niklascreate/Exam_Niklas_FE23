@@ -10,18 +10,37 @@ export const getFriends = async (event) => {
             return sendError(400, { message: 'UserId krävs.' });
         }
 
-        const command = new GetCommand({
+        const userCommand = new GetCommand({
             TableName: 'LunaChat-users',
             Key: { id: userid }
         });
 
-        const result = await db.send(command);
+        const userResult = await db.send(userCommand);
 
-        if (!result.Item) {
+        if (!userResult.Item) {
             return sendError(404, { message: 'Användaren hittades inte.' });
         }
 
-        return sendResponse(200, { friends: result.Item.friends || [] });
+        const friendsIds = userResult.Item.friends || [];
+        let friendsData = [];
+
+        for (const friendId of friendsIds) {
+            const friendCommand = new GetCommand({
+                TableName: 'LunaChat-users',
+                Key: { id: friendId }
+            });
+
+            const friendResult = await db.send(friendCommand);
+
+            if (friendResult.Item) {
+                friendsData.push({
+                    userId: friendResult.Item.id,
+                    nickname: friendResult.Item.nickname
+                });
+            }
+        }
+
+        return sendResponse(200, { friends: friendsData });
 
     } catch (error) {
         console.error('Fel vid hämtning av vänner:', error);
