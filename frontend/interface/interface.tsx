@@ -14,6 +14,7 @@ export interface User {
   interests: string[];
   friends?: string[];
   bio?: string;
+  createdAt?: string;
 }
 
 export interface UserProfileResponse {

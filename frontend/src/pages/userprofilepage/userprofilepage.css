@@ -1,67 +1,74 @@
 .userprofile-container {
-    width: 100%;
-    padding: 10px;
-    margin: auto;
-    text-align: center;
-    background-color: white;
-    border: 1px solid black;
-    margin-top: 1rem;
+  width: 100%;
+  padding: 10px;
+  margin: auto;
+  text-align: center;
+  background-color: white;
+  border: 1px solid black;
+  margin-top: 1rem;
 }
 
 .userprofile-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
 }
 
 .userprofile-img {
-    width: 130px;
-    height: 130px;
-  }
+  width: 130px;
+  height: 130px;
+}
 
 
 .userprofile-name {
-    font-family: var(--font-retro);
-    font-size: 18px;
-  
+  font-family: var(--font-retro);
+  font-size: 18px;
+
 }
 
 .userprofile {
-    font-family: var(--font-pixel);
-    font-size: 10px;
-    margin-top: 1rem;
-  }
+  font-family: var(--font-pixel);
+  font-size: 10px;
+  margin-top: 1rem;
+}
 
 .userprofile-about {
-    padding-top: 10px;
-    font-family: var(--font-josefine);
-  }
+  padding-top: 10px;
+  font-family: var(--font-josefine);
+}
 
 .userprofile-list {
-    list-style: none;
-    margin-top: .2rem;
-  }
+  list-style: none;
+  margin-top: .2rem;
+  font-family: var(--font-josefine);
+  font-size: 16px;
+}
+
+.userprofile-li li {
+  font-family: var(--font-josefine);
+  font-size: 16px;
+}
 
 .userprofile-info {
-    flex: 1;
-    text-align: left;
-    justify-content: center;
-    padding: 10px;
+  flex: 1;
+  text-align: left;
+  justify-content: center;
+  padding: 10px;
 }
 
 .add-button {
-    position: absolute;
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 32px;
-    right: -7px;
-    bottom: 455px;
-    margin-right: 1rem;
-  }
+  position: absolute;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 32px;
+  right: -7px;
+  bottom: 455px;
+  margin-right: 1rem;
+}
 
-  .bi-person-plus-fill {
-    color: var(--color-sunset-lunar);
-    padding: 2px;
-  }
+.bi-person-plus-fill {
+  color: var(--color-sunset-lunar);
+  padding: 2px;
+}

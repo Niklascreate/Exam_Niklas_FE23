@@ -42,6 +42,20 @@ function UserProfilePage() {
     }
   }, [id]);
 
+  const memberSince = (createdAt: string | undefined) => {
+    if (!createdAt) return "Okänt antal dagar";
+  
+    const createdDate = new Date(createdAt);
+    const today = new Date();
+    const diffTime = Math.abs(today.getTime() - createdDate.getTime());
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+  
+    return `${diffDays} dagar`;
+  };
+
+  
+
+
   return (
     <>
       <Header />
@@ -58,7 +72,7 @@ function UserProfilePage() {
 
               <div className="userprofile-info">
                 <h4 className="userprofile-name">{user.nickname}</h4>
-                <p className="userprofile-since">Lunis sedan 2001</p>
+                <p className="lunis-since">Lunis i {memberSince(user?.createdAt)}</p>
                 <p className="userprofile">Jag gillar:</p>
 
                 <ul className="userprofile-list">

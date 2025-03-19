@@ -69,14 +69,26 @@ const UserProfile = () => {
     }
   };
 
+  const memberSince = (createdAt: string | undefined) => {
+    if (!createdAt) return "Okänt antal dagar";
+  
+    const createdDate = new Date(createdAt);
+    const today = new Date();
+    const diffTime = Math.abs(today.getTime() - createdDate.getTime());
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+  
+    return `${diffDays} dagar`;
+  };
+
   return (
     <div className="profilecard-container">
       <div className="profile-header">
         <img src="assets/maskot4.webp" alt="avatar" className="profile-img" />
 
         <div className="profile-info">
-          <h4 className='user-name'>{user?.nickname || 'Användare'}</h4>
-          <p className="lunis-since">Lunis sedan 2001</p>
+          <h4 className='user-nickname'>{user?.nickname || 'Användare'}</h4>
+          <p className="lunis-since">Lunis i {memberSince(user?.createdAt)}</p>
+
           <p  className='gillar'>Jag gillar:</p>
 
           {editMode ? (
@@ -94,7 +106,7 @@ const UserProfile = () => {
           ) : (
             <ul className="interests-list">
               {interests.map((interest, index) => (
-                <li key={index}><i className="bi bi-check"></i> {interest || `Intresse ${index + 1}`}</li>
+                <li className='list-li' key={index}><i className="bi bi-check"></i> {interest || `Intresse ${index + 1}`}</li>
               ))}
             </ul>
           )}

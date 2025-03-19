@@ -173,4 +173,29 @@ export const fetchUserPage = async (userId: string): Promise<UserDataResponse | 
   }
 };
 
+//Api anrop för att lägga till en vän
+export const addFriend = async (userId: string, friendId: string) => {
+  try {
+    const response = await fetch("https://cjq9abv0ld.execute-api.eu-north-1.amazonaws.com/add/friend", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userId, friendId }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Fel vid tillägg av vän: ${response.status} ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    console.log("✅ Vän tillagd:", data);
+    return data;
+  } catch (error) {
+    console.error("Misslyckades att lägga till vän:", error);
+    return null;
+  }
+};
+
+
 
