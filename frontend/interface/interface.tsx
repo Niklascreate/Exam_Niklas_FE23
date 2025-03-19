@@ -10,8 +10,20 @@ export interface User {
   lastname: string;
   nickname: string;
   email: string;
-  token: string;
+  token: string | undefined;
   interests: string[];
+  friends?: string[];
+  bio?: string;
+}
+
+export interface UserProfileResponse {
+  id: string;
+  firstname: string;
+  lastname: string;
+  nickname: string;
+  email: string;
+  token?: string
+  interests?: string[];
   friends?: string[];
   bio?: string;
 }

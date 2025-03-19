@@ -54,7 +54,7 @@ function SearchBar() {
   }, []);
 
   const handleUserClick = (user: User) => {
-    console.log(`Vald användare: ${user.nickname}`);
+    console.log(`Lunis: ${user.nickname}`);
     setSearchTerm("");
     setShowDropdown(false);
     navigate(`/userprofilepage/${user.id}`);

@@ -25,7 +25,6 @@ function RegisterModal({ closeModal }: { closeModal?: () => void }) {
     setError(null);
     setLoading(true);
 
-    // Validera att alla fält är ifyllda
     if (!formData.firstname || !formData.lastname || !formData.nickname || !formData.email || !formData.password) {
       setError("Fyll i alla fält.");
       setLoading(false);

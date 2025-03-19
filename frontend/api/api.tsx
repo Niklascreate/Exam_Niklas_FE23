@@ -4,17 +4,13 @@ import { LoginResponse, RegisterData, UserDataResponse } from '../interface/inte
 //Api anrop för inloggning.
 export const loginUser = async (nickname: string, password: string): Promise<LoginResponse> => {
   try {
-    console.log("Skickar inloggningsuppgifter:", { nickname, password });
-
     const response = await fetch("https://cjq9abv0ld.execute-api.eu-north-1.amazonaws.com/login/user", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ nickname, password }),
     });
 
-    console.log("API Response Status:", response.status);
     const jsonResponse = await response.json();
-    console.log("API Response Body:", jsonResponse);
 
     if (!response.ok) throw new Error(jsonResponse.data?.message || "Inloggning misslyckades");
 
@@ -72,10 +68,6 @@ export const fetchUser = async (userId: string, token: string): Promise<UserData
 
 //Api anrop för att uppdatera intressen.
 export const updateUserProfile = async (token: string, userId: string, interests: string[], bio: string) => {
-  console.log("🔍 API-anrop till updateUserProfile...");
-  console.log("➡️ User ID:", userId);
-  console.log("➡️ Token:", token);
-  console.log("➡️ Skickar body:", JSON.stringify({ interests, bio }));
 
   try {
     const response = await fetch(`https://cjq9abv0ld.execute-api.eu-north-1.amazonaws.com/update/user/${userId}`, {
@@ -87,9 +79,7 @@ export const updateUserProfile = async (token: string, userId: string, interests
       body: JSON.stringify({ interests, bio }),
     });
 
-    console.log("⬅️ Response status:", response.status);
     const responseData = await response.json();
-    console.log("⬅️ Response data:", responseData);
 
     if (!response.ok) {
       throw new Error("Misslyckades att uppdatera profil.");
@@ -97,11 +87,10 @@ export const updateUserProfile = async (token: string, userId: string, interests
 
     return responseData;
   } catch (error) {
-    console.error("⛔ Fel vid uppdatering av profil:", error);
+    console.error("Fel vid uppdatering av profil:", error);
     throw error;
   }
 };
-
 
 
 //Hämta online users
@@ -160,3 +149,28 @@ export const fetchUsers = async () => {
     return [];
   }
 };
+
+//HÄmta en användare utan token
+export const fetchUserPage = async (userId: string): Promise<UserDataResponse | null> => {
+  try {
+    const response = await fetch(`https://cjq9abv0ld.execute-api.eu-north-1.amazonaws.com/get/user/${userId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Kunde inte hämta användarprofil.");
+    }
+
+    const data = await response.json();
+
+    return data.user;
+  } catch (error) {
+    console.error("Fel vid hämtning av användardata:", error);
+    return null;
+  }
+};
+
+

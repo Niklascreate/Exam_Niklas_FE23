@@ -22,9 +22,7 @@ function LoginModal({ closeModal }: { closeModal?: () => void }) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
-  
-    console.log("Försöker logga in med:", { nickname, password });
-  
+
     if (!nickname.trim() || !password.trim()) {
       setError("Fyll i både nickname och lösenord.");
       return;
@@ -34,7 +32,6 @@ function LoginModal({ closeModal }: { closeModal?: () => void }) {
   
     try {
       const response = await loginUser(nickname, password);
-      console.log("API-svar från backend:", response);
   
       if (!response.user || !response.token) {
         throw new Error("Inloggning misslyckades, ogiltigt svar från servern.");
@@ -50,8 +47,6 @@ function LoginModal({ closeModal }: { closeModal?: () => void }) {
       }
 
       setUser(fullUserData);
-
-      console.log("Användaren är inloggad och all data har hämtats:", fullUserData);
 
       if (closeModal) closeModal();
       navigate("/landingpage");

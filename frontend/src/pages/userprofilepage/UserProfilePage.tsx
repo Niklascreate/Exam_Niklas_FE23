@@ -3,33 +3,40 @@ import { useParams } from "react-router-dom";
 import Header from "../../components/header/Header";
 import NavBar from "../../components/navbar/NavBar";
 import SearchBar from "../../components/searchbar/SearchBar";
-import { fetchUser } from '../../../api/api';
+import { fetchUserPage } from '../../../api/api';
 import { User } from "../../../interface/interface";
 import "./userprofilepage.css";
 
 function UserProfilePage() {
-  const { id } = useParams(); // Hämta användar-ID från URL
+  const { id } = useParams();
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+
 
   useEffect(() => {
     const getUserData = async () => {
       try {
         setLoading(true);
-        const token = localStorage.getItem("token");
-        if (!token) {
-          throw new Error("Ingen token tillgänglig.");
+  
+        const userData = await fetchUserPage(id as string);
+  
+        if (!userData) {
+          throw new Error("Ingen användardata hittades.");
         }
-        const userData = await fetchUser(id as string, token);
-        setUser(userData);
-      } catch {
+  
+        setUser({
+          ...userData,
+          token: userData.token || "",
+        });
+      } catch (error) {
+        console.error("Fel vid hämtning av användardata:", error);
         setError("Kunde inte hämta användardata.");
       } finally {
         setLoading(false);
       }
     };
-
+  
     if (id) {
       getUserData();
     }
@@ -70,7 +77,7 @@ function UserProfilePage() {
               </button>
             </div>
 
-            <p className="userprofile-about">{user.bio || "Berätta för andra Lunisar vem du är"}</p>
+            <p className="userprofile-about">{user.bio}</p>
           </>
         ) : (
           <p>Ingen användare hittades.</p>
