@@ -6,7 +6,8 @@ export const getWallMessages = async () => {
       TableName: "LunaChat-wall",
     });
 
-    const formattedMessages = result.Items.map(({ nickname, message, createdAt }) => ({
+    const formattedMessages = result.Items.map(({ userId, nickname, message, createdAt }) => ({
+      userId,
       nickname,
       message,
       createdAt

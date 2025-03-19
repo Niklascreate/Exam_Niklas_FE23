@@ -51,7 +51,7 @@ function WallPage() {
   ) : (
     messages.length > 0 ? (
       messages.map((msg, index) => (
-        <WallMessageBox key={index} nickname={msg.nickname} message={msg.message} createdAt={msg.createdAt} />
+        <WallMessageBox key={index} userId={msg.userId} nickname={msg.nickname} message={msg.message} createdAt={msg.createdAt} />
       ))
     ) : (
       <p className="no-messages">Inga inlägg ännu...</p>

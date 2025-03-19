@@ -96,6 +96,7 @@ export interface WallButtonProps {
 }
 
 export interface WallMessageProps {
+  userId: string;
   nickname: string;
   message: string;
   createdAt: string;
