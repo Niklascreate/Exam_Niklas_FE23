@@ -5,7 +5,7 @@ import WallButton from "../../components/wallbutton/WallButton"
 
 function WallPage() {
   return (
-    <div>
+    <div className="wallpage-container">
       <Header />
       <SearchBar />
       <WallButton />
