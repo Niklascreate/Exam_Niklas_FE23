@@ -13,14 +13,11 @@ function OnlineLunisar() {
         const getOnlineUsers = async () => {
             try {
                 setLoading(true);
-                console.log("🔍 Anropar fetchOnlineUsers()...");
-                
                 const users = await fetchOnlineUsers();
-                console.log("✅ Fick tillbaka användare:", users);
     
-                setOnlineUsers(users.users); // Hämta rätt array
+                setOnlineUsers(users.users);
             } catch (err) {
-                console.error("❌ Fel vid hämtning av online-användare:", err);
+                console.error("Fel vid hämtning av online-användare:", err);
                 setError("Kunde inte hämta online-användare.");
             } finally {
                 setLoading(false);
