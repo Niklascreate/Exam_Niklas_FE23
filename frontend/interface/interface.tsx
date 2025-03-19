@@ -94,3 +94,18 @@ export interface OnlineUser {
 export interface WallButtonProps {
   onClick: () => void;
 }
+
+export interface WallMessageProps {
+  nickname: string;
+  message: string;
+  createdAt: string;
+}
+
+export interface WallMessageType {
+  id: string;
+  userId: string;
+  nickname: string;
+  content: string;
+  message: string;
+  createdAt: string;
+}

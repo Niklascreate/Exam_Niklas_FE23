@@ -1,0 +1,44 @@
+.wall-container {
+    width: 100%;
+    background-color: white;
+    border: 1px solid #000000;
+    margin-bottom: 12px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.wall-content {
+    background-color: var(--color-sky-lunar);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 5px;
+    gap: 8px;
+}
+
+.user-img {
+    width: 40px;
+    height: 40px;
+  }
+
+.wallpost-username {
+    font-family: var(--font-retro);
+    color: white;
+    font-size: 12px;
+    flex-grow: 1;
+    text-align: left;
+}
+
+.wallpost-time {
+    color: white;
+    font-family: var(--font-pixel);
+    font-size: 8px;
+    padding: 5px;
+}
+
+.wallpost-message {
+    width: 100%;
+    font-family: var(--font-josefine);
+    color: black;
+    height: 30px;
+    padding: 5px;
+}

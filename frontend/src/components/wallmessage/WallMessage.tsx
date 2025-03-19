@@ -1,14 +1,24 @@
 import { useState } from "react";
-import { sendWallMessage } from '../../../api/api';
-import './wallmessage.css';
+import { addWallMessage } from "../../../api/api";
+import useUserStore from "../../../store/userStore";
+import "./wallmessage.css";
+import { WallMessageType } from "../../../interface/interface";
 
-function WallMessage({ onClose }: { onClose: () => void }) {
+
+function WallMessage({ onClose, onNewMessage }: { onClose: () => void; onNewMessage: (message: WallMessageType) => void }) {
   const [message, setMessage] = useState("");
+  const user = useUserStore((state) => state.user);
 
   const handleSendMessage = async () => {
+    if (!user) {
+      console.error("hoppsan!.");
+      return;
+    }
+
     if (message.trim().length > 0) {
-      const success = await sendWallMessage(message);
-      if (success) {
+      const newPost = await addWallMessage(user.id, user.nickname, message);
+      if (newPost) {
+        onNewMessage(newPost);
         setMessage("");
         onClose();
       }
@@ -24,7 +34,7 @@ function WallMessage({ onClose }: { onClose: () => void }) {
           className="wall-textarea-placeholder"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-        ></textarea>
+        />
         <div className="wallmodal-buttons">
           <button className="wall-button" onClick={handleSendMessage}>SKICKA</button>
           <button className="wall-button" onClick={onClose}>STÄNG</button>

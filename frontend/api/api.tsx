@@ -150,7 +150,7 @@ export const fetchUsers = async () => {
   }
 };
 
-//HÄmta en användare utan token
+//Hämta en användare utan token
 export const fetchUserPage = async (userId: string): Promise<UserDataResponse | null> => {
   try {
     const response = await fetch(`https://cjq9abv0ld.execute-api.eu-north-1.amazonaws.com/get/user/${userId}`, {
@@ -173,7 +173,7 @@ export const fetchUserPage = async (userId: string): Promise<UserDataResponse | 
   }
 };
 
-//Api anrop för att lägga till en vän
+//Api-anrop för att lägga till en vän
 export const addFriend = async (userId: string, friendId: string) => {
   try {
     const response = await fetch("https://cjq9abv0ld.execute-api.eu-north-1.amazonaws.com/add/friend", {
@@ -197,27 +197,49 @@ export const addFriend = async (userId: string, friendId: string) => {
   }
 };
 
-//apianrop för väggen
-export const sendWallMessage = async (message: string): Promise<boolean> => {
+//api-anrop för väggen
+export const addWallMessage = async (userId: string, nickname: string, message: string) => {
   try {
-    const response = await fetch(
-      "https://cjq9abv0ld.execute-api.eu-north-1.amazonaws.com/add/wallmessage",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text: message }),
-      }
-    );
+    const response = await fetch("https://cjq9abv0ld.execute-api.eu-north-1.amazonaws.com/add/wallmessage", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ userId, nickname, message }),
+    });
 
-    if (!response.ok) throw new Error("Kunde inte spara meddelandet");
+    if (!response.ok) {
+      throw new Error("Kunde inte spara inlägget.");
+    }
 
-    return true; // Om meddelandet sparades korrekt
+    const data = await response.json();
+    return data.post;
   } catch (error) {
-    console.error("Fel vid skickande av meddelande:", error);
-    return false; // Om något gick fel
+    console.error("Fel vid skickande av inlägg:", error);
+    return null;
   }
 };
 
+
+//api-anrop för att hämta alla meddelandet på väggen
+export const getWallMessages = async () => {
+  try {
+    const response = await fetch("https://cjq9abv0ld.execute-api.eu-north-1.amazonaws.com/get/wallmessages", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Kunde inte hämta inlägg.");
+    }
+
+    const data = await response.json();
+    return data.messages;
+  } catch (error) {
+    console.error("Fel vid hämtning av inlägg:", error);
+    return [];
+  }
+};
 
 
 
