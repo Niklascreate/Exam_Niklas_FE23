@@ -17,7 +17,7 @@ export const getAllUsers = async (event) => {
         return sendResponse(200, { users: result.Items });
 
     } catch (error) {
-        console.error('🚨 Fel vid hämtning av användare:', error);
+        console.error('Fel vid hämtning av användare:', error);
         return sendError(500, { message: `Serverfel: ${error.message}` });
     }
 };

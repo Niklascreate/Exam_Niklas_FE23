@@ -61,6 +61,12 @@ functions:
       - httpApi:
           path: /add/friend
           method: post
+  getFriends:
+    handler: functions/getFriends/index.getFriends
+    events:
+      - httpApi:
+          path: /get/friends/{userid}
+          method: get
   deleteUser:
     handler: functions/deleteUser/index.deleteUser
     events:

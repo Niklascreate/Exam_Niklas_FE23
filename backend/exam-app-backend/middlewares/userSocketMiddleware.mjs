@@ -8,7 +8,7 @@ const db = DynamoDBDocumentClient.from(client);
 
 export const connect = async (event) => {
     const connectionId = event.requestContext.connectionId;
-    console.log(`✅ Användare ansluten: ${connectionId}`);
+    console.log(`Användare ansluten: ${connectionId}`);
 
     try {
         await db.send(new PutCommand({
@@ -24,7 +24,7 @@ export const connect = async (event) => {
 
 export const disconnect = async (event) => {
     const connectionId = event.requestContext.connectionId;
-    console.log(`⚡ Användare frånkopplad: ${connectionId}`);
+    console.log(`Användare frånkopplad: ${connectionId}`);
 
     try {
         await db.send(new DeleteCommand({

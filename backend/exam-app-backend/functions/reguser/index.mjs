@@ -7,8 +7,6 @@ const TABLE_NAME = 'LunaChat-users';
 
 export const regUser = async (event) => {
   try {
-    console.log("Event received:", event);
-
     let body;
     try {
       body = JSON.parse(event.body);
