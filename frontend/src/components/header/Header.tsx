@@ -32,6 +32,14 @@ function Header() {
     return () => clearInterval(interval);
   }, []);
 
+  const formatTimestamp = (timestamp: string) => {
+    const date = new Date(timestamp);
+    return date.toLocaleTimeString("sv-SE", {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  };
+
   return (
     <>
       <header className="header-container">
@@ -53,7 +61,9 @@ function Header() {
         </section>
         <section className="lajv-message">
           <p className="lajv">
-            {latestMessage ? `${latestMessage.nickname}: ${latestMessage.text}` : "Inga LAJV ännu..."}
+            {latestMessage
+              ? `${formatTimestamp(latestMessage.timestamp)},  ${latestMessage.nickname}: ${latestMessage.text}`
+              : "Inga LAJV ännu..."}
           </p>
         </section>
       </div>

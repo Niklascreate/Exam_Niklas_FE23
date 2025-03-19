@@ -197,5 +197,27 @@ export const addFriend = async (userId: string, friendId: string) => {
   }
 };
 
+//apianrop för väggen
+export const sendWallMessage = async (message: string): Promise<boolean> => {
+  try {
+    const response = await fetch(
+      "https://cjq9abv0ld.execute-api.eu-north-1.amazonaws.com/add/wallmessage",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text: message }),
+      }
+    );
+
+    if (!response.ok) throw new Error("Kunde inte spara meddelandet");
+
+    return true; // Om meddelandet sparades korrekt
+  } catch (error) {
+    console.error("Fel vid skickande av meddelande:", error);
+    return false; // Om något gick fel
+  }
+};
+
+
 
 

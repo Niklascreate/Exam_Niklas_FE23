@@ -90,3 +90,7 @@ export interface OnlineUser {
     avatar: string;
     status: "online" | "away" | "offline";
 }
+
+export interface WallButtonProps {
+  onClick: () => void;
+}
