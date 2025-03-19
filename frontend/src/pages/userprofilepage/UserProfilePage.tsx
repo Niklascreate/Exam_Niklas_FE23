@@ -3,15 +3,19 @@ import { useParams } from "react-router-dom";
 import Header from "../../components/header/Header";
 import NavBar from "../../components/navbar/NavBar";
 import SearchBar from "../../components/searchbar/SearchBar";
-import { fetchUserPage } from '../../../api/api';
+import { fetchUserPage, addFriend } from '../../../api/api';
 import { User } from "../../../interface/interface";
 import "./userprofilepage.css";
+import useUserStore from "../../../store/userStore";
 
 function UserProfilePage() {
   const { id } = useParams();
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [friendAdded, setFriendAdded] = useState<boolean>(false);
+
+  const loggedInUser = useUserStore((state) => state.user);
 
 
   useEffect(() => {
@@ -53,7 +57,20 @@ function UserProfilePage() {
     return `${diffDays} dagar`;
   };
 
-  
+  const handleAddFriend = async () => {
+    if (!loggedInUser || !user) {
+      console.error("Ingen inloggad användare eller ingen användare att lägga till.");
+      return;
+    }
+
+    const response = await addFriend(loggedInUser.id, user.id);
+    
+    if (response) {
+      setFriendAdded(true);
+      setTimeout(() => setFriendAdded(false), 3000);
+    }
+  };
+
 
 
   return (
@@ -86,8 +103,12 @@ function UserProfilePage() {
                 </ul>
               </div>
 
-              <button className="add-button">
-                <i className="bi bi-person-plus-fill"></i>
+              <button className="add-button" onClick={handleAddFriend} disabled={friendAdded}>
+                {friendAdded ? (
+                  <i className="bi bi-person-check-fill"></i>
+                ) : (
+                  <i className="bi bi-person-plus-fill"></i>
+                )}
               </button>
             </div>
 

@@ -84,3 +84,9 @@ export interface UserStore {
   clearUser: () => void;
   fetchUserData: (userId: string, token: string) => Promise<UserDataResponse | null>;
 }
+
+export interface OnlineUser {
+    id: string;
+    avatar: string;
+    status: "online" | "away" | "offline";
+}

@@ -1,5 +1,6 @@
 import Header from "../../components/header/Header"
 import NavBar from "../../components/navbar/NavBar"
+import OnlineLunisar from "../../components/onlineLunisar/OnlineLunisar"
 import SearchBar from "../../components/searchbar/SearchBar"
 
 function FriendPage() {
@@ -7,6 +8,7 @@ function FriendPage() {
     <div>
       <Header />
       <SearchBar />
+      <OnlineLunisar />
       <NavBar />
     </div>
   )

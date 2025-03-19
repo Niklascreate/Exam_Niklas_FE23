@@ -22,10 +22,10 @@ function RampLjuset() {
   return (
     <div className="rampljuset-container">
       <div className="rampljuset-rubrik">EN STUND I RAMPLJUSET</div>
-      <div className="user-list">
+      <div className="rampljuset-list">
         {users.map((user, index) => (
-          <div key={user.id} className="user" style={{ animationDelay: `${index * 0.2}s` }}>
-            <img src={user.imageUrl} alt="User" className="user-img" />
+          <div key={user.id} className="rampljuset-user" style={{ animationDelay: `${index * 0.2}s` }}>
+            <img src={user.imageUrl} alt="User" className="rampljuset-img" />
           </div>
         ))}
       </div>

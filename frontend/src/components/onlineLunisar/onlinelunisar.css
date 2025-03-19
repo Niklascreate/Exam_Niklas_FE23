@@ -1,0 +1,51 @@
+.useronline-container {
+    width: 100%;
+    padding: 10px;
+    color: white;
+    background-color: var(--color-sky-lunar);
+  }
+
+  .usersonline-rubrik {
+    font-family: var(--font-retro);
+    font-size: 18px;
+  }
+  
+  .users {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 5px;
+    margin-top: 1rem;
+  }
+  
+  .user {
+    flex: 1;
+    width: 100%;
+    height: auto;
+    position: relative;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .user-img{
+    width: 70px;
+    height: 70px;
+  }
+  
+  .status {
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 1px solid white;
+  }
+  
+  .online { background: green; }
+  .away { background: orange; }
+  .offline { background: red; }
+  
