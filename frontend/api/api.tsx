@@ -189,7 +189,7 @@ export const addFriend = async (userId: string, friendId: string) => {
     }
 
     const data = await response.json();
-    console.log("✅ Vän tillagd:", data);
+    console.log("Vän tillagd:", data);
     return data;
   } catch (error) {
     console.error("Misslyckades att lägga till vän:", error);
@@ -240,6 +240,29 @@ export const getWallMessages = async () => {
     return [];
   }
 };
+
+//api-anrop för att hämta alla vänner
+export const getFriends = async (userId: string) => {
+  try {
+    const response = await fetch(`https://cjq9abv0ld.execute-api.eu-north-1.amazonaws.com/get/friends/${userId}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Fel vid hämtning av vänner: ${response.status} ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    return data.friends;
+  } catch (error) {
+    console.error("Misslyckades att hämta vänner:", error);
+    return [];
+  }
+};
+
 
 
 

@@ -45,6 +45,7 @@ export interface UserDataResponse {
   bio: string;
   token?: string;
   username?: string;
+  friends?: string[];
 }
 
 export interface LoginRequest {
