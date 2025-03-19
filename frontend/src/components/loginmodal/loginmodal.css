@@ -63,9 +63,9 @@
 }
 
 .login-modal__input::placeholder {
-    font-family: var(--font-pixel);
+    font-family: var(--font-josefine);
     color: var(--color-wave-lunar);
-    font-size: 10px;
+    font-size: 14px;
 }
 
 .login-modal__button {
@@ -117,8 +117,8 @@
   }
   
   .error-message {
-    font-size: 12px;
-    font-family: var(--font-retro);
+    font-size: 14px;
+    font-family: var(--font-josefine);
     text-align: center;
     width: 100%;
     margin-bottom: 10px;

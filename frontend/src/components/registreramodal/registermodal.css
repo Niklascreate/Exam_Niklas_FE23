@@ -61,9 +61,9 @@
 }
 
 .registrera-modal__input::placeholder {
-    font-family: var(--font-pixel);
+    font-family: var(--font-josefine);
     color: var(--color-wave-lunar);
-    font-size: 10px;
+    font-size: 14px;
 }
 
 .registrera-modal__button {

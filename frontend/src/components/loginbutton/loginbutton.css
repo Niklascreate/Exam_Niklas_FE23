@@ -14,10 +14,10 @@
     text-align: center;
     padding: 20px 0px;
     text-shadow:
-        -2px -2px 0 black,
-         2px -2px 0 black,
-        -2px  2px 0 black,
-         2px  2px 0 black;
+        -2px -1px 0 black,
+         2px -1px 0 black,
+        -2px  1px 0 black,
+         2px  1px 0 black;
     cursor: pointer;
     border: none;
     border-top-left-radius: .5rem;
