@@ -22,3 +22,12 @@
     50% { opacity: 1; }
     100% { opacity: 0.3; }
 }
+
+.no-messages {
+    font-family: var(--font-retro);
+    color: var(--color-ocean-lunar);
+    font-weight: bold;
+    font-size: 18px;
+    text-align: center;
+    margin-top: 20px;
+}

@@ -15,6 +15,7 @@ export interface User {
   friends?: string[];
   bio?: string;
   createdAt?: string;
+  profileImage?: string;
 }
 
 export interface UserProfileResponse {
@@ -27,6 +28,7 @@ export interface UserProfileResponse {
   interests?: string[];
   friends?: string[];
   bio?: string;
+  profileImage?: string;
 }
 
 export interface rampljuset {
