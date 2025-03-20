@@ -50,6 +50,7 @@ export const regUser = async (event) => {
       friends: [],
       interests: [],
       bio: "",
+      profileImage: "",
       createdAt: new Date().toISOString(),
       isLoggedIn: false,
     };

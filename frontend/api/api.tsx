@@ -263,6 +263,40 @@ export const getFriends = async (userId: string) => {
   }
 };
 
+//api-anrop för att ladda upp bild
+export const uploadProfileImage = async (userId: string, file: File): Promise<string> => {
+  const reader = new FileReader();
+
+  const base64String = await new Promise<string>((resolve, reject) => {
+    reader.onloadend = () => {
+      if (reader.result) {
+        resolve(reader.result.toString().split(",")[1]);
+      } else {
+        reject(new Error("Misslyckades att läsa filen"));
+      }
+    };
+    reader.onerror = () => reject(new Error("Fel vid läsning av fil"));
+    reader.readAsDataURL(file);
+  });
+
+  const response = await fetch(
+    `https://cjq9abv0ld.execute-api.eu-north-1.amazonaws.com/upload/user/${userId}`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ image: base64String }),
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error("Uppladdning misslyckades");
+  }
+
+  const data = await response.json();
+  return data.imageUrl;
+};
 
 
 

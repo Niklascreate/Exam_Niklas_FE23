@@ -46,6 +46,7 @@ export interface UserDataResponse {
   token?: string;
   username?: string;
   friends?: string[];
+  profileImage?: string;
 }
 
 export interface LoginRequest {
@@ -82,9 +83,11 @@ export interface LajvStore {
 export interface UserStore {
   user: UserDataResponse | null;
   setUser: (user: UserDataResponse) => void;
+  setProfileImage: (userId: string, imageUrl: string, token: string) => Promise<void>;
   clearUser: () => void;
   fetchUserData: (userId: string, token: string) => Promise<UserDataResponse | null>;
 }
+
 
 export interface OnlineUser {
     id: string;

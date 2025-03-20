@@ -2,17 +2,21 @@ import './profilecard.css';
 import { useState, useEffect } from 'react';
 import { updateUserProfile } from '../../../api/api';
 import useUserStore from '../../../store/userStore';
+import { uploadProfileImage } from '../../../api/api';
 
 const UserProfile = () => {
   const [editMode, setEditMode] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const [preview, setPreview] = useState<string | null>(null);
+
 
   const user = useUserStore((state) => state.user);
   const fetchUserData = useUserStore((state) => state.fetchUserData);
   const setUser = useUserStore((state) => state.setUser);
   const userId = user?.id;
   const token = user?.token;
+  const setProfileImage = useUserStore((state) => state.setProfileImage);
 
   useEffect(() => {
     if (user?.id && user?.token && !user.interests?.length) {
@@ -33,6 +37,30 @@ const UserProfile = () => {
       setBio(user.bio);
     }
   }, [user?.interests, user?.bio]);
+
+  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (!event.target.files || event.target.files.length === 0) return;
+  
+    const file = event.target.files[0];
+  
+    setPreview(URL.createObjectURL(file));
+  
+    try {
+      if (!userId) {
+        throw new Error("User ID saknas.");
+      }
+      const imageUrl = await uploadProfileImage(userId, file);
+      if (!token) {
+        throw new Error("Token saknas.");
+      }
+      await setProfileImage(userId, imageUrl, token);
+      setUser({ ...user, profileImage: imageUrl });
+    } catch (error) {
+      console.error("Fel vid uppladdning av bild:", error);
+      setError("Misslyckades att ladda upp profilbilden.");
+    }
+  };
+  
 
   const changeInterest = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
     const newInterests = [...interests];
@@ -71,34 +99,47 @@ const UserProfile = () => {
 
   const memberSince = (createdAt: string | undefined) => {
     if (!createdAt) return "Okänt antal dagar";
-  
+
     const createdDate = new Date(createdAt);
     const today = new Date();
     const diffTime = Math.abs(today.getTime() - createdDate.getTime());
     const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-  
+
     return `${diffDays} dagar`;
   };
 
   return (
     <div className="profilecard-container">
       <div className="profile-header">
-        <img src="assets/maskot4.webp" alt="avatar" className="profile-img" />
-
+        <img
+          src={preview || user?.profileImage || "assets/maskot4.webp"}
+          alt="Profilbild"
+          className="profile-img"
+          onClick={() => document.getElementById("profile-image-upload")?.click()}
+        />
+        {editMode && (
+          <input
+            id="profile-image-upload"
+            type="file"
+            accept="image/*"
+            onChange={handleFileUpload}
+            style={{ display: "none" }}
+          />
+        )}
         <div className="profile-info">
           <h4 className='user-nickname'>{user?.nickname || 'Användare'}</h4>
           <p className="lunis-since">Lunis i {memberSince(user?.createdAt)}</p>
 
-          <p  className='gillar'>Jag gillar:</p>
+          <p className='gillar'>Jag gillar:</p>
 
           {editMode ? (
             <div className="interests-input">
               {interests.map((interest, index) => (
-                <input 
-                  key={index} 
-                  type="text" 
-                  value={interest} 
-                  onChange={(e) => changeInterest(e, index)} 
+                <input
+                  key={index}
+                  type="text"
+                  value={interest}
+                  onChange={(e) => changeInterest(e, index)}
                   placeholder={`Intresse ${index + 1}`}
                 />
               ))}

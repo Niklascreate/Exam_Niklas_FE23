@@ -103,7 +103,7 @@ functions:
           path: /get/wallmessages
           method: get
   uploadImg:
-    handler: functions/uploadImg/index.uploadImg
+    handler: functions/uploadImage/index.uploadImg
     events:
       - httpApi:
           path: /upload/user/{id}

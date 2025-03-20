@@ -15,7 +15,6 @@ export const uploadImg = async (event) => {
         const fileContent = Buffer.from(body.image, "base64");
         const fileName = `profile-pictures/${id}-${Date.now()}.png`;
 
-        // S3 Uppladdningsparametrar
         const uploadParams = {
             Bucket: bucketName,
             Key: fileName,
@@ -24,17 +23,13 @@ export const uploadImg = async (event) => {
             ACL: "public-read",
         };
 
-        // Ladda upp till S3
         await s3.send(new PutObjectCommand(uploadParams));
-
-        // Generera bildens URL
         const imageUrl = `https://${bucketName}.s3.${process.env.AWS_REGION}.amazonaws.com/${fileName}`;
 
-        // Uppdatera DynamoDB med den nya bildens URL
         const updateParams = {
             TableName: process.env.DYNAMODB_TABLE,
-            Key: { id },  // Ingen { S: id } behövs i DocumentClient
-            UpdateExpression: "SET image = :image",
+            Key: { id: id },
+            UpdateExpression: "SET profileImage = :image",
             ExpressionAttributeValues: { ":image": imageUrl },
             ReturnValues: "UPDATED_NEW",
         };
