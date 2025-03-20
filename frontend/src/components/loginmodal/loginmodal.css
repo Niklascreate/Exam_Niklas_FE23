@@ -69,7 +69,8 @@
 }
 
 .login-modal__button {
-    min-width: 55%;
+    width: 200px;
+    height: 50px;
     background-color: var(--color-lunorange);
     color: white;
     font-family: var(--font-retro);
