@@ -19,7 +19,7 @@ function RampLjuset() {
 
   useEffect(() => {
     getUsers();
-    const interval = setInterval(getUsers, 180000);
+    const interval = setInterval(getUsers, 5000);
     return () => clearInterval(interval);
   }, []);
 

@@ -107,7 +107,7 @@ const UserProfile = () => {
     <div className="profilecard-container">
       <div className="profile-header">
         <img
-          src={preview || user?.profileImage || "assets/maskot4.webp"}
+          src={preview || user?.profileImage || "https://lunarchat-profile-images.s3.eu-north-1.amazonaws.com/profile-pictures/maskot2+(2).webp"}
           alt="Profilbild"
           className="profile-img"
           onClick={() => document.getElementById("profile-image-upload")?.click()}

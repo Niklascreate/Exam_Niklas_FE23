@@ -28,7 +28,7 @@ function Header() {
 
   useEffect(() => {
     updateOnlineCount();
-    const interval = setInterval(updateOnlineCount, 180000);
+    const interval = setInterval(updateOnlineCount, 5000);
     return () => clearInterval(interval);
   }, []);
 

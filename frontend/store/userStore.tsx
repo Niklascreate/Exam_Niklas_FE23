@@ -44,13 +44,16 @@ const useUserStore = create<UserStore>()(
       fetchUserData: async (userId, token) => {
         try {
           const userData = await fetchUser(userId, token);
-          set({ user: { ...userData, token } });
-          return { ...userData, token };
+    
+          const defaultProfileImage = "https://lunarchat-profile-images.s3.eu-north-1.amazonaws.com/profile-pictures/maskot2+(2).webp";
+    
+          set({ user: { ...userData, token, profileImage: userData.profileImage || defaultProfileImage } });
+          return { ...userData, token, profileImage: userData.profileImage || defaultProfileImage };
         } catch (error) {
           console.error("Misslyckades att hämta användardata:", error);
           return null;
         }
-      },
+      }
     }),
     {
       name: "user-data",
