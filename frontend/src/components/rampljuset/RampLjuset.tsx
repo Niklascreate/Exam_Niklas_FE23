@@ -1,16 +1,20 @@
 import { useState, useEffect } from "react";
 import { fetchOnlineUsers } from "../../../api/api";
-import { rampljuset } from "../../../interface/interface";
+import { UserDataResponse } from "../../../interface/interface";
 import './rampljuset.css';
 
 const MAX_USERS = 4;
 
 function RampLjuset() {
-  const [users, setUsers] = useState<rampljuset[]>([]);
+  const [users, setUsers] = useState<Pick<UserDataResponse, "id" | "profileImage" | "nickname">[]>([]);
 
   const getUsers = async () => {
-    const data = await fetchOnlineUsers();
-    setUsers(data.users.slice(-MAX_USERS));
+    try {
+      const data = await fetchOnlineUsers();
+      setUsers(data.users.slice(-MAX_USERS));
+    } catch (error) {
+      console.error("Fel vid hämtning av online-användare:", error);
+    }
   };
 
   useEffect(() => {
@@ -25,7 +29,7 @@ function RampLjuset() {
       <div className="rampljuset-list">
         {users.map((user, index) => (
           <div key={user.id} className="rampljuset-user" style={{ animationDelay: `${index * 0.2}s` }}>
-            <img src={user.imageUrl} alt="User" className="rampljuset-img" />
+            <img src={user.profileImage} alt="Profilbild" className="rampljuset-img" />
           </div>
         ))}
       </div>

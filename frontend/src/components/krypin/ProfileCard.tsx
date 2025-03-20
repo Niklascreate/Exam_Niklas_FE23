@@ -9,8 +9,6 @@ const UserProfile = () => {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [preview, setPreview] = useState<string | null>(null);
-
-
   const user = useUserStore((state) => state.user);
   const fetchUserData = useUserStore((state) => state.fetchUserData);
   const setUser = useUserStore((state) => state.setUser);
@@ -61,7 +59,6 @@ const UserProfile = () => {
     }
   };
   
-
   const changeInterest = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
     const newInterests = [...interests];
     newInterests[index] = e.target.value;
@@ -69,26 +66,24 @@ const UserProfile = () => {
   };
 
   const handleSave = async () => {
-
     if (!userId || !token) {
       setError("Du måste vara inloggad för att uppdatera din profil.");
       return;
     }
-
+  
     if (interests.some((interest) => !interest.trim())) {
       setError("Intressen kan inte vara tomma.");
       return;
     }
-
+  
     setLoading(true);
     setError(null);
-
+  
     try {
-      await updateUserProfile(token, userId, interests, bio);
+      await updateUserProfile(token, userId, interests, bio, user?.profileImage);
+  
       setUser({ ...user, interests, bio });
-
       setEditMode(false);
-
     } catch (error) {
       console.error("Misslyckades att uppdatera profil:", error);
       setError("Misslyckades att uppdatera profil. Försök igen.");
@@ -124,6 +119,7 @@ const UserProfile = () => {
             accept="image/*"
             onChange={handleFileUpload}
             style={{ display: "none" }}
+            placeholder='Ladda upp en profilbild'
           />
         )}
         <div className="profile-info">

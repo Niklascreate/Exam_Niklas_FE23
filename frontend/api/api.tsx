@@ -67,23 +67,32 @@ export const fetchUser = async (userId: string, token: string): Promise<UserData
 };
 
 //Api anrop för att uppdatera intressen.
-export const updateUserProfile = async (token: string, userId: string, interests: string[], bio: string) => {
-
+export const updateUserProfile = async (
+  token: string,
+  userId: string,
+  interests: string[],
+  bio: string,
+  profileImage?: string
+) => {
   try {
-    const response = await fetch(`https://cjq9abv0ld.execute-api.eu-north-1.amazonaws.com/update/user/${userId}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`,
-      },
-      body: JSON.stringify({ interests, bio }),
-    });
-
-    const responseData = await response.json();
+    const response = await fetch(
+      `https://cjq9abv0ld.execute-api.eu-north-1.amazonaws.com/update/user/${userId}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+        },
+        body: JSON.stringify({ interests, bio, profileImage }),
+      }
+    );
 
     if (!response.ok) {
-      throw new Error("Misslyckades att uppdatera profil.");
+      throw new Error(`Misslyckades att uppdatera profil. Status: ${response.status}`);
     }
+
+    const responseData = await response.json();
+    console.log("API Response:", responseData);
 
     return responseData;
   } catch (error) {
@@ -94,18 +103,30 @@ export const updateUserProfile = async (token: string, userId: string, interests
 
 
 //Hämta online users
-export const fetchOnlineUsers = async () => {
+export const fetchOnlineUsers = async (): Promise<{ users: Pick<UserDataResponse, "id" | "profileImage" | "nickname">[] }> => {
   try {
     const response = await fetch("https://cjq9abv0ld.execute-api.eu-north-1.amazonaws.com/get/online/users");
-    if (!response.ok) throw new Error("Nätverksfel vid hämtning av användare");
+
+    if (!response.ok) {
+      throw new Error("Nätverksfel vid hämtning av användare");
+    }
 
     const data = await response.json();
-    return data;
+
+    return {
+      users: data.users.map((user: UserDataResponse) => ({
+        id: user.id,
+        profileImage: user.profileImage || "assets/maskot4.webp",
+        nickname: user.nickname,
+      })),
+    };
   } catch (error) {
     console.error("Fel vid hämtning av användare:", error);
-    return [];
+    return { users: [] };
   }
 };
+
+
 
 //Logga ut användare.
 export const logoutUser = async (userId: string) => {
@@ -198,12 +219,12 @@ export const addFriend = async (userId: string, friendId: string) => {
 };
 
 //api-anrop för väggen
-export const addWallMessage = async (userId: string, nickname: string, message: string) => {
+export const addWallMessage = async (userId: string, profileImage: string, nickname: string, message: string) => {
   try {
     const response = await fetch("https://cjq9abv0ld.execute-api.eu-north-1.amazonaws.com/add/wallmessage", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ userId, nickname, message }),
+      body: JSON.stringify({ userId,  profileImage, nickname, message }),
     });
 
     if (!response.ok) {

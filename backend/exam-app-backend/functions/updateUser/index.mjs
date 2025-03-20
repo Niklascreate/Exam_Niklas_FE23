@@ -21,7 +21,7 @@ export const updateUser = async (event) => {
     const body = event.body ? JSON.parse(event.body) : null;
     if (!body) return sendError(400, { message: "Ogiltig JSON eller body saknas." });
 
-    const { bio, interests } = body;
+    const { bio, interests, profileImage } = body;
 
     if (interests && (!Array.isArray(interests) || interests.length === 0)) {
       return sendError(400, { message: "Intressen måste vara en icke-tom lista." });
@@ -29,6 +29,10 @@ export const updateUser = async (event) => {
 
     if (bio && typeof bio !== "string") {
       return sendError(400, { message: "Bio måste vara en textsträng." });
+    }
+
+    if (profileImage && typeof profileImage !== "string") {
+      return sendError(400, { message: "Profilbilden måste vara en URL-sträng." });
     }
 
     const user = await db.send(new GetCommand({ TableName: TABLE_NAME, Key: { id: userId } }));
@@ -45,6 +49,11 @@ export const updateUser = async (event) => {
     if (bio) {
       updateExpression += " bio = :bio,";
       expressionAttributeValues[":bio"] = bio;
+    }
+
+    if (profileImage) {
+      updateExpression += " profileImage = :profileImage,";
+      expressionAttributeValues[":profileImage"] = profileImage;
     }
 
     updateExpression = updateExpression.replace(/,$/, "");

@@ -13,7 +13,7 @@ function formatDate(isoDate: string) {
     });
 }
 
-function WallMessageBox({ userId, nickname, message, createdAt }: WallMessageProps) {
+function WallMessageBox({ userId, profileImage, nickname, message, createdAt }: WallMessageProps) {
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -28,7 +28,7 @@ function WallMessageBox({ userId, nickname, message, createdAt }: WallMessagePro
     return (
         <div className="wall-container" onClick={handleClick} style={{ cursor: "pointer" }}>
             <div className="wall-content">
-                <img src="" alt="bild" className="user-img" />
+                <img src={profileImage} alt="bild" className="user-img" />
                 <span className="wallpost-username">{nickname}</span>
                 <span className="wallpost-time">{formatDate(createdAt)}</span>
             </div>

@@ -101,6 +101,7 @@ export interface WallButtonProps {
 
 export interface WallMessageProps {
   userId: string;
+  profileImage?: string;
   nickname: string;
   message: string;
   createdAt: string;
@@ -108,6 +109,7 @@ export interface WallMessageProps {
 
 export interface WallMessageType {
   id: string;
+  profileImage?: string;
   userId: string;
   nickname: string;
   content: string;
