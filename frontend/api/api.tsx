@@ -92,7 +92,6 @@ export const updateUserProfile = async (
     }
 
     const responseData = await response.json();
-    console.log("API Response:", responseData);
 
     return responseData;
   } catch (error) {
