@@ -10,6 +10,11 @@ provider:
   iam:
     role: arn:aws:iam::376129862797:role/LambdaDynamoDBuserRole
 
+
+  environment:
+    S3_BUCKET_NAME: lunarchat-profile-images
+    DYNAMODB_TABLE: LunaChat-users
+
 functions:
   getKey:
     handler: functions/getKey/index.getRandomKey
@@ -97,6 +102,12 @@ functions:
       - httpApi:
           path: /get/wallmessages
           method: get
+  uploadImg:
+    handler: functions/uploadImg/index.uploadImg
+    events:
+      - httpApi:
+          path: /upload/user/{id}
+          method: put
 
   socketConnect:
     handler: middlewares/userSocketMiddleware.connect
