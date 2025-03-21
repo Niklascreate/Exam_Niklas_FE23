@@ -1,4 +1,5 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
 import LandingPage from "./pages/landingpage/LandingPage";
 import './index.css';
 import ChatPage from "./pages/chatpage/ChatPage";
@@ -8,11 +9,14 @@ import WallPage from "./pages/wallpage/WallPage";
 import KrypinPage from "./pages/krypinpage/KrypinPage";
 import WorkSpace from "./pages/workspace/WorkSpace";
 import UserProfilePage from "./pages/userprofilepage/UserProfilePage";
-import ProtectedRoute from './ProtectedRoute';
-function App() {
+import ProtectedRoute from './utils/ProtectedRoute';
+
+function AppWrapper() {
+  const location = useLocation();
+
   return (
-    <Router>
-      <Routes>
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
         <Route path="/" element={<StartPage />} />
         <Route element={<ProtectedRoute />}>
           <Route path="/landingpage" element={<LandingPage />} />
@@ -23,8 +27,16 @@ function App() {
           <Route path="/workspace" element={<WorkSpace />} />
           <Route path="/userprofilepage/:id" element={<UserProfilePage />} />
         </Route>
-        <Route path="*" element={<Navigate to="/"/>} />
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
+    </AnimatePresence>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <AppWrapper />
     </Router>
   );
 }

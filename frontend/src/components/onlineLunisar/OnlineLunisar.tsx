@@ -3,7 +3,6 @@ import { fetchOnlineUsers } from "../../../api/api";
 import { OnlineUser } from '../../../interface/interface';
 import './onlinelunisar.css';
 
-
 function OnlineLunisar() {
     const [onlineUsers, setOnlineUsers] = useState<OnlineUser[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
@@ -14,8 +13,15 @@ function OnlineLunisar() {
             try {
                 setLoading(true);
                 const users = await fetchOnlineUsers();
-    
-                setOnlineUsers(users.users);
+
+                const preparedUsers = users.users
+                    .map(user => ({
+                        ...user,
+                        profileImage: user.profileImage || 'default-profile-image-url'
+                    }))
+                    .reverse();
+
+                setOnlineUsers(preparedUsers);
             } catch (err) {
                 console.error("Fel vid hämtning av online-användare:", err);
                 setError("Kunde inte hämta online-användare.");
@@ -23,7 +29,7 @@ function OnlineLunisar() {
                 setLoading(false);
             }
         };
-    
+
         getOnlineUsers();
     }, []);
 
@@ -31,16 +37,16 @@ function OnlineLunisar() {
         <div className="useronline-container">
             <h2 className='usersonline-rubrik'>VAKNA LUNISAR</h2>
             {loading ? (
-                <p>Laddar...</p>
+                <p className="vakna-lunisar">Vakna Lunisar är på väg...</p>
             ) : error ? (
                 <p className="error-message">{error}</p>
             ) : (
                 <div className="users">
                     {onlineUsers.length > 0 ? (
-                        onlineUsers.map((user) => (
+                        onlineUsers.slice(0, 6).map((user) => (
                             <div className="user" key={user.id}>
-                                <img src={user.avatar} alt="Användarbild" className="user-img" />
-                                <span className={`status ${user.status}`}></span>
+                                <img src={user.profileImage} alt={user.nickname} className="user-img" />
+                                <p>{user.nickname}</p>
                             </div>
                         ))
                     ) : (

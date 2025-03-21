@@ -93,8 +93,8 @@ export interface UserStore {
 
 export interface OnlineUser {
     id: string;
-    avatar: string;
-    status: "online" | "away" | "offline";
+    profileImage: string;
+    nickname: string;
 }
 
 export interface WallButtonProps {
