@@ -22,15 +22,16 @@ function UserProfilePage() {
     const getUserData = async () => {
       try {
         setLoading(true);
-  
+
         const userData = await fetchUserPage(id as string);
-  
+
         if (!userData) {
           throw new Error("Ingen användardata hittades.");
         }
-  
+
         setUser({
           ...userData,
+          profileImage: userData.profileImage || "https://lunarchat-profile-images.s3.eu-north-1.amazonaws.com/profile-pictures/maskot2+(2).webp",
           token: userData.token || "",
         });
       } catch (error) {
@@ -40,20 +41,21 @@ function UserProfilePage() {
         setLoading(false);
       }
     };
-  
+
     if (id) {
       getUserData();
     }
   }, [id]);
 
+
   const memberSince = (createdAt: string | undefined) => {
     if (!createdAt) return "Okänt antal dagar";
-  
+
     const createdDate = new Date(createdAt);
     const today = new Date();
     const diffTime = Math.abs(today.getTime() - createdDate.getTime());
     const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-  
+
     return `${diffDays} dagar`;
   };
 
@@ -64,7 +66,7 @@ function UserProfilePage() {
     }
 
     const response = await addFriend(loggedInUser.id, user.id);
-    
+
     if (response) {
       setFriendAdded(true);
       setTimeout(() => setFriendAdded(false), 3000);
@@ -85,7 +87,11 @@ function UserProfilePage() {
         ) : user ? (
           <>
             <div className="userprofile-header">
-              <img src="assets/maskot4.webp" alt="avatar" className="userprofile-img" />
+              <img
+                src={user?.profileImage || "assets/default-avatar.webp"}
+                alt="Profilbild"
+                className="userprofile-img"
+              />
 
               <div className="userprofile-info">
                 <h4 className="userprofile-name">{user.nickname}</h4>
