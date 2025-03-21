@@ -22,14 +22,12 @@ functions:
       - httpApi:
           path: /key
           method: get
-
   regUser:
     handler: functions/regUser/index.regUser
     events:
       - httpApi:
           path: /register/{key}
           method: post
-
   getUser:
     handler: functions/getUser/index.getUser
     events:
@@ -72,6 +70,24 @@ functions:
       - httpApi:
           path: /get/friends/{userid}
           method: get
+  acceptFriend:
+    handler: functions/acceptFriend/index.acceptFriend
+    events:
+      - httpApi:
+          path: /friend/accept
+          method: post
+  getFriendRequests:
+    handler: functions/getFriendRequest/index.getFriendRequests
+    events:
+      - httpApi:
+          path: /friend/requests/{userId}
+          method: get
+  dontAcceptFriend:
+    handler: functions/dontAcceptFriend/index.dontAcceptFriend
+    events:
+      - httpApi:
+          path: /friend/reject
+          method: post
   deleteUser:
     handler: functions/deleteUser/index.deleteUser
     events:

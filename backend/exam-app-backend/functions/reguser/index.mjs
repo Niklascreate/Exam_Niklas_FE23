@@ -48,6 +48,7 @@ export const regUser = async (event) => {
       email,
       password: hashedPassword,
       friends: [],
+      friendRequests: [],
       interests: [],
       bio: "",
       profileImage: "",
