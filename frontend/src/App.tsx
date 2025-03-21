@@ -7,7 +7,6 @@ import FriendPage from "./pages/friendpage/FriendPage";
 import StartPage from "./pages/startpage/StartPage";
 import WallPage from "./pages/wallpage/WallPage";
 import KrypinPage from "./pages/krypinpage/KrypinPage";
-import WorkSpace from "./pages/workspace/WorkSpace";
 import UserProfilePage from "./pages/userprofilepage/UserProfilePage";
 import ProtectedRoute from './utils/ProtectedRoute';
 
@@ -24,7 +23,6 @@ function AppWrapper() {
           <Route path="/chat" element={<ChatPage />} />
           <Route path="/wall" element={<WallPage />} />
           <Route path="/krypin" element={<KrypinPage />} />
-          <Route path="/workspace" element={<WorkSpace />} />
           <Route path="/userprofilepage/:id" element={<UserProfilePage />} />
         </Route>
         <Route path="*" element={<Navigate to="/" />} />

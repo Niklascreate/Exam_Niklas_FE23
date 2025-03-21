@@ -90,7 +90,6 @@ export interface UserStore {
   fetchUserData: (userId: string, token: string) => Promise<UserDataResponse | null>;
 }
 
-
 export interface OnlineUser {
     id: string;
     profileImage: string;

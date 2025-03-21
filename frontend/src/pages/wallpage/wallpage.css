@@ -9,9 +9,10 @@
 
 
 .loading-lunisavtryck {
-    font-family: var(--font-pixel);
-    color: black;
-    font-size: 12px;
+    font-family: var(--font-retro);
+    color: var(--color-ocean-lunar);
+    font-weight: bold;
+    font-size: 18px;
     animation: fadeInOut 1.5s infinite ease-in-out;
     text-align: center;
     margin-top: 20px;
