@@ -117,3 +117,13 @@ export interface WallMessageType {
   message: string;
   createdAt: string;
 }
+
+export interface Friend {
+  id: string;
+  userId?: string;
+  firstname: string;
+  lastname: string;
+  nickname: string;
+  profileImage: string;
+  createdAt: string;
+}

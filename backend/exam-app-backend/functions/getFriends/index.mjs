@@ -9,7 +9,7 @@ export const getFriends = async (event) => {
         if (!userid) {
             return sendError(400, { message: 'UserId krävs.' });
         }
-
+        
         const userCommand = new GetCommand({
             TableName: 'LunaChat-users',
             Key: { id: userid }
@@ -35,7 +35,15 @@ export const getFriends = async (event) => {
             if (friendResult.Item) {
                 friendsData.push({
                     userId: friendResult.Item.id,
-                    nickname: friendResult.Item.nickname
+                    nickname: friendResult.Item.nickname,
+                    firstname: friendResult.Item.firstname || "Okänd",
+                    lastname: friendResult.Item.lastname || "Okänd",
+                    profileImage: friendResult.Item.profileImage && friendResult.Item.profileImage !== "" 
+                        ? friendResult.Item.profileImage 
+                        : "https://lunarchat-profile-images.s3.eu-north-1.amazonaws.com/profile-pictures/maskot2+(2).webp",
+                    createdAt: friendResult.Item.createdAt 
+                        ? new Date(friendResult.Item.createdAt).toISOString() 
+                        : null, 
                 });
             }
         }

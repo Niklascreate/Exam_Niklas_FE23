@@ -262,7 +262,7 @@ export const getWallMessages = async () => {
 };
 
 //api-anrop för att hämta alla vänner
-export const getFriends = async (userId: string) => {
+export const getFriends = async (userId: string) => { 
   try {
     const response = await fetch(`https://cjq9abv0ld.execute-api.eu-north-1.amazonaws.com/get/friends/${userId}`, {
       method: "GET",
@@ -276,12 +276,22 @@ export const getFriends = async (userId: string) => {
     }
 
     const data = await response.json();
-    return data.friends;
+    console.log("🔍 API-svar för vänner:", data.friends);
+
+    return data.friends.map((friend: { id: string; firstname: string; lastname: string; nickname: string; profileImage: string; createdAt?: string }) => ({
+      id: friend.id,
+      firstname: friend.firstname,
+      lastname: friend.lastname,
+      nickname: friend.nickname,
+      profileImage: friend.profileImage,
+      createdAt: friend.createdAt ? new Date(friend.createdAt).toISOString() : null,
+    }));
   } catch (error) {
     console.error("Misslyckades att hämta vänner:", error);
     return [];
   }
 };
+
 
 //api-anrop för att ladda upp bild
 export const uploadProfileImage = async (userId: string, file: File): Promise<string> => {

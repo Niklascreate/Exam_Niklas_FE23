@@ -1,0 +1,87 @@
+.friends-wrapper {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.friends-title {
+    font-family: var(--font-retro);
+    color: var(--color-ocean-lunar);
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.friends-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: white;
+    border: 1px solid black;
+    width: 90%;
+    max-width: 500px;
+    margin: auto;
+    margin-top: 1rem;
+    padding: 10px;
+}
+
+.friends-card {
+    background-color: white;
+    border: 1px solid var(--color-ocean-lunar);
+    width: 95%;
+    margin-bottom: 1rem;
+    padding: 5px 10px;
+}
+
+/* Bild-container */
+.friends-image-container {
+    width: 60px;
+    height: 60px;
+    overflow: hidden;
+}
+
+/* Bild */
+.friends-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+/* Info om vänner */
+.friends-information {
+    text-align: left;
+}
+
+/* Namn */
+.friends-username {
+    color: black;
+    font-family: var(--font-retro);
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+/* Riktigt namn */
+.friends-realname {
+    font-size: 12px;
+    color: gray;
+}
+
+/* Datum */
+.friends-since {
+    font-size: 12px;
+    color: black;
+}
+
+/* Ta bort-vän knapp */
+.friends-delete {
+    font-size: 20px;
+    cursor: pointer;
+    color: black;
+}
+
+.friends-delete:hover {
+    color: red;
+}
