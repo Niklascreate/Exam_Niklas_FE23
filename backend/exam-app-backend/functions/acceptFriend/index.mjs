@@ -1,4 +1,3 @@
-// acceptFriend.mjs
 import { db } from '../../services/index.mjs';
 import { sendResponse, sendError } from '../../responses/index.mjs';
 import { GetCommand, UpdateCommand } from "@aws-sdk/lib-dynamodb";

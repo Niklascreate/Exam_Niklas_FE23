@@ -6,12 +6,8 @@ const TABLE_NAME = 'LunaChat-users';
 
 export const addFriend = async (event) => {
   try {
-    console.log("RAW event.body:", event.body);
-
     const requestBody = typeof event.body === "string" ? event.body : JSON.stringify(event.body);
     const { userId, friendId } = JSON.parse(requestBody);
-
-    console.log("userId:", userId, "friendId:", friendId);
 
     if (!userId || !friendId) {
       return sendError(400, { message: "Både userId och friendId måste anges." });
@@ -25,10 +21,7 @@ export const addFriend = async (event) => {
       db.send(new GetCommand({ TableName: TABLE_NAME, Key: { id: userId } })),
       db.send(new GetCommand({ TableName: TABLE_NAME, Key: { id: friendId } })),
     ]);
-
-    console.log("User Result:", JSON.stringify(userResult, null, 2));
-    console.log("Friend Result:", JSON.stringify(friendResult, null, 2));
-
+    
     if (!userResult.Item || !friendResult.Item) {
       return sendError(404, { message: "En eller båda användarna hittades inte." });
     }
