@@ -127,3 +127,11 @@ export interface Friend {
   profileImage: string;
   createdAt: string;
 }
+
+export interface FriendRequest {
+  id: string;
+  nickname: string;
+  profileImage: string;
+  firstname: string;
+  lastname: string;
+}

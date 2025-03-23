@@ -17,7 +17,7 @@ function OnlineLunisar() {
                 const preparedUsers = users.users
                     .map(user => ({
                         ...user,
-                        profileImage: user.profileImage || 'default-profile-image-url'
+                        profileImage: user.profileImage || "https://lunarchat-profile-images.s3.eu-north-1.amazonaws.com/profile-pictures/maskot2+(2).webp"
                     }))
                     .reverse();
 
@@ -45,7 +45,7 @@ function OnlineLunisar() {
                     {onlineUsers.length > 0 ? (
                         onlineUsers.slice(0, 6).map((user) => (
                             <div className="user" key={user.id}>
-                                <img src={user.profileImage} alt={user.nickname} className="user-img" />
+                                <img src={user.profileImage} alt={user.nickname} className="onlineuser-img" />
                                 <p>{user.nickname}</p>
                             </div>
                         ))

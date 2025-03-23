@@ -3,10 +3,13 @@ import { getFriends } from "../../../api/api";
 import useUserStore from "../../../store/userStore";
 import "./friend.css";
 import { Friend } from "../../../interface/interface";
+import FriendRequestModal from '../friendrequestmodal/FriendRequestModal';
 
 const Friends = () => {
   const [friends, setFriends] = useState<Friend[]>([]);
   const loggedInUser = useUserStore((state) => state.user);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
 
   useEffect(() => {
     const fetchFriends = async () => {
@@ -22,6 +25,10 @@ const Friends = () => {
   return (
     <div className="friends-wrapper">
       <h1 className="friends-title">Mina Lunisvänner</h1>
+      <button className="lunis-button" onClick={() => setIsModalOpen(true)}>
+        Lunis förfrågningar
+      </button>
+
 
       {friends.length === 0 ? (
         <p className="no-friends">Du har inga lunisar ännu.</p>
@@ -45,12 +52,18 @@ const Friends = () => {
                   </p>
                 </div>
                 <div className="friends-delete">
-                  <i className="bi bi-heart"></i>
+                  <i className="bi bi-heartbreak-fill"></i>
                 </div>
               </div>
             </div>
           ))}
         </div>
+      )}
+      {isModalOpen && (
+        <FriendRequestModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+        />
       )}
     </div>
   );

@@ -1,4 +1,4 @@
-import { LoginResponse, RegisterData, UserDataResponse } from '../interface/interface';
+import { LoginResponse, RegisterData, UserDataResponse, FriendRequest } from '../interface/interface';
 
 
 //Api anrop för inloggning.
@@ -328,5 +328,61 @@ export const uploadProfileImage = async (userId: string, file: File): Promise<st
   return data.imageUrl;
 };
 
+// api-anrop hämta vänförfrågningar
+export const getFriendRequests = async (userId: string): Promise<FriendRequest[]> => {
+  const res = await fetch(`https://cjq9abv0ld.execute-api.eu-north-1.amazonaws.com/friend/requests/${userId}`);
+  if (!res.ok) throw new Error("Kunde inte hämta vänförfrågningar");
 
+  const data = await res.json();
+  console.log("🔍 Friend requests response:", data);
 
+  if (Array.isArray(data.friendRequests)) {
+    return data.friendRequests.map((item: { from: string; nickname: string; profileImage: string; firstname: string; lastname: string }): FriendRequest => ({
+      id: item.from,
+      nickname: item.nickname,
+      profileImage: item.profileImage,
+      firstname: item.firstname,
+      lastname: item.lastname,
+    }));
+  }
+
+  return [];
+};
+
+// api-anrop för att acceptera vänförfrågan
+export const respondToFriendRequest = async (
+  requesterId: string,
+  userId: string
+) => {
+  const endpoint = "https://cjq9abv0ld.execute-api.eu-north-1.amazonaws.com/friend/accept";
+
+  const res = await fetch(endpoint, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      userId,
+      requesterId
+    }),
+  });
+
+  if (!res.ok) throw new Error("Kunde inte acceptera vänförfrågan");
+};
+
+//api-anrop för att neka en vänförfrågan
+export const rejectFriendRequest = async (
+  requesterId: string,
+  userId: string
+): Promise<void> => {
+  const res = await fetch("https://cjq9abv0ld.execute-api.eu-north-1.amazonaws.com/friend/reject", {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      userId,
+      requesterId,
+    }),
+  });
+
+  if (!res.ok) {
+    throw new Error("Kunde inte neka vänförfrågan");
+  }
+};

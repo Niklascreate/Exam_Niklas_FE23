@@ -32,8 +32,7 @@ function RegisterModal({ closeModal }: { closeModal?: () => void }) {
     }
 
     try {
-      const response = await registerUser(formData);
-      console.log("Registrering lyckades:", response);
+      await registerUser(formData);
 
       if (closeModal) closeModal();
     } catch {

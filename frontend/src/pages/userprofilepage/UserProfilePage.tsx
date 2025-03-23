@@ -117,15 +117,22 @@ function UserProfilePage() {
                 )}
               </button>
             </div>
-
             <p className="userprofile-about">{user.bio}</p>
           </>
         ) : (
           <p>Ingen användare hittades.</p>
         )}
       </div>
+
+      {friendAdded && (
+        <div className="popup">
+          Vänförfrågan skickad!
+        </div>
+      )}
+
       <NavBar />
     </>
+
   );
 }
 

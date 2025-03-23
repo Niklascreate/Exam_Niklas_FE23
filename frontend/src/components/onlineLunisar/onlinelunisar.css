@@ -1,51 +1,40 @@
 .useronline-container {
     width: 100%;
-    padding: 10px;
     color: white;
     background-color: var(--color-sky-lunar);
+    padding-bottom: .3rem;
   }
 
   .usersonline-rubrik {
     font-family: var(--font-retro);
     font-size: 18px;
+    padding: 5px;
   }
   
   .users {
-    gap: 20px;
-    width: 100%;
     display: flex;
     flex-direction: row;
-    align-items: center;
-    border-radius: 5px;
-    margin-top: 1rem;
+    justify-content: center;
   }
   
   .user {
-    flex: 1 1 calc(100% / 6 - 10px);
-    max-width: calc(100% / 6 - 10px);
-    flex: 1;
-    width: 100%;
-    height: auto;
-    position: relative;
     display: flex;
-    justify-content: center;
     flex-direction: column;
+    align-items: center;
+    width: 90px;
+  }
+
+  .user p {
+    font-family: var(--font-retro);
+    font-size: 12px;
+    text-align: center;
+    margin-top: 4px;
   }
   
-  .user-img{
-    width: 70px;
-    height: 70px;
-  }
-  
-  .status {
-    position: absolute;
-    bottom: 5px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    border: 1px solid white;
+  .onlineuser-img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
   }
 
   .vakna-lunisar {
