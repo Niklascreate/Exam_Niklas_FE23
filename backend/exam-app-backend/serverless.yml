@@ -88,6 +88,12 @@ functions:
       - httpApi:
           path: /friend/reject
           method: post
+  deleteFriend:
+    handler: functions/deleteFriend/index.deleteFriend
+    events:
+      - httpApi:
+          path: /friend/delete
+          method: post
   deleteUser:
     handler: functions/deleteUser/index.deleteUser
     events:

@@ -276,22 +276,25 @@ export const getFriends = async (userId: string) => {
     }
 
     const data = await response.json();
-    console.log("🔍 API-svar för vänner:", data.friends);
 
-    return data.friends.map((friend: { id: string; firstname: string; lastname: string; nickname: string; profileImage: string; createdAt?: string }) => ({
-      id: friend.id,
-      firstname: friend.firstname,
-      lastname: friend.lastname,
-      nickname: friend.nickname,
-      profileImage: friend.profileImage,
+    return data.friends.map((friend: {
+      userId: string;
+      firstname: string;
+      lastname: string;
+      nickname: string;
+      profileImage: string;
+      createdAt?: string;
+    }) => ({
+      ...friend,
+      id: friend.userId,
       createdAt: friend.createdAt ? new Date(friend.createdAt).toISOString() : null,
     }));
+    
   } catch (error) {
     console.error("Misslyckades att hämta vänner:", error);
     return [];
   }
 };
-
 
 //api-anrop för att ladda upp bild
 export const uploadProfileImage = async (userId: string, file: File): Promise<string> => {
@@ -334,7 +337,6 @@ export const getFriendRequests = async (userId: string): Promise<FriendRequest[]
   if (!res.ok) throw new Error("Kunde inte hämta vänförfrågningar");
 
   const data = await res.json();
-  console.log("🔍 Friend requests response:", data);
 
   if (Array.isArray(data.friendRequests)) {
     return data.friendRequests.map((item: { from: string; nickname: string; profileImage: string; firstname: string; lastname: string }): FriendRequest => ({
@@ -384,5 +386,30 @@ export const rejectFriendRequest = async (
 
   if (!res.ok) {
     throw new Error("Kunde inte neka vänförfrågan");
+  }
+};
+
+
+//api-anrop för att ta bort en vän
+export const deleteFriend = async (userId: string, friendId: string) => {
+  try {
+    const response = await fetch("https://cjq9abv0ld.execute-api.eu-north-1.amazonaws.com/friend/delete", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userId, friendId }),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || "Något gick fel vid borttagning av vän.");
+    }
+    return data;
+
+  } catch (error) {
+    console.error("Fel vid borttagning av vän:", error);
+    throw error;
   }
 };

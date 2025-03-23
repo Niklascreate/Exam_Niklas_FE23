@@ -46,7 +46,7 @@
 }
 
 .request-card {
-  background-color: white;
+  background-color: rgb(255, 255, 255);
   width: 60%;
   height: auto;
   padding: 10px;
@@ -59,6 +59,7 @@
   height: 80px;
   object-fit: cover;
   margin-bottom: 5px;
+  border-radius: .2rem;
 }
 
 .request-nickname {
@@ -84,8 +85,8 @@
 .accept-button,
 .decline-button {
   font-family: var(--font-pixel);
-  font-size: 12px;
-  padding: 8px 14px;
+  font-size: 10px;
+  padding: 4px 10px;
   border: none;
   border-radius: 8px;
   cursor: pointer;

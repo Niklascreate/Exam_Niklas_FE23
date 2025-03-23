@@ -15,7 +15,7 @@ function FriendRequestModal({
   const [requests, setRequests] = useState<FriendRequest[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [popupMessage, setPopupMessage] = useState<string | null>(null);
-  const [popupType, setPopupType] = useState<"accepted" | "rejected" | null>(null); // 👈 används för färg
+  const [popupType, setPopupType] = useState<"accepted" | "rejected" | null>(null);
 
   useEffect(() => {
     const fetchRequests = async () => {

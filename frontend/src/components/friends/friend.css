@@ -88,5 +88,72 @@
     font-size: 16px;
     font-family: var(--font-josefine);
     cursor: pointer;
+    margin-top: 1rem;
     margin-bottom: 1rem;
+}
+
+.notification {
+    position: relative;
+    padding-right: 2rem;
+}
+
+.notification-wrapper {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+}
+
+.heart-notify {
+    font-size: 32px;
+    color: var(--color-sunset-lunar);
+    animation: pulse 1.2s infinite;
+    position: relative;
+    z-index: 1;
+}
+
+.badge {
+    position: absolute;
+    top: -7px;
+    right: -19px;
+    background-color: white;
+    color: var(--color-ocean-lunar);
+    font-weight: bold;
+    font-size: 16px;
+    padding: 4px 10px;
+    border-radius: 50%;
+    z-index: 2;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+}
+
+.bi-heartbreak-fill {
+    color: var(--color-sky-lunar);
+}
+
+.no-friends {
+    color: var(--color-midnight-lunar);
+    font-family: var(--font-retro);
+    font-size: 12px;
+}
+
+.bi-emoji-frown-fill {
+    color: var(--color-sky-lunar);
+}
+
+.popup-delete {
+    background-color: var(--color-sunset-lunar);
+    position: fixed;
+    bottom: 150px;
+    right: 20px;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    font-family: var(--font-josefine);
+    z-index: 1000;
+    animation: fade 3s ease-out forwards;
+  }
+
+@keyframes fade {
+    0% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(20px); }
   }

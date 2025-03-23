@@ -31,15 +31,15 @@ function NavBar() {
                     </a>
                 </li>
                 <li>
-                    <a onClick={() => navigate('/chat')} className={location.pathname === "/chat" ? "active" : ""}>
-                        <i className="bi bi-chat-fill"></i>
-                        <span className='target-page'>Chat</span>
-                    </a>
-                </li>
-                <li>
                     <a onClick={() => navigate('/wall')} className={location.pathname === "/wall" ? "active" : ""}>
                         <i className="bi bi-file-earmark-text-fill"></i>
                         <span className='target-page'>Väggen</span>
+                    </a>
+                </li>
+                <li>
+                    <a onClick={() => navigate('/chat')} className={location.pathname === "/chat" ? "active" : ""}>
+                        <i className="bi bi-chat-fill"></i>
+                        <span className='target-page'>Chat</span>
                     </a>
                 </li>
                 <li>

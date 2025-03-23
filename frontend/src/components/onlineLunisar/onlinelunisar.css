@@ -26,15 +26,16 @@
 
   .user p {
     font-family: var(--font-retro);
-    font-size: 12px;
+    font-size: 13px;
     text-align: center;
     margin-top: 4px;
   }
   
   .onlineuser-img {
-    width: 60px;
-    height: 60px;
+    width: 70px;
+    height: 70px;
     object-fit: cover;
+    border-radius: .2rem;
   }
 
   .vakna-lunisar {
