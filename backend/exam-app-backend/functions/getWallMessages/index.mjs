@@ -1,6 +1,6 @@
-import { sendResponse, sendError } from "../../responses/index.mjs";
 import { db } from "../../services/index.mjs";
 import { GetCommand, ScanCommand } from "@aws-sdk/lib-dynamodb";
+import { sendResponse, sendError } from "../../responses/index.mjs";
 
 const WALL_TABLE = "LunaChat-wall";
 const USER_TABLE = "LunaChat-users";
@@ -21,11 +21,17 @@ export const getWallMessages = async () => {
         const profileImage = user?.profileImage || "https://lunarchat-profile-images.s3.eu-north-1.amazonaws.com/profile-pictures/maskot2+(2).webp";
 
         return {
-          ...message,
-          profileImage,
+          id: message.id,
+          userId: message.userId,
+          nickname: message.nickname,
+          message: message.message,
+          createdAt: message.createdAt,
+          profileImage: profileImage,
         };
       })
     );
+
+    messagesWithProfileImages.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
     return sendResponse(200, { messages: messagesWithProfileImages });
 

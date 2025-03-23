@@ -8,8 +8,12 @@ const USER_TABLE = "LunaChat-users";
 
 export const addWallMessage = async (event) => {
   try {
-    const { userId, message } = JSON.parse(event.body);
-    if (!userId || !message) return sendError(400, { message: "User ID och meddelande krävs." });
+    const body = typeof event.body === "string" ? JSON.parse(event.body) : event.body;
+    const { userId, message } = body;
+
+    if (!userId || !message || message.trim() === "") {
+      return sendError(400, { message: "User ID och ett icke-tomt meddelande krävs." });
+    }
 
     const userData = await db.send(new GetCommand({
       TableName: USER_TABLE,
@@ -27,7 +31,7 @@ export const addWallMessage = async (event) => {
       userId,
       nickname,
       profileImage,
-      message,
+      message: message.trim(),
       createdAt: new Date().toISOString(),
     };
 
@@ -40,6 +44,7 @@ export const addWallMessage = async (event) => {
 
   } catch (error) {
     console.error("Fel vid sparande av inlägg:", error);
-    return sendError(500, { message: "Serverfel vid sparande av inlägg." });
+    return sendError(500, { message: `Serverfel: ${error.message}` });
   }
 };
+

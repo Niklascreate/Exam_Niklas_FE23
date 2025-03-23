@@ -104,18 +104,18 @@ export interface WallMessageProps {
   userId: string;
   profileImage?: string;
   nickname: string;
-  message: string;
   createdAt: string;
+  message: string;
 }
 
 export interface WallMessageType {
   id: string;
-  profileImage?: string;
   userId: string;
   nickname: string;
-  content: string;
+  profileImage?: string;
   message: string;
   createdAt: string;
+  content?: string;
 }
 
 export interface Friend {

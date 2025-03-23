@@ -1,4 +1,4 @@
-import { LoginResponse, RegisterData, UserDataResponse, FriendRequest } from '../interface/interface';
+import { LoginResponse, RegisterData, UserDataResponse, FriendRequest, WallMessageType  } from '../interface/interface';
 
 
 //Api anrop för inloggning.
@@ -218,12 +218,12 @@ export const addFriend = async (userId: string, friendId: string) => {
 };
 
 //api-anrop för väggen
-export const addWallMessage = async (userId: string, profileImage: string, nickname: string, message: string) => {
+export const addWallMessage = async (userId: string, message: string) => {
   try {
     const response = await fetch("https://cjq9abv0ld.execute-api.eu-north-1.amazonaws.com/add/wallmessage", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ userId,  profileImage, nickname, message }),
+      body: JSON.stringify({ userId, message }),
     });
 
     if (!response.ok) {
@@ -238,9 +238,8 @@ export const addWallMessage = async (userId: string, profileImage: string, nickn
   }
 };
 
-
 //api-anrop för att hämta alla meddelandet på väggen
-export const getWallMessages = async () => {
+export const getWallMessages = async (): Promise<WallMessageType[]> => {
   try {
     const response = await fetch("https://cjq9abv0ld.execute-api.eu-north-1.amazonaws.com/get/wallmessages", {
       method: "GET",
@@ -254,7 +253,18 @@ export const getWallMessages = async () => {
     }
 
     const data = await response.json();
-    return data.messages;
+
+    const messages: WallMessageType[] = data.messages.map((msg: { id: string; userId: string; nickname: string; profileImage: string; message: string; createdAt: string }) => ({
+      id: msg.id,
+      userId: msg.userId,
+      nickname: msg.nickname,
+      profileImage: msg.profileImage,
+      message: msg.message,
+      createdAt: msg.createdAt,
+    }));
+
+    return messages;
+
   } catch (error) {
     console.error("Fel vid hämtning av inlägg:", error);
     return [];

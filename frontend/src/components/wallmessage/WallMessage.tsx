@@ -16,7 +16,7 @@ function WallMessage({ onClose, onNewMessage }: { onClose: () => void; onNewMess
     }
 
     if (message.trim().length > 0) {
-      const newPost = await addWallMessage(user.id, user.nickname, message, new Date().toISOString());
+      const newPost = await addWallMessage(user.id, message);
       if (newPost) {
         onNewMessage(newPost);
         setMessage("");
