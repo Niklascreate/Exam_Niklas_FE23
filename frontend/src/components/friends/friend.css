@@ -112,13 +112,14 @@
 }
 
 .badge {
+    font-family: var(--font-retro);
     position: absolute;
     top: -7px;
     right: -19px;
     background-color: white;
     color: var(--color-ocean-lunar);
     font-weight: bold;
-    font-size: 16px;
+    font-size: 13px;
     padding: 4px 10px;
     border-radius: 50%;
     z-index: 2;
@@ -147,13 +148,20 @@
     color: white;
     padding: 12px 20px;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     font-family: var(--font-josefine);
     z-index: 1000;
     animation: fade 3s ease-out forwards;
-  }
+}
 
 @keyframes fade {
-    0% { opacity: 1; transform: translateY(0); }
-    100% { opacity: 0; transform: translateY(20px); }
-  }
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+}

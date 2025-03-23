@@ -7,8 +7,9 @@
 
   .usersonline-rubrik {
     font-family: var(--font-retro);
+    font-weight: 400;
     font-size: 18px;
-    padding: 5px;
+    padding: 10px;
   }
   
   .users {
