@@ -63,8 +63,6 @@ const Friends = () => {
     }
   };
 
-
-
   return (
     <div className="friends-wrapper">
 
