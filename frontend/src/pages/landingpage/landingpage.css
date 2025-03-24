@@ -1,0 +1,40 @@
+.landingpage-container {
+    width: 100%;
+    margin-bottom: 10rem;
+}
+
+.infobox-container {
+    width: 100%;
+}
+
+.welcome-rubrik {
+    font-family: var(--font-retro);
+    font-size: 18px;
+    color: white;
+    font-weight: 400;
+    background-color: var(--color-sky-lunar);
+    border-top-left-radius: .5rem;
+    border-top-right-radius: .5rem;
+    padding: 10px;
+    margin-top: 2rem;
+    margin-bottom: 0px;
+}
+
+.infobox-information {
+    width: 100%;
+    border: 1px solid black;
+    background-color: white;
+}
+
+.info-rubrik {
+    font-family: var(--font-pixel);
+    font-size: 11px;
+    color: var(--color-lunorange);
+    padding: 10px;
+    padding-bottom: 0;
+}
+
+.info-text {
+    padding: 10px;
+    font-family: 'Josefin Sans', sans-serif;
+}

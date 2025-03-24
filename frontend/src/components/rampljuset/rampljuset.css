@@ -1,0 +1,41 @@
+.rampljuset-container {
+    width: 100%;
+    margin-top: 2rem;
+}
+
+.rampljuset-rubrik {
+    font-family: var(--font-retro);
+    font-size: 18px;
+    color: white;
+    font-weight: 400;
+    background-color: var(--color-sky-lunar);
+    border-top-left-radius: .5rem;
+    border-top-right-radius: .5rem;
+    padding: 10px;
+}
+
+.rampljuset-list {
+    display: flex;
+    align-items: center; 
+    width: 100%;
+    background-color: white;
+    height: 110px;
+    border-bottom: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    overflow: hidden;
+}
+.rampljuset-user {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    max-width: 25%;
+}
+.rampljuset-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0;
+}

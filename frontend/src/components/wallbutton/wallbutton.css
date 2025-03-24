@@ -1,0 +1,29 @@
+.button-container {
+    background-color: var(--color-sky-lunar);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 280px;
+    height: 40px;
+    margin: auto;
+    margin-top: 1.5rem;
+    padding: 0 15px;
+    cursor: pointer;
+}
+
+.button-text {
+    font-size: 14px;
+    color: white;
+    font-family: var(--font-retro);
+    font-weight: bold;
+}
+
+.wall-pen {
+    display: flex;
+    align-items: center;
+}
+
+.wall-pen i {
+    font-size: 18px;
+    color: white;
+}

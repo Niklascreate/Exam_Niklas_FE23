@@ -1,0 +1,26 @@
+.login-button__container {
+    position: relative;
+    display: flex;
+    flex: 1;
+    justify-content: center;
+}
+
+.login-button {
+    width: 100%;
+    background-color: var(--color-lunorange);
+    color: white;
+    font-family: var(--font-pixel);
+    font-size: 12px;
+    text-align: center;
+    padding: 20px 0px;
+    text-shadow:
+        -2px -1px 0 black,
+         2px -1px 0 black,
+        -2px  1px 0 black,
+         2px  1px 0 black;
+    cursor: pointer;
+    border: none;
+    border-top-left-radius: .5rem;
+    border-top-right-radius: .5rem;
+    white-space: nowrap;
+}

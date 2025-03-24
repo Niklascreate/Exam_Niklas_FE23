@@ -1,0 +1,106 @@
+.userprofile-container {
+  width: 100%;
+  padding: 10px;
+  margin: auto;
+  text-align: center;
+  background-color: white;
+  border: 1px solid black;
+  margin-top: 1rem;
+}
+
+.userprofile-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.userprofile-img {
+  width: 130px;
+  height: 130px;
+}
+
+
+.userprofile-name {
+  font-family: var(--font-retro);
+  font-size: 18px;
+
+}
+
+.userprofile {
+  font-family: var(--font-pixel);
+  font-size: 10px;
+  margin-top: 1rem;
+}
+
+.userprofile-about {
+  padding-top: 10px;
+  font-family: var(--font-josefine);
+}
+
+.userprofile-list {
+  list-style: none;
+  margin-top: .2rem;
+  font-family: var(--font-josefine);
+  font-size: 16px;
+}
+
+.userprofile-li li {
+  font-family: var(--font-josefine);
+  font-size: 16px;
+}
+
+.userprofile-info {
+  flex: 1;
+  text-align: left;
+  justify-content: center;
+  padding: 10px;
+}
+
+.add-button {
+  position: absolute;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 32px;
+  right: -7px;
+  bottom: 455px;
+  margin-right: 1rem;
+}
+
+.bi-person-plus-fill {
+  padding: 2px;
+}
+
+.friend-request-confirmation {
+  color: black;
+  font-size: 14px;
+  margin-top: 0.5rem;
+  font-family: var(--font-josefine);
+}
+
+@keyframes fade {
+  0% { opacity: 1; }
+  70% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.popup {
+  position: fixed;
+  bottom: 150px;
+  right: 20px;
+  background-color: var(--color-sunset-lunar);
+  color: white;
+  padding: 12px 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  font-family: var(--font-josefine);
+  z-index: 1000;
+  animation: fade 3s ease-out forwards;
+}
+
+@keyframes fade {
+  0% { opacity: 1; transform: translateY(0); }
+  70% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(20px); }
+}

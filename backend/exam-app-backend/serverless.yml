@@ -1,0 +1,225 @@
+org: niklasnilsson
+app: exam-app
+service: exam-app
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: eu-north-1
+  deploymentMethod: direct
+  iam:
+    role: arn:aws:iam::376129862797:role/LambdaDynamoDBuserRole
+
+
+  environment:
+    S3_BUCKET_NAME: lunarchat-profile-images
+    DYNAMODB_TABLE: LunaChat-users
+
+functions:
+  getKey:
+    handler: functions/getKey/index.getRandomKey
+    events:
+      - httpApi:
+          path: /key
+          method: get
+  regUser:
+    handler: functions/regUser/index.regUser
+    events:
+      - httpApi:
+          path: /register/{key}
+          method: post
+  getUser:
+    handler: functions/getUser/index.getUser
+    events:
+      - httpApi:
+          path: /get/user/{id}
+          method: get
+  getAllUsers:
+    handler: functions/getAllUsers/index.getAllUsers
+    events:
+      - httpApi:
+          path: /get/allusers
+          method: get
+  loginUser:
+    handler: functions/loginUser/index.loginUser
+    events:
+      - httpApi:
+          path: /login/user
+          method: post
+  logoutUser:
+    handler: functions/logoutUser/index.logoutUser
+    events:
+      - httpApi:
+          path: /logout/user
+          method: post
+  removeFriend:
+    handler: functions/removeFriend/index.removeFriend
+    events:
+      - httpApi:
+          path: /remove/friend
+          method: post
+  addFriend:
+    handler: functions/addFriend/index.addFriend
+    events:
+      - httpApi:
+          path: /add/friend
+          method: post
+  getFriends:
+    handler: functions/getFriends/index.getFriends
+    events:
+      - httpApi:
+          path: /get/friends/{userid}
+          method: get
+  acceptFriend:
+    handler: functions/acceptFriend/index.acceptFriend
+    events:
+      - httpApi:
+          path: /friend/accept
+          method: post
+  getFriendRequests:
+    handler: functions/getFriendRequest/index.getFriendRequests
+    events:
+      - httpApi:
+          path: /friend/requests/{userId}
+          method: get
+  dontAcceptFriend:
+    handler: functions/dontAcceptFriend/index.dontAcceptFriend
+    events:
+      - httpApi:
+          path: /friend/reject
+          method: post
+  deleteFriend:
+    handler: functions/deleteFriend/index.deleteFriend
+    events:
+      - httpApi:
+          path: /friend/delete
+          method: post
+  deleteUser:
+    handler: functions/deleteUser/index.deleteUser
+    events:
+      - httpApi:
+          path: /delete/user/{id}
+          method: delete
+  updateUser:
+    handler: functions/updateUser/index.updateUser
+    events:
+      - httpApi:
+          path: /update/user/{id}
+          method: put
+  onlineUsers:
+    handler: functions/onlineUsers/index.onlineUsers
+    events:
+      - httpApi:
+          path: /get/online/users
+          method: get
+  addWallMessage:
+    handler: functions/addWallMessage/index.addWallMessage
+    events:
+      - httpApi:
+          path: /add/wallmessage
+          method: post
+  getWallMessages:
+    handler: functions/getWallMessages/index.getWallMessages
+    events:
+      - httpApi:
+          path: /get/wallmessages
+          method: get
+  uploadImg:
+    handler: functions/uploadImage/index.uploadImg
+    events:
+      - httpApi:
+          path: /upload/user/{id}
+          method: put
+
+  socketConnect:
+    handler: middlewares/userSocketMiddleware.connect
+    events:
+      - websocket:
+          route: $connect
+  socketDisconnect:
+    handler: middlewares/userSocketMiddleware.disconnect
+    events:
+      - websocket:
+          route: $disconnect
+  chatSocket:
+    handler: sockets/chatSocket.sendMessage
+    events:
+      - websocket:
+          route: sendMessage
+  socketTyping:
+    handler: sockets/chatSocket.typing
+    events:
+      - websocket:
+          route: typing
+
+package:
+  patterns:
+    - node_modules/dotenv/**
+    - validations/**
+    - utils/**
+    - functions/getUser/**
+    - functions/loginUser/**
+    - functions/logoutUser/**
+    - functions/getAllUsers/**
+    - functions/onlineUsers/**
+    - services/**
+    - models/**
+    - responses/**
+    - data/**
+    - middlewares/**
+    - sockets/**
+
+resources:
+  Resources:
+    UsersTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: LunaChat-users
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+          - AttributeName: email
+            AttributeType: S
+          - AttributeName: nickname
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        GlobalSecondaryIndexes:
+          - IndexName: email-index
+            KeySchema:
+              - AttributeName: email
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+          - IndexName: nickname-index
+            KeySchema:
+              - AttributeName: nickname
+                KeyType: HASH
+            Projection:
+              ProjectionType: ALL
+        BillingMode: PAY_PER_REQUEST
+
+    WallPostsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: LunaChat-wall
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
+
+    ConnectionsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: LunaChat-connections
+        AttributeDefinitions:
+          - AttributeName: connectionId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: connectionId
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST

@@ -1,0 +1,117 @@
+.header-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 150px;
+    background-color: var(--color-sky-lunar);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 25px;
+    z-index: 1000;
+}
+
+.rubrik-header {
+    font-family: var(--font-retro);
+    font-size: 16px;
+    color: var(--color-sunset-lunar);
+    text-shadow:
+        -2px -2px 0 black,
+         2px -2px 0 black,
+        -2px  2px 0 black,
+         2px  2px 0 black;
+    line-height: 1;
+    letter-spacing: .5rem;
+    text-transform: uppercase;
+}
+
+.lunisar-online {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: right;
+}
+
+.counter-lunisar {
+    font-size: 16px;
+    font-family: var(--font-retro);
+    color: white;
+    letter-spacing: 2px;
+    margin: 0;
+}
+
+.rubrik-lunisar {
+    font-size: 13px;
+    font-family: var(--font-retro);
+    color: white;
+    margin: 0;
+}
+
+.lajv-container {
+    position: fixed;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    top: 150px;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    background-color: var(--color-ocean-lunar);
+    border-top: 1px solid black;
+    border-bottom: 2px solid black;
+    z-index: 999;
+}
+
+.lajv-box {
+    width: 20%;
+    height: 100%;
+    background-color: var(--color-sky-lunar);
+    color: white;
+    font-family: var(--font-retro);
+    font-size: 18px;
+    border-right: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.lajv-message {
+  flex-grow: 1;
+  width: 100%;
+  height: 30px;
+  padding: 10px 0 10px 10px;
+  background-color: var(--color-ocean-lunar);
+  color: white;
+  font-family: var(--font-pixel);
+  font-size: 8px;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  position: relative;
+}
+
+  .lajv-btn {
+    all: unset;
+  }
+  
+  .lajv {
+    display: inline-block;
+    position: absolute;
+    white-space: nowrap;
+    animation: sliding 10s linear infinite;
+  }
+  
+  @keyframes sliding {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(-100%);
+    }
+  }
+  

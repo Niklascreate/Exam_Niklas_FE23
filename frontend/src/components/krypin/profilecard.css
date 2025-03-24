@@ -1,0 +1,113 @@
+.profilecard-container {
+  width: 100%;
+  padding: 10px;
+  margin: auto;
+  text-align: center;
+  background-color: white;
+  border: 1px solid black;
+  margin-top: 1rem;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.profile-img {
+  width: 130px;
+  height: 130px;
+}
+
+.user-nickname {
+  font-family: var(--font-retro);
+  font-size: 18px;
+}
+.lunis-since {
+  font-family: var(--font-pixel);
+  font-size: 8px;
+}
+
+.profile-info {
+  flex: 1;
+  text-align: left;
+  justify-content: center;
+  padding: 10px;
+}
+
+.edit-btn {
+  position: absolute;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+  right: -7px;
+  bottom: 455px;
+  margin-right: 1rem;
+}
+
+.bi-pencil-fill {
+  background-color: var(--color-sky-lunar);
+  color: white;
+  padding: 2px;
+}
+
+.bi-check2-square {
+  background-color: var(--color-sky-lunar);
+  color: white;
+  padding: 2px;
+}
+
+.bi-check{
+  font-size: 20px;
+  color: #17BD11;
+}
+
+.gillar {
+  font-family: var(--font-pixel);
+  font-size: 10px;
+  margin-top: 1rem;
+}
+.interests-list {
+  list-style: none;
+  margin-top: .2rem;
+}
+
+.bio-input {
+  width: 100%;
+  min-height: 50px;
+  padding: 5px;
+  font-family: var(--font-josefine);
+  font-size: 16px;
+  margin-top: 1rem;
+}
+
+.about-text {
+  padding-top: 10px;
+  font-family: var(--font-josefine);
+}
+
+.list-li {
+  font-family: var(--font-josefine);
+  font-size: 16px;
+}
+
+.interests-input {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: .5rem;
+  border-radius: .5rem;
+  width: 105px;
+}
+
+.interests-input input {
+  width: 100%;
+  height: 30px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-family: var(--font-josefine);
+  font-size: 16px;
+  outline: none;
+}
