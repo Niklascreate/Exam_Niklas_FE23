@@ -47,3 +47,20 @@
     text-align: center;
     margin-top: 20px;
   }
+
+
+@media (min-width: 768px) and (max-width: 1440px) {
+    .onlineuser-img {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: .2rem;
+    }
+    .users {
+      gap: 70px;
+  }
+
+    .user p {
+        font-size: 20px;
+    }
+}

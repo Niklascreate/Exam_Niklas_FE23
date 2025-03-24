@@ -173,26 +173,3 @@
         transform: translateY(20px);
     }
 }
-
-@media (max-width: 768px) {
-    .onlineuser-img {
-        width: 100px;
-        height: 100px;
-    }
-
-    .user p {
-        font-size: 16px;
-    }
-}
-
-@media (min-width: 769px) and (max-width: 1440px) {
-    .onlineuser-img {
-        width: 150px;
-        height: 150px;
-        object-fit: cover;
-        border-radius: .2rem;
-    }
-    .user p {
-        font-size: 20px;
-    }
-}
