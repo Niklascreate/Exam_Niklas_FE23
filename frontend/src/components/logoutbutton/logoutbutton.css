@@ -28,6 +28,13 @@
 cursor: pointer;
 }
 
+@media (max-width: 768px) {
+    .logout-button{
+        width: 65px;
+        height: 65px;
+    }
+}
+
 @media (min-width: 769px) and (max-width: 1440px) {
     .logout-button{
         width: 70px;

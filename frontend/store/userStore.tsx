@@ -7,12 +7,15 @@ const useUserStore = create<UserStore>()(
   persist(
     (set) => ({
       user: null,
+      loading: false,
+      error: null,
 
       setUser: (user) => {
         set({ user });
       },
 
       setProfileImage: async (userId: string, imageUrl: string, token: string) => {
+        set({ loading: true, error: null });
         try {
           const response = await fetch(
             `https://cjq9abv0ld.execute-api.eu-north-1.amazonaws.com/update/user/${userId}`,
@@ -25,15 +28,22 @@ const useUserStore = create<UserStore>()(
               body: JSON.stringify({ profileImage: imageUrl }),
             }
           );
-      
+
           if (!response.ok) {
-            throw new Error("Misslyckades att uppdatera profilbilden i backend.");
+            const errorData = await response.json();
+            throw new Error(`Fel från backend: ${errorData.message || response.statusText}`);
           }
+
           set((state) => ({
             user: state.user ? { ...state.user, profileImage: imageUrl } : null,
+            loading: false,
           }));
+
+          return { success: true };
         } catch (error) {
           console.error("Fel vid uppdatering av profilbild:", error);
+          set({ loading: false, error: error instanceof Error ? error : new Error(String(error)) });
+          return { success: false, error: error instanceof Error ? error : new Error(String(error)) };
         }
       },
 
@@ -41,19 +51,27 @@ const useUserStore = create<UserStore>()(
         set({ user: null });
       },
 
-      fetchUserData: async (userId, token) => {
+      fetchUserData: async (userId: string, token: string) => {
+        set({ loading: true, error: null });
         try {
           const userData = await fetchUser(userId, token);
-    
-          const defaultProfileImage = "https://lunarchat-profile-images.s3.eu-north-1.amazonaws.com/profile-pictures/maskot2+(2).webp";
-    
-          set({ user: { ...userData, token, profileImage: userData.profileImage || defaultProfileImage } });
-          return { ...userData, token, profileImage: userData.profileImage || defaultProfileImage };
+          const defaultProfileImage =
+            "https://lunarchat-profile-images.s3.eu-north-1.amazonaws.com/profile-pictures/maskot2+(2).webp";
+
+          const user = {
+            ...userData,
+            token,
+            profileImage: userData.profileImage || defaultProfileImage,
+          };
+
+          set({ user, loading: false });
+          return user;
         } catch (error) {
           console.error("Misslyckades att hämta användardata:", error);
+          set({ loading: false, error: error instanceof Error ? error : new Error(String(error)) });
           return null;
         }
-      }
+      },
     }),
     {
       name: "user-data",

@@ -32,9 +32,11 @@
     color: var(--color-lunorange);
     padding: 10px;
     padding-bottom: 0;
+    font-weight: 400;
 }
 
 .info-text {
-    padding: 10px;
+    padding-left: 10px;
     font-family: 'Josefin Sans', sans-serif;
+    margin-bottom: 1rem;
 }

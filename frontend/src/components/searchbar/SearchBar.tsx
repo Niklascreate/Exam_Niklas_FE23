@@ -33,7 +33,7 @@ function SearchBar() {
     const filtered = users.filter((user) =>
       user.firstname.toLowerCase().includes(lowerCaseSearch) ||
       user.lastname.toLowerCase().includes(lowerCaseSearch) ||
-      user.nickname.toLowerCase().includes(lowerCaseSearch)
+      (user.nickname?.toLowerCase() ?? "").includes(lowerCaseSearch)
     );
 
     setFilteredUsers(filtered);

@@ -78,11 +78,12 @@ export interface LajvMessage {
 
 export interface UserStore {
   user: User | null;
+  loading: boolean;
+  error: Error | null;
   setUser: (user: User) => void;
-  setProfileImage: (userId: string, imageUrl: string, token: string) => Promise<void>;
+  setProfileImage: (userId: string, imageUrl: string, token: string) => Promise<{ success: boolean; error?: Error }>;
   clearUser: () => void;
   fetchUserData: (userId: string, token: string) => Promise<User | null>;
-  getSocket: () => WebSocket | null;
 }
 
 
@@ -156,4 +157,16 @@ export interface LajvMessageData {
   nickname: string,
   text: string,
   timestamp: string
+}
+
+export interface LajvMessage {
+  nickname: string;
+  text: string;
+  timestamp: string;
+}
+
+export interface LajvStore {
+  messages: LajvMessage[];
+  addMessage: (nickname: string, text: string) => void;
+  clearMessages: () => void;
 }

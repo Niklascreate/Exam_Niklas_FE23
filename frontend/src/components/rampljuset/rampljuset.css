@@ -40,6 +40,12 @@
     border-radius: 0;
 }
 
+@media (max-width: 768px) {
+    .rampljuset-container .rampljuset-list {
+        height: 150px;
+      }
+}
+
 @media (min-width: 769px) and (max-width: 1440px) {
     .rampljuset-container .rampljuset-list {
       height: 350px;
