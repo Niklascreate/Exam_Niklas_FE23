@@ -1,4 +1,4 @@
-import { LoginResponse, RegisterData, UserDataResponse, FriendRequest, WallMessageType  } from '../interface/interface';
+import { LoginResponse, RegisterData, UserDataResponse, FriendRequest, WallMessageType, LajvMessageData  } from '../interface/interface';
 
 
 //Api anrop för inloggning.
@@ -423,3 +423,63 @@ export const deleteFriend = async (userId: string, friendId: string) => {
     throw error;
   }
 };
+
+//api-anrop för att skriva lajv message
+export const getLajvMessages = async () => {
+  try {
+    const response = await fetch("https://cjq9abv0ld.execute-api.eu-north-1.amazonaws.com/get/lajv", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Det gick inte att hämta lajvmeddelanden");
+    }
+
+    const data = await response.json();
+
+    if (!Array.isArray(data)) return [];
+
+    const now = new Date();
+    const recentMessages = data.filter((msg) => {
+      const timestamp = new Date(msg.timestamp);
+      const diffInMs = now.getTime() - timestamp.getTime();
+      const diffInMinutes = diffInMs / 1000 / 60;
+      return diffInMinutes <= 10;
+    });
+    const sorted = recentMessages.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+
+    return sorted.slice(0, 5);
+  } catch (error) {
+    console.error("Fel vid API-anrop:", error);
+    return [];
+  }
+};
+
+
+// API-anrop för att lägga till lajvmeddelande
+export const addLajvMessage = async (messageData: LajvMessageData) => {
+  try {
+    const response = await fetch("https://cjq9abv0ld.execute-api.eu-north-1.amazonaws.com/add/lajv", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(messageData),
+    });
+
+    if (!response.ok) {
+      throw new Error("Det gick inte att lägga till lajvmeddelande");
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Fel vid API-anrop:", error);
+    return null;
+  }
+};
+
+

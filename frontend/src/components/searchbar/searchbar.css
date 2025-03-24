@@ -23,10 +23,6 @@
     color: black;
 }
 
-.search-result-item {
-  
-}
-
 .search-button {
     width: 70px;
     height: 100%;
@@ -46,7 +42,6 @@
 .search-container {
     position: relative;
     width: 100%;
-    max-width: 400px;
   }
   
   .search-results {

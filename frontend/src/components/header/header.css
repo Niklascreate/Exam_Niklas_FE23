@@ -115,3 +115,14 @@
     }
   }
   
+@media (min-width: 769px) and (max-width: 1440px) {
+    
+  @keyframes sliding {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(-100%);
+    }
+  }
+}

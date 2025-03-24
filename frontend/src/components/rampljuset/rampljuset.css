@@ -39,3 +39,9 @@
     object-fit: cover;
     border-radius: 0;
 }
+
+@media (min-width: 769px) and (max-width: 1440px) {
+    .rampljuset-container .rampljuset-list {
+      height: 350px;
+    }
+}

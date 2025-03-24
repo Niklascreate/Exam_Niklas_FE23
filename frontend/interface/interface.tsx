@@ -8,9 +8,9 @@ export interface User {
   id: string;
   firstname: string;
   lastname: string;
-  nickname: string;
-  email: string;
-  token: string | undefined;
+  nickname?: string;
+  email?: string;
+  token?: string | undefined;
   interests: string[];
   friends?: string[];
   bio?: string;
@@ -76,24 +76,20 @@ export interface LajvMessage {
   timestamp: string;
 }
 
-export interface LajvStore {
-  messages: LajvMessage[];
-  addMessage: (nickname: string, text: string) => void;
-  clearMessages: () => void;
-}
-
 export interface UserStore {
-  user: UserDataResponse | null;
-  setUser: (user: UserDataResponse) => void;
+  user: User | null;
+  setUser: (user: User) => void;
   setProfileImage: (userId: string, imageUrl: string, token: string) => Promise<void>;
   clearUser: () => void;
-  fetchUserData: (userId: string, token: string) => Promise<UserDataResponse | null>;
+  fetchUserData: (userId: string, token: string) => Promise<User | null>;
+  getSocket: () => WebSocket | null;
 }
 
+
 export interface OnlineUser {
-    id: string;
-    profileImage: string;
-    nickname: string;
+  id: string;
+  profileImage: string;
+  nickname: string;
 }
 
 export interface WallButtonProps {
@@ -133,4 +129,31 @@ export interface FriendRequest {
   profileImage: string;
   firstname: string;
   lastname: string;
+}
+
+export interface ChatContainerProps {
+  userA: string;
+  userB: string;
+  messages: Message[];
+}
+
+
+export interface Message {
+  senderId: string;
+  message: string;
+  timestamp?: string;
+}
+
+export interface ChatContainerProps {
+  userA: string;
+  userB: string;
+  messages: Message[];
+}
+
+
+export interface LajvMessageData {
+  id: string,
+  nickname: string,
+  text: string,
+  timestamp: string
 }
