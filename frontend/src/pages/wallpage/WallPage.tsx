@@ -1,4 +1,4 @@
-import './wallpage.css'; 
+import './wallpage.css';
 import { useState, useEffect } from "react";
 import Header from "../../components/header/Header";
 import NavBar from "../../components/navbar/NavBar";
@@ -41,23 +41,31 @@ function WallPage() {
         <WallMessage onClose={() => setIsModalOpen(false)} onNewMessage={handleNewMessage} />
       )}
 
-<div className="wall-messages">
-  {loading ? (
-    <p className="loading-lunisavtryck">
-      {"Lunisavtrycken är på väg...".split("").map((char, index) => (
-        <span key={index} style={{ animationDelay: `${index * 0.1}s` }}>{char}</span>
-      ))}
-    </p>
-  ) : (
-    messages.length > 0 ? (
-      messages.map((msg, index) => (
-        <WallMessageBox key={index} userId={msg.userId} nickname={msg.nickname} message={msg.message} createdAt={msg.createdAt} />
-      ))
-    ) : (
-      <p className="no-messages">Inga inlägg ännu...</p>
-    )
-  )}
-</div>
+      <div className="wall-messages">
+        {loading ? (
+          <p className="loading-lunisavtryck">
+            {"Lunisavtrycken är på väg...".split("").map((char, index) => (
+              <span key={index} style={{ animationDelay: `${index * 0.1}s` }}>{char}</span>
+            ))}
+          </p>
+        ) : (
+          messages.length > 0 ? (
+            messages.map((msg, index) => (
+              <WallMessageBox
+                key={index}
+                userId={msg.userId}
+                profileImage={msg.profileImage}
+                nickname={msg.nickname}
+                message={msg.message}
+                createdAt={msg.createdAt}
+              />
+
+            ))
+          ) : (
+            <p className="no-messages">Inga inlägg ännu...</p>
+          )
+        )}
+      </div>
 
       <NavBar />
     </div>

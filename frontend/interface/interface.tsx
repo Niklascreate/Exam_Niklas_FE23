@@ -115,7 +115,6 @@ export interface WallMessageType {
   profileImage?: string;
   message: string;
   createdAt: string;
-  content?: string;
 }
 
 export interface Friend {

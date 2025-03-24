@@ -18,10 +18,18 @@ function WallMessage({ onClose, onNewMessage }: { onClose: () => void; onNewMess
     if (message.trim().length > 0) {
       const newPost = await addWallMessage(user.id, message);
       if (newPost) {
-        onNewMessage(newPost);
+        const enrichedPost: WallMessageType = {
+          ...newPost,
+          profileImage: newPost.profileImage || user.profileImage || "https://lunarchat-profile-images.s3.eu-north-1.amazonaws.com/profile-pictures/maskot2+(2).webp",
+          nickname: newPost.nickname || user.nickname,
+        };
+
+        onNewMessage(enrichedPost);
         setMessage("");
         onClose();
       }
+
+
     }
   };
 
