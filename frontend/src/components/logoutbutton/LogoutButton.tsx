@@ -29,7 +29,7 @@ function LogoutButton() {
 
   return (
     <button className="logout-button" onClick={handleLogout}>
-      <p>Logga ut</p>
+      <p>Lämna</p>
     </button>
   );
 }
