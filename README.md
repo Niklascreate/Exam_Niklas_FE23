@@ -33,7 +33,7 @@ Denna applikation fungerar på alla skärmstorlekar, men rekommenderas att testa
 ## Guide för användning
 
 ### Allmänt
-För att testa applikationen rekommenderas det att ha flera vyer öppna samtidigt.
+För att testa applikationen rekommenderas det att ha flera vyer öppna samtidigt. Detta för att man kan skriva meddelanden på "väggen" samt skicka vänförfrågningar till varandra och sidan uppdateras med bilder samt en counter beroende på hur många som är inne.
 
 ### Steg-för-steg:
 
