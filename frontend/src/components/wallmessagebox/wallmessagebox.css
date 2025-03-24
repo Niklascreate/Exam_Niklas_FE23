@@ -1,9 +1,10 @@
 .wall-container {
     width: 100%;
+    height: 90px;
     background-color: white;
     border: 1px solid #000000;
     margin-bottom: 12px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
 }
 
 .wall-content {
@@ -38,8 +39,8 @@
 .wallpost-message {
     width: 100%;
     font-family: var(--font-josefine);
-    font-size: 14px;
+    font-size: 16px;
     color: black;
     height: 30px;
-    padding: 5px;
+    padding: 10px;
 }
