@@ -3,7 +3,8 @@ import { getFriends, getFriendRequests, deleteFriend } from "../../../api/api";
 import useUserStore from "../../../store/userStore";
 import "./friend.css";
 import { Friend, FriendRequest } from "../../../interface/interface";
-import FriendRequestModal from '../friendrequestmodal/FriendRequestModal';
+import FriendRequestModal from "../friendrequestmodal/FriendRequestModal";
+import SendChatModal from "../sendChatModal/SendChatModal";
 
 const Friends = () => {
   const [friends, setFriends] = useState<Friend[]>([]);
@@ -11,7 +12,7 @@ const Friends = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [friendRequests, setFriendRequests] = useState<FriendRequest[]>([]);
   const [popupMessage, setPopupMessage] = useState<string | null>(null);
-
+  const [isChatModalOpen, setIsChatModalOpen] = useState(false);
 
   useEffect(() => {
     if (!loggedInUser?.id) return;
@@ -32,9 +33,7 @@ const Friends = () => {
     }, 5000);
 
     return () => clearInterval(interval);
-
   }, [loggedInUser]);
-
 
   useEffect(() => {
     const fetchFriends = async () => {
@@ -50,14 +49,13 @@ const Friends = () => {
     if (!loggedInUser?.id) return;
     try {
       await deleteFriend(loggedInUser.id, friendId);
-      setFriends((prev) => prev.filter(friend => friend.userId !== friendId));
+      setFriends((prev) => prev.filter((friend) => friend.userId !== friendId));
 
       setPopupMessage("Vän borttagen!");
 
       setTimeout(() => {
         setPopupMessage(null);
       }, 3000);
-
     } catch (err) {
       console.error("Fel vid borttagning av vän:", err);
     }
@@ -65,7 +63,6 @@ const Friends = () => {
 
   return (
     <div className="friends-wrapper">
-
       <button className="lunis-button notification" onClick={() => setIsModalOpen(true)}>
         Lunis förfrågningar
         {friendRequests.length > 0 && (
@@ -75,10 +72,13 @@ const Friends = () => {
           </span>
         )}
       </button>
+
       <h1 className="friends-title">Mina Lunisvänner</h1>
 
       {friends.length === 0 ? (
-        <p className="no-friends">Du har inga lunisar ännu <i className="bi bi-emoji-frown-fill"></i></p>
+        <p className="no-friends">
+          Du har inga lunisar ännu <i className="bi bi-emoji-frown-fill"></i>
+        </p>
       ) : (
         <div className="friends-list">
           {friends.map((friend) => (
@@ -89,13 +89,18 @@ const Friends = () => {
                 </div>
                 <div className="friends-information">
                   <h2 className="friends-username">{friend.nickname.toUpperCase()}</h2>
-                  <p className="friend-realname">{friend.firstname} {friend.lastname}</p>
+                  <p className="friends-realname">
+                    {friend.firstname} {friend.lastname}
+                  </p>
                   <p className="friends-since">
-                    Ni blev Lunisar {friend.createdAt ? new Date(friend.createdAt).toLocaleDateString("sv-SE", {
-                      day: "numeric",
-                      month: "long",
-                      year: "numeric",
-                    }) : "Okänt datum"}
+                    Ni blev Lunisar{" "}
+                    {friend.createdAt
+                      ? new Date(friend.createdAt).toLocaleDateString("sv-SE", {
+                          day: "numeric",
+                          month: "long",
+                          year: "numeric",
+                        })
+                      : "Okänt datum"}
                   </p>
                 </div>
                 <div className="friends-delete">
@@ -103,24 +108,21 @@ const Friends = () => {
                     className="bi bi-heartbreak-fill"
                     onClick={() => friend.userId && handleDeleteFriend(friend.userId)}
                   ></i>
+                  <i className="bi bi-chat-fill chat-icon" onClick={() => setIsChatModalOpen(true)}></i>
                 </div>
               </div>
             </div>
           ))}
         </div>
       )}
+
       {isModalOpen && (
-        <FriendRequestModal
-          isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)}
-        />
-      )}
-      {popupMessage && (
-        <div className="popup-delete">
-          {popupMessage}
-        </div>
+        <FriendRequestModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
       )}
 
+      {popupMessage && <div className="popup-delete">{popupMessage}</div>}
+
+      {isChatModalOpen && <SendChatModal onClose={() => setIsChatModalOpen(false)} />}
     </div>
   );
 };

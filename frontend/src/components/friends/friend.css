@@ -55,29 +55,37 @@
 .friends-username {
     color: black;
     font-family: var(--font-retro);
-    font-size: 14px;
+    font-size: 16px;
     font-weight: bold;
-    letter-spacing: 1px;
 }
 
 .friends-realname {
-    font-size: 12px;
-    color: gray;
+    font-size: 14px;
+    color: black;
+    font-family: var(--font-josefine);
 }
 
 .friends-since {
-    font-size: 12px;
+    font-size: 14px;
     color: black;
+    font-family: var(--font-josefine);
+    font-style: italic;
+    margin-top: .5rem;
 }
 
 .friends-delete {
-    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: 26px;
     cursor: pointer;
     color: black;
 }
 
-.friends-delete:hover {
-    color: var(--color-ocean-lunar);
+.chat-icon {
+    color: var(--color-sky-lunar);
+    font-size: 26px;
+    cursor: pointer;
 }
 
 .lunis-button {
