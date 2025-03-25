@@ -1,3 +1,6 @@
+![Alt-text för bilden](https://lunarchat-profile-images.s3.eu-north-1.amazonaws.com/profile-pictures/image+27.jpg)
+
+
 # Dokumentation av applikationen - LunarChat
 
 ## Beskrivning
