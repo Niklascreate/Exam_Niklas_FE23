@@ -1,0 +1,8 @@
+.chat-errormessage {
+    font-family: var(--font-retro);
+    font-size: 18px;
+    color: var(--color-sky-lunar);
+    position: relative;
+    z-index: 10;
+    padding: 1rem;
+}

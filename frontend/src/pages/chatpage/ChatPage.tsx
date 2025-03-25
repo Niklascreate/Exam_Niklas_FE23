@@ -1,12 +1,11 @@
 import Header from "../../components/header/Header";
 import NavBar from "../../components/navbar/NavBar";
-import OnlineLunisar from "../../components/onlineLunisar/OnlineLunisar";
 
 function ChatPage() {
   return (
     <div>
       <Header />
-      <OnlineLunisar />
+      <p className="chat-errormessage">Tyvärr ligger chattfunktionen nere just nu</p>
       <NavBar />
     </div>
   )

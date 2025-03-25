@@ -37,12 +37,43 @@
 }
 
 .lunarchat-maskot {
+    position: fixed;
+    top: 309px;
+    right: 64px;
     width: 75px;
-    position: absolute;
-    top: calc(35% + 8px);
-    left: 62%;
-    transform: translateX(2%);
-    z-index: 1;
-    opacity: 90%;
+    z-index: 2;
+    opacity: 0.9;
+}
+
+@media (min-width: 376px) and (max-width: 425px) {
+    .lunarchat-maskot {
+        top: 307px;
+        right: 88px;
+        width: 77px;;
+    }
+  }
+
+@media (min-width: 426px) and (max-width: 768px) {
+    .lunarchat-maskot {
+        top: 304px;
+        right: 258px;
+        width: 80px;
+    }
+  }
+  
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .lunarchat-maskot {
+        top: 299px;
+        right: 384px;
+        width: 85px;
+    }
+  }
+  
+  @media (min-width: 1025px) and (max-width: 1440px) {
+    .lunarchat-maskot {
+        top: 347px;
+        right: 592px;
+        width: 85px;
+    }
   }
   
