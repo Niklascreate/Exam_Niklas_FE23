@@ -28,6 +28,7 @@ function AppWrapper() {
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </AnimatePresence>
+    
   );
 }
 

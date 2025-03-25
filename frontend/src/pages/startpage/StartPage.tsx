@@ -11,6 +11,7 @@ function StartPage() {
 
   return (
     <div className="startpage-container">
+      <img className="lunarchat-maskot" src="https://lunarchat-profile-images.s3.eu-north-1.amazonaws.com/profile-pictures/maskor-lunarchat.png" alt="avatar" />
       <h2 className="rubrik">LUNAR<br />CHAT</h2>
 
       <div className="button-wrapper">

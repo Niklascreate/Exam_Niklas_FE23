@@ -3,6 +3,7 @@ import { persist } from "zustand/middleware";
 import { LajvMessage, LajvStore } from "../interface/interface";
 
 const useLajvStore = create<LajvStore>()(
+  
   persist(
     (set) => ({
       messages: [],

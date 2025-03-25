@@ -1,11 +1,15 @@
 import { logoutUser } from '../../../api/api';
 import { useNavigate } from "react-router-dom";
 import useUserStore from '../../../store/userStore';
+import useLajvStore from '../../../store/lajvStore';
+
 import "./logoutbutton.css";
 
 function LogoutButton() {
   const navigate = useNavigate();
   const { user, clearUser } = useUserStore();
+  const { clearMessages } = useLajvStore();
+
 
   const handleLogout = async () => {
     if (!user) {
@@ -16,9 +20,9 @@ function LogoutButton() {
     try {
       const response = await logoutUser(user.id);
       if (response) {
-        console.log("Utloggning lyckades:", response.message);
 
         clearUser();
+        clearMessages();
 
         navigate("/");
       }

@@ -38,11 +38,11 @@ const UserProfile = () => {
 
   const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files || event.target.files.length === 0) return;
-  
+
     const file = event.target.files[0];
-  
+
     setPreview(URL.createObjectURL(file));
-  
+
     try {
       if (!userId) {
         throw new Error("User ID saknas.");
@@ -58,7 +58,7 @@ const UserProfile = () => {
       setError("Misslyckades att ladda upp profilbilden.");
     }
   };
-  
+
   const changeInterest = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
     const newInterests = [...interests];
     newInterests[index] = e.target.value;
@@ -70,18 +70,18 @@ const UserProfile = () => {
       setError("Du måste vara inloggad för att uppdatera din profil.");
       return;
     }
-  
+
     if (interests.some((interest) => !interest.trim())) {
       setError("Intressen kan inte vara tomma.");
       return;
     }
-  
+
     setLoading(true);
     setError(null);
-  
+
     try {
       await updateUserProfile(token, userId, interests, bio, user?.profileImage);
-  
+
       setUser({ ...user, interests, bio });
       setEditMode(false);
     } catch (error) {
@@ -106,22 +106,29 @@ const UserProfile = () => {
   return (
     <div className="profilecard-container">
       <div className="profile-header">
-        <img
-          src={preview || user?.profileImage || "https://lunarchat-profile-images.s3.eu-north-1.amazonaws.com/profile-pictures/maskot2+(2).webp"}
-          alt="Profilbild"
-          className="profile-img"
-          onClick={() => document.getElementById("profile-image-upload")?.click()}
-        />
-        {editMode && (
-          <input
-            id="profile-image-upload"
-            type="file"
-            accept="image/*"
-            onChange={handleFileUpload}
-            style={{ display: "none" }}
-            placeholder='Ladda upp en profilbild'
+        <div className="profile-image-container">
+          <img
+            src={preview || user?.profileImage || "https://lunarchat-profile-images.s3.eu-north-1.amazonaws.com/profile-pictures/maskot2+(2).webp"}
+            alt="Profilbild"
+            className="profile-img"
+            onClick={() => document.getElementById("profile-image-upload")?.click()}
           />
-        )}
+          {editMode && (
+            <>
+              <input
+                id="profile-image-upload"
+                type="file"
+                accept="image/*"
+                onChange={handleFileUpload}
+                style={{ display: "none" }}
+              />
+              <p className="edit-picture">
+                Ladda upp profilbild <i className="bi bi-arrow-up-short"></i>
+              </p>
+            </>
+          )}
+        </div>
+
         <div className="profile-info">
           <h4 className='user-nickname'>{user?.nickname || 'Användare'}</h4>
           <p className="lunis-since">Lunis i {memberSince(user?.createdAt)}</p>
