@@ -39,9 +39,12 @@ Du kan registrera en ny användare – eller logga in med någon av dessa konton
    ```bash
    npm install
 
-4. Kör sedan npm run dev för att starta applikationen. Håll in **Ctrl** och klicka på **localhost:** 
+4. Kör sedan **npm run dev** för att starta applikationen. Håll in **Ctrl** och klicka på **localhost:** För bästa användarupplevelse testa i 375px.
 
-5. Fär bästa användarupplevelse testa i 375px.
+5. För att granska koden ställ dig i:
+   ```bash
+      cd Exam_Niklas_FE23
+6. Skriv **code .** så startar **VS CODE**  automatiskt och du kan granska koden.
 
 ## Testa via URL
 Denna applikation fungerar på alla skärmstorlekar, men rekommenderas att testas på mobil för bästa upplevelse.
