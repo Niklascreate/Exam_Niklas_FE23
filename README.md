@@ -1,6 +1,26 @@
 # Dokumentation av applikationen - LunarChat
-
 ## Beskrivning
+Denna applikation fungerar på alla skärmstorlekar, men rekommenderas att testas på mobil för bästa upplevelse.
+
+
+## För att klona ner och testa
+1. Klona repot
+´´´
+   (https://github.com/Niklascreate/Exam_Niklas_FE23.git)
+
+2. Gå till rootmappen
+
+Exam_Niklas_FE23/frontend
+
+3. Börja med att installera beroenden
+
+npm install
+
+4. Kör sedan npm run dev för att starta applikationen. Håll in Ctrl och klicka på http://localhost:.
+
+5. Bäst användarupplevelse testa i 375px.
+
+## Testa via URL
 Denna applikation fungerar på alla skärmstorlekar, men rekommenderas att testas på mobil för bästa upplevelse.
 
 ### URL: http://lunarchat.s3-website.eu-north-1.amazonaws.com/
