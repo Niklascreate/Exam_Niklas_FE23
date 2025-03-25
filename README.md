@@ -1,52 +1,47 @@
 # Dokumentation av applikationen - LunarChat
 ## Beskrivning
-Denna applikation fungerar på alla skärmstorlekar, men rekommenderas att testas på mobil för bästa upplevelse.
+Denna applikation fungerar på alla skärmstorlekar, men rekommenderas att testas på mobil för bästa upplevelse(375px)
+
+## Testa applikationen direkt
+
+**URL:** [http://lunarchat.s3-website.eu-north-1.amazonaws.com/](http://lunarchat.s3-website.eu-north-1.amazonaws.com/)
+
+Du kan registrera en ny användare – eller logga in med någon av dessa konton:
+
+| Användarnamn     | Lösenord   |
+|------------------|------------|
+| batman           | kod12345   |
+| MuppElon         | kod12345   |
+| Donjuan          | kod12345   |
+| Nickeboi         | kod12345   |
+| Niklas           | kod12345   |
+| Lisafisa         | kod12345   |
+| Alicesprallis    | kod12345   |
+
+---
 
 
 ## För att klona ner och testa
-1. Klona repot
 
-   ### URL: https://github.com/Niklascreate/Exam_Niklas_FE23.git
+1. **Klona repot:**
 
+   ```bash
+   git clone https://github.com/Niklascreate/Exam_Niklas_FE23.git
+   
 2. Gå till rootmappen
+   ```bash
+   cd Exam_Niklas_FE23/frontend
 
-Exam_Niklas_FE23/frontend
+4. Börja med att installera beroenden
+   ```bash
+   npm install
 
-3. Börja med att installera beroenden
+4. Kör sedan npm run dev för att starta applikationen. Håll in **Ctrl** och klicka på **localhost:** 
 
-npm install
-
-4. Kör sedan npm run dev för att starta applikationen. Håll in Ctrl och klicka på http://localhost:.
-
-5. Bäst användarupplevelse testa i 375px.
+5. Fär bästa användarupplevelse testa i 375px.
 
 ## Testa via URL
 Denna applikation fungerar på alla skärmstorlekar, men rekommenderas att testas på mobil för bästa upplevelse.
-
-### URL: http://lunarchat.s3-website.eu-north-1.amazonaws.com/
-
-
-### Man kan registrera ny användare men för att spara tid kan du använda någon av dessa: obs, rätt stavning viktig.
-- **Användarnamn**: batman  
-- **Lösenord**: kod12345
-
-- **Användarnamn**: MuppElon  
-- **Lösenord**: kod12345
-  
-- **Användarnamn**: Donjuan  
-- **Lösenord**: kod12345
-
-- **Användarnamn**: Nickeboi  
-- **Lösenord**: kod12345
-
-- **Användarnamn**: Niklas  
-- **Lösenord**: kod12345
-
-- **Användarnamn**: Lisafisa 
-- **Lösenord**: kod12345
-
-- **Användarnamn**: Alicesprallis  
-- **Lösenord**: kod12345
 
 ---
 
