@@ -209,7 +209,6 @@ export const addFriend = async (userId: string, friendId: string) => {
     }
 
     const data = await response.json();
-    console.log("Vän tillagd:", data);
     return data;
   } catch (error) {
     console.error("Misslyckades att lägga till vän:", error);

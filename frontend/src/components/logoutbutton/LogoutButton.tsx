@@ -16,7 +16,6 @@ function LogoutButton() {
     try {
       const response = await logoutUser(user.id);
       if (response) {
-        console.log("Utloggning lyckades:", response.message);
 
         clearUser();
 
