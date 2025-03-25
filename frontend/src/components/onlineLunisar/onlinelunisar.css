@@ -64,19 +64,39 @@
   margin-top: 20px;
 }
 
-@media (min-width: 768px) and (max-width: 1440px) {
-  .onlineuser-img {
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    border-radius: .2rem;
-  }
-
-  .users {
-    gap: 70px;
-  }
-
-  .user p {
-    font-size: 20px;
+@media (min-width: 376px) and (max-width: 425px) {
+  .chatpage-online-wrapper {
+    position: relative;
+    top: 144px;
+    margin-bottom: 2rem;
+    z-index: 5;
   }
 }
+
+@media (min-width: 426px) and (max-width: 768px) {
+  .chatpage-online-wrapper {
+    position: relative;
+    top: 162px;
+    margin-bottom: 2rem;
+    z-index: 5;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .chatpage-online-wrapper {
+    position: relative;
+    top: 162px;
+    margin-bottom: 2rem;
+    z-index: 5;
+  }
+}
+
+  @media (min-width: 1025px) and (max-width: 1440px) {
+    .chatpage-online-wrapper {
+      position: relative;
+      top: 162px;
+      margin-bottom: 2rem;
+      z-index: 5;
+    }
+
+  }
