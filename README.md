@@ -2,8 +2,10 @@
 
 
 # Dokumentation av applikationen - LunarChat
+
 ## Beskrivning
-Denna applikation fungerar på alla skärmstorlekar, men rekommenderas att testas på mobil för bästa upplevelse(375px)
+Denna applikation fungerar på alla skärmstorlekar, men rekommenderas att testas på mobil för bästa upplevelse(375px).
+Läs guide för användning längre ner på sidan.
 
 ## Testa applikationen direkt
 
@@ -45,9 +47,6 @@ Du kan registrera en ny användare – eller logga in med någon av dessa konton
    ```bash
       cd Exam_Niklas_FE23
 6. Skriv **code .** så startar **VS CODE**  automatiskt och du kan granska koden.
-
-## Testa via URL
-Denna applikation fungerar på alla skärmstorlekar, men rekommenderas att testas på mobil för bästa upplevelse.
 
 ---
 
