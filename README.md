@@ -9,7 +9,7 @@ Läs guide för användning längre ner på sidan.
 
 ## Testa applikationen direkt
 
-**URL:** [http://lunarchat.s3-website.eu-north-1.amazonaws.com/](http://lunarchat.s3-website.eu-north-1.amazonaws.com/)
+**URL:** [http://lunarchat.s3-website.eu-north-1.amazonaws.com/](http://lunarchat.s3-website.eu-north-1.amazonaws.com)
 
 Du kan registrera en ny användare – eller logga in med någon av dessa konton:
 
