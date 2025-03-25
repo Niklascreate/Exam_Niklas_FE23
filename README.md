@@ -1,3 +1,6 @@
+![Alt-text för bilden](https://lunarchat-profile-images.s3.eu-north-1.amazonaws.com/profile-pictures/image+27.jpg)
+
+
 # Dokumentation av applikationen - LunarChat
 ## Beskrivning
 Denna applikation fungerar på alla skärmstorlekar, men rekommenderas att testas på mobil för bästa upplevelse(375px)
