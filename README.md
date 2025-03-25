@@ -5,8 +5,8 @@ Denna applikation fungerar på alla skärmstorlekar, men rekommenderas att testa
 
 ## För att klona ner och testa
 1. Klona repot
-´´´
-   (https://github.com/Niklascreate/Exam_Niklas_FE23.git)
+
+   ### URL: https://github.com/Niklascreate/Exam_Niklas_FE23.git
 
 2. Gå till rootmappen
 
